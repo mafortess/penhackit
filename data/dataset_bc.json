@@ -1,0 +1,22 @@
+[
+  {
+    "state": "Target specified: 192.168.56.101. No scans performed yet.",
+    "action": "nmap -p- 192.168.56.101"
+  },
+  {
+    "state": "Open ports detected: 22 ssh, 80 http.",
+    "action": "nmap -sV 192.168.56.101"
+  },
+  {
+    "state": "Services detected: ssh (OpenSSH), http (Apache).",
+    "action": "whatweb http://192.168.56.101"
+  },
+  {
+    "state": "Web service detected on port 80.",
+    "action": "gobuster dir -u http://192.168.56.101 -w /usr/share/wordlists/dirb/common.txt"
+  },
+  {
+    "state": "No new relevant information available.",
+    "action": "STOP"
+  }
+]

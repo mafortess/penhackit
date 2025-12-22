@@ -1,0 +1,18 @@
+[
+  {
+    "state": "Initial state, no information available",
+    "action": "whoami"
+  },
+  {
+    "state": "User information retrieved",
+    "action": "ipconfig"
+  },
+  {
+    "state": "Network configuration displayed",
+    "action": "systeminfo"
+  },
+  {
+    "state": "No new relevant information",
+    "action": "STOP"
+  }
+]

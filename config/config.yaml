@@ -1,0 +1,15 @@
+# Configuración básica
+paths:
+  logs_dir: ./logs
+  captures_dir: ./logs/captures
+  training_logs: ./logs/training
+  models_dir: ./model
+capture:
+  enable_terminal: true
+  enable_screenshots: false
+  enable_keylogger: false
+training:
+  device: cpu
+  epochs: 10
+  batch_size: 16
+  lr: 1e-3

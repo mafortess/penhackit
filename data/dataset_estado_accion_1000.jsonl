@@ -1,0 +1,1000 @@
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se halla /robots.txt con rutas sensibles listadas.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal).", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.10.10.5.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Servicio nuevo registrado en systemd.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Servicio nuevo registrado en systemd.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: lab-ad-01. Contexto: entorno de laboratorio autorizado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.0.2.15. Se detecta 443/https con certificado autofirmado.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se realiza timeline básico de actividad reciente. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: ctf-box-03. Contexto: entorno de laboratorio autorizado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: ctf-box-03. Contexto: entorno de laboratorio autorizado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.0.2.15. Puertos abiertos detectados: 22/ssh, 80/http.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: lab-web-01. Contexto: entorno de laboratorio autorizado. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en dev-api-02.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Entradas sospechosas en bash_history.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se realiza timeline básico de actividad reciente. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 172.16.0.20.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se realiza timeline básico de actividad reciente. Entradas sospechosas en bash_history.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se observa formulario de subida con validación débil de extensión.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 172.16.0.20.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se encuentra /backup/ con index habilitado.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Entradas sospechosas en bash_history.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en lab-ad-01.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 172.16.0.20.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Entradas sospechosas en bash_history.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas. Se detecta endpoint /api/v1/status con info de versión.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Rutas halladas: /admin, /login, /api, /static.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se halla /robots.txt con rutas sensibles listadas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas. Rutas halladas: /admin, /login, /api, /static.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se observa formulario de subida con validación débil de extensión.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se realiza timeline básico de actividad reciente. Nueva tarea cron encontrada en /etc/cron.d/.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.10.11.7.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se observa cabecera X-Powered-By revelando framework.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Nueva tarea cron encontrada en /etc/cron.d/.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: ctf-box-03. Contexto: entorno de laboratorio autorizado. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Servicio nuevo registrado en systemd.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: lab-ad-01. Contexto: entorno de laboratorio autorizado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en lab-web-01. Se detecta 3306/mysql accesible solo desde subred permitida.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se observa formulario de subida con validación débil de extensión.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Nueva tarea cron encontrada en /etc/cron.d/.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se detecta endpoint /api/v1/status con info de versión.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 192.168.56.101.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se detecta endpoint /api/v1/status con info de versión.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Servicio nuevo registrado en systemd.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se detecta endpoint /api/v1/status con info de versión.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas. Rutas halladas: /admin, /login, /api, /static.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en lab-web-01. Se detecta 3306/mysql accesible solo desde subred permitida.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se encuentra /backup/ con index habilitado.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 172.16.0.20. Contexto: entorno de laboratorio autorizado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Nueva tarea cron encontrada en /etc/cron.d/.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: dev-api-02. Contexto: entorno de laboratorio autorizado. Nueva tarea cron encontrada en /etc/cron.d/.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Servicio nuevo registrado en systemd.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se detecta endpoint /api/v1/status con info de versión.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se encuentra /backup/ con index habilitado.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se observa cabecera X-Powered-By revelando framework.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.10.11.7. Se detecta 8080/http-alt con panel de administración.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se encuentra /backup/ con index habilitado.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Rutas halladas: /admin, /login, /api, /static.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 10.0.2.15. Contexto: entorno de laboratorio autorizado. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas. Se observa formulario de subida con validación débil de extensión.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 172.16.0.20. Contexto: entorno de laboratorio autorizado. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se halla /robots.txt con rutas sensibles listadas.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Entradas sospechosas en bash_history.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.10.10.5. Se detecta 445/smb accesible en segmento interno.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en ctf-box-03. Se detecta 3389/rdp accesible; requiere revisión de exposición.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se observa formulario de subida con validación débil de extensión.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en lab-ad-01. Se detecta 443/https con certificado autofirmado.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Servicio nuevo registrado en systemd.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se realiza timeline básico de actividad reciente. Nueva tarea cron encontrada en /etc/cron.d/.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 192.168.56.101. Contexto: entorno de laboratorio autorizado. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en lab-web-01. Se detecta 8080/http-alt con panel de administración.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 10.0.2.15. Contexto: entorno de laboratorio autorizado. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se halla /sitemap.xml con endpoints internos.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Entradas sospechosas en bash_history.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se halla /sitemap.xml con endpoints internos.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se realiza timeline básico de actividad reciente. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Entradas sospechosas en bash_history.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 192.168.56.101. Contexto: entorno de laboratorio autorizado.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints. Se encuentra /backup/ con index habilitado.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se halla /sitemap.xml con endpoints internos.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Servicio nuevo registrado en systemd.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Entradas sospechosas en bash_history.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se realiza timeline básico de actividad reciente. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se realiza timeline básico de actividad reciente. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Entradas sospechosas en bash_history.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.0.2.15.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Nueva tarea cron encontrada en /etc/cron.d/.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 10.10.11.7. Contexto: entorno de laboratorio autorizado. Servicio nuevo registrado en systemd.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se realiza timeline básico de actividad reciente. Servicio nuevo registrado en systemd.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 10.10.10.5. Contexto: entorno de laboratorio autorizado. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas. Se detecta endpoint /api/v1/status con info de versión.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: lab-web-01. Contexto: entorno de laboratorio autorizado. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se identifica CMS potencial por rutas típicas. Se detecta endpoint /api/v1/status con info de versión.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se preparan recomendaciones de mitigación y hardening.", "accion": "ACTION_WRITE_REMEDIATION"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: 10.0.2.15. Contexto: entorno de laboratorio autorizado. Entradas sospechosas en bash_history.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en lab-db-01. Se detecta 445/smb accesible en segmento interno.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se revisan políticas de autenticación y límites de rate en login.", "accion": "ACTION_AUTH_RATE_LIMIT_CHECK"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 172.16.0.20. Se detecta 8080/http-alt con panel de administración.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Servicio nuevo registrado en systemd.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas. Se halla /sitemap.xml con endpoints internos.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Conexiones salientes repetidas a host interno 172.16.0.3:8080.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Servicio nuevo registrado en systemd.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior. Entradas sospechosas en bash_history.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Entradas sospechosas en bash_history.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Terminal abierta en /home/kali. Objetivo: ctf-box-03. Contexto: entorno de laboratorio autorizado. Modificaciones recientes en /etc/sudoers.d/ detectadas.", "accion": "ACTION_SET_SCOPE_AND_LOG"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se realiza timeline básico de actividad reciente. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "Se detectan banners inconsistentes. Se planifica fingerprinting ampliado.", "accion": "ACTION_FINGERPRINT_SERVICES"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se prueba enumeración de usuarios de forma no intrusiva.", "accion": "ACTION_NON_INTRUSIVE_USER_ENUM"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se detecta cookie sin flags de seguridad completos.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se detecta servicio HTTP accesible. Se prepara enumeración de rutas. Se encuentra /backup/ con index habilitado.", "accion": "ACTION_ENUM_HTTP_CONTENT"}
+{"estado": "Se recolecta información mínima del sistema para informe (OS, kernel, paquetes críticos).", "accion": "ACTION_COLLECT_SYSTEM_INFO"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se listan permisos de archivos relevantes para evaluar escalada potencial (sin explotación).", "accion": "ACTION_CHECK_FILE_PERMS"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se observa cabecera Server reveladora. Se anota en el informe.", "accion": "ACTION_RECORD_BANNER"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "El objetivo responde a ICMP. Se mide latencia media y jitter.", "accion": "ACTION_MEASURE_LATENCY"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se verifica si el usuario tiene acceso a recursos sensibles indebidos.", "accion": "ACTION_CHECK_ACCESS_CONTROL"}
+{"estado": "Se analiza el manejo de errores del servidor para evitar filtración de info.", "accion": "ACTION_ERROR_HANDLING_REVIEW"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se preservan evidencias: logs relevantes y hashes de integridad. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_PRESERVE_EVIDENCE"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se detecta subida de ficheros en /uploads. Se revisan restricciones.", "accion": "ACTION_REVIEW_UPLOAD_POLICY"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Proceso desconocido corriendo desde /tmp con permisos extraños.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se detecta TLS en 443. Se evalúan cabeceras y configuración.", "accion": "ACTION_CHECK_TLS_HEADERS"}
+{"estado": "Se detecta posible API REST. Se identifica documentación y endpoints.", "accion": "ACTION_ENUM_API_ENDPOINTS"}
+{"estado": "Se requiere inventario inicial de puertos TCP accesibles en 10.0.2.15. Se detecta 445/smb accesible en segmento interno.", "accion": "ACTION_PORT_SCAN_TCP_ALL"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se recolectan formularios y campos para pruebas de validación.", "accion": "ACTION_COLLECT_FORMS"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se identifica CMS potencial por rutas típicas.", "accion": "ACTION_IDENTIFY_CMS"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Se revisa si hay directorios con listing habilitado.", "accion": "ACTION_CHECK_DIRECTORY_LISTING"}
+{"estado": "Se correlacionan versiones de servicios con bases de datos de CVEs (sin explotación).", "accion": "ACTION_CVE_CORRELATION"}
+{"estado": "Se identifica el hostname y se registra el timestamp de inicio.", "accion": "ACTION_RECORD_METADATA"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal).", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se inicia sesión en un servicio permitido para verificar permisos mínimos. Logs de autenticación con múltiples intentos fallidos.", "accion": "ACTION_LOGIN_AND_VERIFY_ROLES"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se listan rutas y ficheros comunes en el servidor web. Se halla /robots.txt con rutas sensibles listadas.", "accion": "ACTION_WEB_DIR_ENUM"}
+{"estado": "Resultado preliminar indica puertos abiertos comunes (22/80/443).", "accion": "ACTION_SERVICE_ENUM_BASIC"}
+{"estado": "Se ejecuta un escaneo de configuración insegura (hardening checks).", "accion": "ACTION_HARDENING_AUDIT"}
+{"estado": "Se encuentra /admin accesible con autenticación.", "accion": "ACTION_NOTE_AUTH_REQUIRED"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se revisan tareas programadas y servicios para detectar configuraciones inseguras.", "accion": "ACTION_REVIEW_SERVICES_AND_CRON"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se crea carpeta de trabajo para la sesión y se inicializa el log.", "accion": "ACTION_INIT_WORKDIR_AND_LOG"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se empaquetan artefactos y se cierran tareas de la sesión.", "accion": "ACTION_ARCHIVE_AND_CLOSE"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se ejecutan comprobaciones de privilegios disponibles (sudoers/capabilities) con autorización.", "accion": "ACTION_PRIVILEGE_AUDIT"}
+{"estado": "El objetivo parece estar detrás de un proxy. Se ajusta estrategia de enumeración.", "accion": "ACTION_ADAPT_TO_PROXY"}
+{"estado": "Se validan reglas del engagement y rango permitido de IPs/hosts.", "accion": "ACTION_VALIDATE_SCOPE"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se generan indicadores (IOCs) y se documentan hallazgos. Entradas sospechosas en bash_history.", "accion": "ACTION_GENERATE_IOCS"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se obtiene una credencial de laboratorio previamente autorizada para validación.", "accion": "ACTION_USE_AUTHORIZED_CRED"}
+{"estado": "Se valida segregación de redes/segmentación desde el host.", "accion": "ACTION_CHECK_NETWORK_SEGMENTATION"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se comprueba conectividad básica con el objetivo.", "accion": "ACTION_CHECK_CONNECTIVITY"}
+{"estado": "Se revisa robots.txt y sitemap.xml si existen.", "accion": "ACTION_CHECK_ROBOTS_SITEMAP"}
+{"estado": "Se revisan eventos recientes del sistema (auth, syslog, journal). Binario no firmado en /usr/local/bin detectado.", "accion": "ACTION_REVIEW_SYSTEM_LOGS"}
+{"estado": "Se buscan debilidades comunes: credenciales por defecto, rutas expuestas, headers débiles.", "accion": "ACTION_COMMON_WEAKNESS_CHECK"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se hallan endpoints con parámetros. Se prepara análisis de validación de entrada.", "accion": "ACTION_PREPARE_INPUT_VALIDATION"}
+{"estado": "Se realiza timeline básico de actividad reciente.", "accion": "ACTION_BUILD_TIMELINE"}
+{"estado": "Se enumeran procesos sospechosos y conexiones activas.", "accion": "ACTION_PROCESS_AND_CONN_TRIAGE"}
+{"estado": "Se captura tráfico de red en ventana limitada para análisis posterior.", "accion": "ACTION_CAPTURE_PCAP_SHORT"}
+{"estado": "Se evalúa exposición de backups/configs en rutas públicas.", "accion": "ACTION_CHECK_EXPOSED_BACKUPS"}
