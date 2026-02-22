@@ -1,0 +1,130 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class SessionRunner {
+  - store: SessionStore
+  - state_extractor: StateExtractor
+  - policy: Policy
+  - command_builder: CommandBuilder
+  - executor: CommandExecutor
+  - event_builder: EventBuilder
+  - kb_updater: KBUpdater
+  + run(session_id, max_steps)
+  + step()
+}
+
+class SessionStore {
+  - sessions_dir
+  + create_session(session_id)
+  + load_config(session_id)
+  + save_config(session_id, config)
+  + load_kb(session_id)
+  + save_kb(session_id, kb)
+  + append_commands(session_id, record)
+  + append_events(session_id, record)
+  + append_transitions(session_id, record)
+}
+
+class SessionConfig {
+  + goal
+  + scope
+  + mode
+  + max_steps
+  + restrictions
+  + stop_policy
+}
+
+class SessionContext {
+  + step
+  + started_ts
+  + last_action_id
+  + stagnation_steps
+}
+
+class KBUpdater {
+  + apply(kb, events) : kb
+}
+
+class StateExtractor {
+  + extract(kb, ctx, cfg) : State
+}
+
+class State {
+  + goal_block
+  + focus_block
+  + host_block
+  + service_block
+  + global_block
+  + temporal_block
+}
+
+interface Policy {
+  + decide(state, ctx, cfg) : action_id
+}
+
+class RulesPolicy
+class BCPolicy
+
+Policy <|.. RulesPolicy
+Policy <|.. BCPolicy
+
+class ActionRegistry {
+  + get_spec(action_id) : ActionSpec
+}
+
+class ActionSpec {
+  + tool_family
+  + template
+  + required_slots
+}
+
+class CommandBuilder {
+  + build(action_id, kb, ctx, cfg) : Command
+}
+
+class Command {
+  + tool
+  + argv
+  + timeout
+  + cwd
+}
+
+class CommandExecutor {
+  + run(command) : ExecResult
+}
+
+class ExecResult {
+  + ok
+  + returncode
+  + stdout
+  + stderr
+  + duration_ms
+}
+
+class EventBuilder {
+  + build(command, exec_result) : events[]
+}
+
+class Event {
+  + type
+  + payload
+}
+
+SessionRunner --> SessionStore
+SessionRunner --> SessionConfig
+SessionRunner --> SessionContext
+SessionRunner --> StateExtractor
+SessionRunner --> Policy
+SessionRunner --> ActionRegistry
+SessionRunner --> CommandBuilder
+SessionRunner --> CommandExecutor
+SessionRunner --> EventBuilder
+SessionRunner --> KBUpdater
+
+CommandBuilder --> ActionRegistry
+CommandBuilder --> Command
+CommandExecutor --> ExecResult
+EventBuilder --> Event
+KBUpdater --> Event
+StateExtractor --> State
+@enduml

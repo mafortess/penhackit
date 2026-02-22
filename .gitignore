@@ -82,7 +82,7 @@ target/
 profile_default/
 ipython_config.py
 
-z-others
+z-extra
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is

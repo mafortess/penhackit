@@ -1,0 +1,71 @@
+# ==========================================================
+# PenHACKit - pyproject.toml
+# ==========================================================
+# Este archivo define cómo se empaqueta el proyecto.
+# NO define dependencias (esas van en requirements.txt).
+# ==========================================================
+
+
+# ----------------------------------------------------------
+# 1. SISTEMA DE BUILD
+# ----------------------------------------------------------
+# Le dice a pip qué backend usar para instalar el paquete.
+# En este caso usamos setuptools (estándar y estable).
+
+[build-system]
+requires = ["setuptools>=68.0"]   # Herramienta necesaria para construir el paquete
+build-backend = "setuptools.build_meta"  # Backend usado por pip
+
+
+# ----------------------------------------------------------
+# 2. INFORMACIÓN DEL PROYECTO
+# ----------------------------------------------------------
+# Define la identidad del paquete instalable.
+
+[project]
+name = "penhackit"     # Nombre del paquete (debe coincidir con src/penhackit)
+version = "0.1.0"      # Versión del paquete (metadata, no afecta al modelo)
+description = "Agent-based pentesting system with behavioral cloning and structured report generation."
+requires-python = ">=3.10"   # Versión mínima compatible de Python
+
+
+# ----------------------------------------------------------
+# 3. CONFIGURACIÓN DE SETUPTOOLS
+# ----------------------------------------------------------
+# Tu proyecto usa layout basado en 'src/'.
+# Esto es CRÍTICO para que pip encuentre el código correctamente.
+
+[tool.setuptools]
+package-dir = {"" = "src"}  
+# Indica que el código fuente está dentro de la carpeta "src".
+# Sin esto, pip no encontraría el paquete.
+
+
+# ----------------------------------------------------------
+# 4. DETECCIÓN AUTOMÁTICA DE PAQUETES
+# ----------------------------------------------------------
+# Le dice a setuptools dónde buscar paquetes instalables.
+
+[tool.setuptools.packages.find]
+where = ["src"]  
+# Busca paquetes dentro de la carpeta src/.
+# Esto hace que src/penhackit/ se detecte como paquete Python.
+
+
+# ----------------------------------------------------------
+# 5. COMANDO EJECUTABLE (OPCIONAL PERO RECOMENDADO)
+# ----------------------------------------------------------
+# Esto crea un comando en el entorno virtual llamado "penhackit".
+# Tras instalar con pip install -e ., podrás ejecutar:
+#
+#    penhackit
+#
+# en lugar de:
+#
+#    python -m penhackit
+
+[project.scripts]
+penhackit = "penhackit.main:main"
+# Significa:
+# Ejecuta la función main() que está en:
+# src/penhackit/main.py

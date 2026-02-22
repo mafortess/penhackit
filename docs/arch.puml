@@ -1,0 +1,286 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+'========================
+' CLI
+'========================
+package "cli" as cli {
+  class CliApp {
+    + run()
+  }
+
+  class SessionMenu {
+    + run_menu()
+    + cmd_run_session()
+    + cmd_generate_report()
+  }
+
+  class TrainingMenu {
+    + run_menu()
+    + cmd_build_dataset()
+    + cmd_train_model()
+    + cmd_eval_model()
+  }
+}
+
+'========================
+' SESSION (orchestration)
+'========================
+package "session" as session {
+  class SessionRunner {
+    - store: SessionStore
+    - state_extractor: StateExtractor
+    - policy: Policy
+    - command_builder: CommandBuilder
+    - executor: CommandExecutor
+    - event_builder: EventBuilder
+    - kb_updater: KBUpdater
+    + run(session_id, max_steps)
+    + step()
+  }
+
+  class SessionStore {
+    + create_session(session_id)
+    + load_session_config(session_id)
+    + save_session_config(session_id, cfg)
+    + load_kb(session_id)
+    + save_kb(session_id, kb)
+    + append_commands(session_id, record)
+    + append_events(session_id, record)
+    + append_transitions(session_id, record)
+    + write_report(session_id, report)
+  }
+
+  class SessionConfig {
+    + goal
+    + scope
+    + mode
+    + max_steps
+    + restrictions
+    + stop_policy
+  }
+
+  class SessionContext {
+    + step
+    + started_ts
+    + last_action_id
+    + stagnation_steps
+  }
+}
+
+'========================
+' MEMORY (KB)
+'========================
+package "memory" as memory {
+  class KBUpdater {
+    + apply(kb, events) : kb
+  }
+
+  class KBIO {
+    + load(path) : kb
+    + save(path, kb)
+  }
+
+  class KBQueries {
+    + hosts_count(kb) : int
+    + open_ports_count(kb, host) : int
+    + has_service(kb, host, service) : bool
+  }
+}
+
+'========================
+' STATE
+'========================
+package "state" as state {
+  class StateExtractor {
+    + extract(kb, ctx, cfg) : State
+  }
+
+  class State {
+    + goal
+    + focus
+    + host
+    + service
+    + global
+    + temporal
+  }
+
+  class StateVectorizer {
+    + vectorize(state) : vector
+  }
+}
+
+'========================
+' POLICY
+'========================
+package "policy" as policy {
+  interface Policy {
+    + decide(state, ctx, cfg) : action_id
+  }
+
+  class RulesPolicy {
+    + decide(state, ctx, cfg) : action_id
+  }
+
+  class BCPolicy {
+    - model
+    + decide(state, ctx, cfg) : action_id
+  }
+
+  class PolicyModelIO {
+    + load(path) : model
+    + save(path, model)
+  }
+
+  Policy <|.. RulesPolicy
+  Policy <|.. BCPolicy
+}
+
+'========================
+' ACTIONS
+'========================
+package "actions" as actions {
+  class ActionRegistry {
+    + get_spec(action_id) : ActionSpec
+    + list_actions() : list
+  }
+
+  class ActionSpec {
+    + tool_family
+    + template
+    + required_slots
+  }
+}
+
+'========================
+' COMMAND (build + execute)
+'========================
+package "command" as command {
+  class CommandBuilder {
+    + build(action_id, kb, ctx, cfg) : Command
+  }
+
+  class Command {
+    + tool_family
+    + argv
+    + timeout_s
+    + cwd
+  }
+
+  class CommandExecutor {
+    + run(cmd) : ExecResult
+  }
+
+  class ExecResult {
+    + ok
+    + returncode
+    + stdout
+    + stderr
+  }
+}
+
+'========================
+' EVENTS (parse)
+'========================
+package "events" as events {
+  class EventBuilder {
+    + build(cmd, exec_result) : events[]
+  }
+
+  class Event {
+    + type
+    + payload
+  }
+
+  class ParserRegistry {
+    + get_parser(tool_family)
+  }
+}
+
+'========================
+' REPORT
+'========================
+package "report" as report {
+  class ReportGenerator {
+    - schema: ReportSchema
+    - llm: LLMWriter
+    + generate(session_id) : Report
+  }
+
+  class ReportSchema {
+    + sections: list
+  }
+
+  class Report {
+    + meta
+    + sections: map
+  }
+
+  interface LLMWriter {
+    + write_section(section_id, kb) : text
+  }
+}
+
+'========================
+' TRAINING
+'========================
+package "training" as training {
+  class DatasetBuilder {
+    + build_from_sessions(session_ids) : dataset_path
+  }
+
+  class Trainer {
+    + train(dataset_path) : model_path
+  }
+
+  class Evaluator {
+    + evaluate(model_path, dataset_path) : metrics_path
+  }
+}
+
+'========================
+' ENVIRONMENT
+'========================
+package "environment" as environment {
+  class EnvironmentProfiler {
+    + refresh() : profile
+  }
+
+  class EnvironmentStore {
+    + load() : profile
+    + save(profile)
+  }
+}
+
+'========================
+' CALL / DEPENDENCY EDGES
+'========================
+cli --> session : run_session / generate_report
+cli --> training : build/train/eval
+cli --> environment : refresh_profile
+
+session.SessionRunner --> session.SessionStore
+session.SessionRunner --> state.StateExtractor
+session.SessionRunner --> policy.Policy
+session.SessionRunner --> actions.ActionRegistry
+session.SessionRunner --> command.CommandBuilder
+session.SessionRunner --> command.CommandExecutor
+session.SessionRunner --> events.EventBuilder
+session.SessionRunner --> memory.KBUpdater
+
+command.CommandBuilder --> actions.ActionRegistry
+events.EventBuilder --> events.ParserRegistry
+memory.KBUpdater --> events.Event
+
+report.ReportGenerator --> session.SessionStore : load kb
+report.ReportGenerator --> report.ReportSchema
+report.ReportGenerator --> report.LLMWriter
+
+training.DatasetBuilder --> session.SessionStore : read transitions
+training.Trainer --> state.StateVectorizer
+training.Trainer --> policy.PolicyModelIO
+training.Evaluator --> policy.PolicyModelIO
+
+environment.EnvironmentProfiler --> environment.EnvironmentStore
+@enduml

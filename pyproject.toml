@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0"]   # Herramienta necesaria para construir el paquete
+build-backend = "setuptools.build_meta"  # Backend usado por pip
+
+[project]
+name = "penhackit"     # Nombre del paquete (debe coincidir con src/penhackit)
+version = "0.1.0"      # Versión del paquete (metadata, no afecta al modelo)
+description = "Agent-based pentesting system with behavioral cloning and structured report generation."
+readme = "README.md"
+requires-python = ">=3.10"   # Versión mínima compatible de Python
+
+[tool.setuptools]
+package-dir = {"" = "src"}  
+# Indica que el código fuente está dentro de la carpeta "src".
+# Sin esto, pip no encontraría el paquete.
+
+[tool.setuptools.packages.find]
+where = ["src"]  
+# Busca paquetes dentro de la carpeta src/.
+# Esto hace que src/penhackit/ se detecte como paquete Python.
+
+[project.scripts]
+penhackit = "penhackit.main:main"
+# Significa:
+# Ejecuta la función main() que está en:
+# src/penhackit/main.py
+
+# Esto crea un comando en el entorno virtual llamado "penhackit".
+# Tras instalar con pip install -e ., se podrá ejecutar:
+# "penhackit" en lugar de "python -m penhackit"

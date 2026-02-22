@@ -1,0 +1,205 @@
+{
+  "session_metadata": {
+    "session_id": "aurum-2026-02-12-01",
+    "target_company": "Aurum FinTech S.A.",
+    "engagement_type": "Internal Security Assessment",
+    "scope": {
+      "on_prem_ranges": ["10.10.0.0/16"],
+      "dmz_ranges": ["172.16.10.0/24"],
+      "cloud_ranges": ["10.50.0.0/16"]
+    },
+    "restrictions": [
+      "No denial-of-service",
+      "No destructive testing",
+      "Controlled validation only"
+    ],
+    "status": "active"
+  },
+  "subnets": [
+    {
+      "cidr": "172.16.10.0/24",
+      "label": "DMZ",
+      "hosts_discovered": 6,
+      "hosts_unexplored": 1,
+      "status": "advanced",
+      "notes": "Public-facing services"
+    },
+    {
+      "cidr": "10.10.30.0/24",
+      "label": "Server Segment",
+      "hosts_discovered": 24,
+      "hosts_unexplored": 3,
+      "status": "advanced",
+      "notes": "Core internal services"
+    },
+    {
+      "cidr": "10.50.10.0/24",
+      "label": "Cloud App Tier",
+      "hosts_discovered": 14,
+      "hosts_unexplored": 6,
+      "status": "medium",
+      "notes": "Internal APIs"
+    }
+  ],
+  "hosts": [
+    {
+      "ip": "172.16.10.11",
+      "subnet": "172.16.10.0/24",
+      "role": ["reverse-proxy", "web-gateway"],
+      "os": "linux",
+      "services": [
+        {
+          "port": 80,
+          "protocol": "tcp",
+          "service": "http",
+          "notes": "Redirect to HTTPS"
+        },
+        {
+          "port": 443,
+          "protocol": "tcp",
+          "service": "https",
+          "notes": "nginx detected via fingerprint"
+        }
+      ],
+      "findings": ["F-001", "F-002"]
+    },
+    {
+      "ip": "10.10.30.10",
+      "subnet": "10.10.30.0/24",
+      "role": ["domain-controller"],
+      "os": "windows",
+      "services": [
+        { "port": 53, "protocol": "tcp", "service": "dns" },
+        { "port": 88, "protocol": "tcp", "service": "kerberos" },
+        { "port": 389, "protocol": "tcp", "service": "ldap" },
+        { "port": 445, "protocol": "tcp", "service": "smb" }
+      ],
+      "findings": ["F-020", "F-021"]
+    },
+    {
+      "ip": "10.10.30.25",
+      "subnet": "10.10.30.0/24",
+      "role": ["file-server"],
+      "os": "windows",
+      "services": [
+        { "port": 445, "protocol": "tcp", "service": "smb" }
+      ],
+      "shares": [
+        { "name": "public", "access": "read/write broad" },
+        { "name": "it-tools", "access": "read broad" }
+      ],
+      "findings": ["F-030", "F-031"]
+    },
+    {
+      "ip": "10.50.10.30",
+      "subnet": "10.50.10.0/24",
+      "role": ["internal-api-gateway"],
+      "os": "linux",
+      "services": [
+        { "port": 443, "protocol": "tcp", "service": "https" }
+      ],
+      "findings": ["F-060", "F-061"]
+    },
+    {
+      "ip": "10.50.20.15",
+      "subnet": "10.50.20.0/24",
+      "role": ["database"],
+      "os": "linux",
+      "services": [
+        { "port": 5432, "protocol": "tcp", "service": "postgresql" }
+      ],
+      "findings": ["F-070", "F-071"]
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Legacy TLS cipher suites enabled",
+      "severity": "Medium",
+      "affected_assets": ["172.16.10.11"],
+      "detection_method": "TLS configuration audit and handshake analysis",
+      "impact_summary": "Potential exposure to downgrade or cryptographic weaknesses.",
+      "evidence": [
+        {
+          "artifact_path": "artifacts/tls_scan_172.16.10.11.json",
+          "description": "TLS cipher list and protocol support"
+        }
+      ],
+      "mitigation": [
+        "Disable legacy cipher suites",
+        "Enforce TLS 1.2 or higher",
+        "Implement strict transport security"
+      ],
+      "status": "open"
+    },
+    {
+      "id": "F-020",
+      "title": "SMB signing not enforced",
+      "severity": "High",
+      "affected_assets": ["10.10.30.10"],
+      "detection_method": "SMB configuration review",
+      "impact_summary": "Risk of relay-style authentication attacks in internal network.",
+      "evidence": [
+        {
+          "artifact_path": "artifacts/smb_policy_10.10.30.10.json",
+          "description": "SMB policy inspection"
+        }
+      ],
+      "mitigation": [
+        "Enforce SMB signing",
+        "Disable NTLM where possible",
+        "Apply domain-level policy hardening"
+      ],
+      "status": "open"
+    },
+    {
+      "id": "F-031",
+      "title": "Credentials embedded in shared scripts",
+      "severity": "Critical",
+      "affected_assets": ["10.10.30.25"],
+      "detection_method": "Pattern analysis of shared repositories",
+      "impact_summary": "Potential compromise of privileged accounts and lateral movement.",
+      "evidence": [
+        {
+          "artifact_path": "artifacts/credential_patterns_report.txt",
+          "description": "Detected hardcoded secrets"
+        }
+      ],
+      "mitigation": [
+        "Rotate exposed credentials immediately",
+        "Migrate secrets to secure vault",
+        "Implement automated secret scanning"
+      ],
+      "status": "open"
+    },
+    {
+      "id": "F-060",
+      "title": "Internal API endpoint accessible without authentication",
+      "severity": "High",
+      "affected_assets": ["10.50.10.30"],
+      "detection_method": "Endpoint exposure validation within authorized scope",
+      "impact_summary": "Unauthorized access to internal API functionality.",
+      "evidence": [
+        {
+          "artifact_path": "artifacts/open_endpoint_list.json",
+          "description": "List of unauthenticated endpoints"
+        }
+      ],
+      "mitigation": [
+        "Require authentication on all endpoints",
+        "Adopt deny-by-default policy",
+        "Review API gateway policies"
+      ],
+      "status": "open"
+    }
+  ],
+  "metrics": {
+    "total_subnets_discovered": 3,
+    "total_hosts_discovered": 44,
+    "total_findings": 4,
+    "critical_findings": 1,
+    "high_findings": 2,
+    "medium_findings": 1,
+    "low_findings": 0
+  }
+}

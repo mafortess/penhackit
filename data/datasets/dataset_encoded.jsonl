@@ -1,0 +1,23 @@
+{"session_id":"demo_001","t":0,"x":[0,0,0,0,0,0,0,0,0,0,1,0,0,0],"y":"DISCOVER_HOSTS"}
+{"session_id":"demo_001","t":1,"x":[2,2,0,0,0,1,1,0,0,0,0,1,0,0],"y":"SCAN_TOP_PORTS_BATCH"}
+{"session_id":"demo_001","t":2,"x":[2,1,1,2,0,2,0,1,0,0,0,1,0,0],"y":"SCAN_TOP_PORTS_BATCH"}
+{"session_id":"demo_001","t":3,"x":[2,0,2,3,0,3,0,1,0,0,0,1,0,0],"y":"SERVICE_DETECT_BATCH"}
+{"session_id":"demo_001","t":4,"x":[2,0,1,3,0,4,0,0,1,0,0,1,0,0],"y":"SERVICE_DETECT_BATCH"}
+{"session_id":"demo_001","t":5,"x":[2,0,0,3,0,5,0,0,1,0,0,1,0,0],"y":"STOP"}
+
+{"session_id":"demo_002","t":0,"x":[0,0,0,0,0,0,0,0,0,0,1,0,0,0],"y":"DISCOVER_HOSTS","suggested_y":"DISCOVER_HOSTS","accepted":true}
+{"session_id":"demo_002","t":1,"x":[2,2,0,0,0,1,1,0,0,0,0,1,0,0],"y":"SCAN_TOP_PORTS_BATCH","suggested_y":"SCAN_TOP_PORTS_BATCH","accepted":true}
+{"session_id":"demo_002","t":2,"x":[2,0,2,3,0,2,0,1,0,0,0,1,0,0],"y":"SERVICE_DETECT_BATCH","suggested_y":"SERVICE_DETECT_BATCH","accepted":true}
+{"session_id":"demo_002","t":3,"x":[2,0,0,3,0,3,0,0,1,0,0,1,0,0],"y":"STOP","suggested_y":"STOP","accepted":true}
+
+{"session_id":"demo_003","t":0,"x":[0,0,0,0,0,0,0,0,0,0,1,0,0,0],"y":"DISCOVER_HOSTS"}
+{"session_id":"demo_003","t":1,"x":[1,1,0,0,0,1,1,0,0,0,0,1,0,0],"y":"SCAN_TOP_PORTS_BATCH"}
+{"session_id":"demo_003","t":2,"x":[1,0,1,1,0,2,0,1,0,0,0,1,0,0],"y":"SERVICE_DETECT_BATCH"}
+{"session_id":"demo_003","t":3,"x":[1,0,0,1,0,3,0,0,1,0,0,1,0,0],"y":"STOP"}
+
+
+host_level, network_level, alive_hosts_count, pending_portscan_count, pending_service_count, open_ports_total, last_action, last_result, steps_since_new_finding, total_steps
+
+phase, target_level,  features_level_host, features_level_network, features_level_service, action, last_action
+
+2, 3, 0, 0, 0, 

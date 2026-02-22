@@ -1,0 +1,36 @@
+project:
+  name: "penhackit"
+
+paths:
+  data_dir: "data"
+  sessions_dir: "data/sessions"
+  datasets_dir: "data/datasets"
+  models_dir: "models"
+  training_logs_dir: ./logs/training
+  logs_dir: "logs"
+
+environment_profile:
+  cache_path: "data/env/environment_profile.json"
+
+capture:
+  enable_terminal: true
+  enable_screenshots: false
+
+session:
+  id_format: "timestamp"   # placeholder: timestamp|uuid
+  kb_filename: "kb.json"
+  events_filename: "events.jsonl"
+  transitions_filename: "transitions.jsonl"
+  commands_filename: "commands.jsonl"
+  outputs_dirname: "outputs"
+
+training:
+  device: cpu
+  epochs: 10
+  batch_size: 16
+  lr: 1e-3
+
+report:
+  structure: "static"      # static sections, filled later by local LLM
+  json_name: "report.json"
+  md_name: "report.md"

@@ -1,0 +1,41 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+
+package "entrypoint" as entry
+package "cli" as cli
+package "session" as session
+package "memory" as memory
+package "state" as state
+package "policy" as policy
+package "actions" as actions
+package "command" as command
+package "events" as events
+package "report" as report
+package "training" as training
+package "environment" as environment
+
+entry --> cli : main()
+
+cli --> session : run_session()
+cli --> report  : generate_report()
+cli --> training: build/train/eval
+cli --> environment: refresh_profile()
+
+session --> memory : load/save KB, apply events
+session --> state  : extract_state()
+session --> policy : decide_action()
+session --> actions: action specs/registry
+session --> command: build/execute command
+session --> events : parse outputs -> events
+
+report --> session : load KB
+report --> memory  : read KB fields (optional)
+report --> environment : profile (optional)
+
+training --> session : read transitions/sessions
+training --> state : vectorize state
+training --> policy : model IO (optional)
+
+environment --> session : stored under data/env (optional)
+@enduml

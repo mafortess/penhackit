@@ -1,0 +1,26 @@
+{
+  "schema_path": "config/report_schema.json",
+  "make_html": true,
+  "make_pdf": true,
+
+  "llm": {
+    "backend": "transformers",
+
+    "transformers": {
+      "model_id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "device": "auto",
+      "dtype": "auto"
+    },
+
+    "ollama": {
+      "model": "llama3.1:8b",
+      "base_url": "http://localhost:11434"
+    },
+
+    "gen": {
+      "max_new_tokens": 400,
+      "temperature": 0.2,
+      "top_p": 0.9
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class ReportSchema {
+  + sections: list
+}
+
+class ReportGenerator {
+  - store: SessionStore
+  - schema: ReportSchema
+  - llm: LLMWriter
+  + generate(session_id) : Report
+}
+
+class Report {
+  + meta
+  + sections: map[id -> text]
+}
+
+interface LLMWriter {
+  + write_section(section_id, kb) : text
+}
+
+class TransformersWriter
+
+LLMWriter <|.. TransformersWriter
+
+ReportGenerator --> SessionStore : load kb.json
+ReportGenerator --> ReportSchema : fixed structure
+ReportGenerator --> LLMWriter : per-section text
+ReportGenerator --> Report
+@enduml
