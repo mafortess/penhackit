@@ -524,57 +524,57 @@ def vectorize_dataset(rows: list[dict]):
 
     return X, y, feature_names
 
-# def train_models_from_dataset(dataset_dir: Path, models_dir: Path) -> Path:
-#     rows = load_dataset_jsonl(dataset_dir)
-#     X, y, feature_names = vectorize_dataset(rows)
+def train_models_from_dataset(dataset_dir: Path, models_dir: Path) -> Path:
+    rows = load_dataset_jsonl(dataset_dir)
+    X, y, feature_names = vectorize_dataset(rows)
 
-#     model_id = f"models_{dataset_dir.name}"
-#     out_dir = models_dir / model_id
-#     out_dir.mkdir(parents=True, exist_ok=True)
+    model_id = f"models_{dataset_dir.name}"
+    out_dir = models_dir / model_id
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-#     X_train, X_test, y_train, y_test = train_test_split(
-#         X, y, test_size=0.25, random_state=42, stratify=y if len(set(y)) > 1 else None
-#     )
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.25, random_state=42, stratify=y if len(set(y)) > 1 else None
+    )
 
-#     models = {
-#         "logreg": LogisticRegression(max_iter=2000),
-#         "decision_tree": DecisionTreeClassifier(random_state=42),
-#         "random_forest": RandomForestClassifier(n_estimators=200, random_state=42),
-#         "mlp": MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=2000, random_state=42),
-#     }
+    models = {
+        "logreg": LogisticRegression(max_iter=2000),
+        "decision_tree": DecisionTreeClassifier(random_state=42),
+        "random_forest": RandomForestClassifier(n_estimators=200, random_state=42),
+        "mlp": MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=2000, random_state=42),
+    }
 
-#     metrics = {
-#         "dataset_dir": str(dataset_dir),
-#         "n_samples": int(len(y)),
-#         "n_features": int(X.shape[1]),
-#         "feature_names": feature_names,
-#         "trained_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-#         "models": {},
-#     }
+    metrics = {
+        "dataset_dir": str(dataset_dir),
+        "n_samples": int(len(y)),
+        "n_features": int(X.shape[1]),
+        "feature_names": feature_names,
+        "trained_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "models": {},
+    }
 
-#     for name, model in models.items():
-#         print(f"\n[train] {name} ...")
-#         model.fit(X_train, y_train)
-#         y_pred = model.predict(X_test)
+    for name, model in models.items():
+        print(f"\n[train] {name} ...")
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
 
-#         acc = float(accuracy_score(y_test, y_pred))
-#         cm = confusion_matrix(y_test, y_pred).tolist()
-#         rep = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
+        acc = float(accuracy_score(y_test, y_pred))
+        cm = confusion_matrix(y_test, y_pred).tolist()
+        rep = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
 
-#         print(f"[eval] {name} accuracy: {acc:.4f}")
+        print(f"[eval] {name} accuracy: {acc:.4f}")
 
-#         model_path = out_dir / f"{name}.joblib"
-#         joblib.dump(model, model_path)
+        model_path = out_dir / f"{name}.joblib"
+        joblib.dump(model, model_path)
 
-#         metrics["models"][name] = {
-#             "accuracy": acc,
-#             "confusion_matrix": cm,
-#             "model_path": str(model_path),
-#         }
+        metrics["models"][name] = {
+            "accuracy": acc,
+            "confusion_matrix": cm,
+            "model_path": str(model_path),
+        }
 
-#     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, ensure_ascii=False), encoding="utf-8")
-#     print(f"\nSaved models to: {out_dir}")
-#     return out_dir
+    (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"\nSaved models to: {out_dir}")
+    return out_dir
 
 def list_dataset_candidates(datasets_dir: Path) -> list[Path]:
     """
