@@ -1,0 +1,6 @@
+{"type": "META", "session_id": "20260223_215604", "created_at": "2026-02-23T20:56:04Z"}
+{"t": 0, "state": {"goal_type": "recon", "target": "127.0.0.1"}, "action_id": 0, "command": ""}
+{"t": 1, "state": {"goal_type": "recon", "target": "127.0.0.1"}, "action_id": 1, "command": ""}
+{"t": 2, "state": {"goal_type": "recon", "target": "127.0.0.1"}, "action_id": 2, "command": ""}
+{"t": 3, "state": {"goal_type": "recon", "target": "127.0.0.1"}, "action_id": 3, "command": ""}
+{"t": 4, "state": {"goal_type": "recon", "target": "127.0.0.1"}, "action_id": 4, "command": ""}

@@ -1,0 +1,15 @@
+{
+  "name_enterprise": "ITIS",
+  "networks": {},
+  "hosts": [],
+  "services": [],
+  "findings": [],
+  "notes": [],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  }
+}

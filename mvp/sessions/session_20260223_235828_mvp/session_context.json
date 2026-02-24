@@ -1,0 +1,6 @@
+{
+  "id": "20260223_235828_mvp",
+  "mode": "autonomous",
+  "goal_type": "recon",
+  "target": "127.0.0.1"
+}

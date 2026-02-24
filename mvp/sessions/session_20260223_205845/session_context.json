@@ -1,0 +1,6 @@
+{
+  "id": "20260223_205845",
+  "mode": "autonomous",
+  "goal_type": "recon",
+  "target": "192.168.1.1"
+}

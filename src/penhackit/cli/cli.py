@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 # from penhackit.app.bootstrap import AppContext
 from penhackit.cli.menus.main_menu import print_main_menu
 from penhackit.cli.menus.session_menu import run_session_menu
@@ -9,8 +7,6 @@ from penhackit.cli.menus.analysis_menu import run_analysis_menu
 
 # from penhackit.cli.menu_train import menu_train_models
 # from cli.menu_analyze import menu_analyze
-
-
 
 
 def run_cli() -> None:
@@ -26,9 +22,9 @@ def run_cli() -> None:
         elif choice == "2":
             run_training_menu()
         elif choice == "3":
-            run_analysis_menu()
-        elif choice == "4":
             print("Report generation not implemented yet.")
+        # elif choice == "3":
+        #     run_analysis_menu()
         elif choice == "0":
             print("Exiting...")
             return

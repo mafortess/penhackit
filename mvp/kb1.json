@@ -1,0 +1,46 @@
+{
+  "session_id": "S-0001",
+  "target": "acme.local",
+  "started_at": "2026-02-21T10:00:00Z",
+  "ended_at": "2026-02-21T10:30:00Z",
+  "summary": {
+    "subnets": 1,
+    "hosts": 2,
+    "findings_total": 1,
+    "findings_by_severity": { "critical": 0, "high": 1, "medium": 0, "low": 0 }
+  },
+  "assets": {
+    "subnets": [
+      { "cidr": "10.10.10.0/24", "label": "lab", "status": "scanned" }
+    ],
+    "hosts": [
+      {
+        "ip": "10.10.10.10",
+        "os": "linux",
+        "services": [
+          { "port": 22, "proto": "tcp", "name": "ssh" },
+          { "port": 80, "proto": "tcp", "name": "http" }
+        ]
+      },
+      {
+        "ip": "10.10.10.20",
+        "os": "windows",
+        "services": [
+          { "port": 445, "proto": "tcp", "name": "smb" }
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "severity": "high",
+      "title": "SMB signing not enforced",
+      "affected": ["10.10.10.20:445/tcp"],
+      "evidence": [
+        { "type": "text", "value": "smb2-security-mode: signing disabled" }
+      ],
+      "mitigation": ["Enable SMB signing", "Reduce NTLM where possible"]
+    }
+  ]
+}

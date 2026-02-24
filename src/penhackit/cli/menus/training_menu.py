@@ -18,7 +18,7 @@ def run_training_menu() -> None:
 
 
 def _print_menu() -> None:
-    print("\n--- Train models ---")
+    print("\n--- Datasets % Models ---")
     print("1) Build dataset")
     print("2) Train model")
     print("3) Evaluate model")

@@ -16,10 +16,11 @@ def run_session_menu() -> None:
 
 
 def _print_menu() -> None:
-    print("\n--- Run session ---")
-    print("1) Run session (autonomous)")
-    print("2) Observation mode")
-    print("3) Suggestion mode")
+    print("\n--- Sessions ---")
+    print("1) New session)")
+    print("2) Resume session")
+    print("3) List sessions")
+    print("4) Show session details")
     print("0) Back")
 
 

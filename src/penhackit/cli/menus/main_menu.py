@@ -1,7 +1,7 @@
 def print_main_menu() -> None:
     print("\n=== Penhackit CLI ===")
-    print("1) Run session")
-    print("2) Train models")
-    print("3) Analyze data/metrics")
-    print("4) Generate report")
+    print("1) Sessions")
+    print("2) Datasets & Models")
+    print("3) Reports")
+    print("4) Configuration")
     print("0) Exit")

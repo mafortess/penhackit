@@ -1,0 +1,161 @@
+{
+  "schema": "penhackit.training.v1",
+  "trained_at_utc": "2026-02-24T01:58:06Z",
+  "dataset_dir": "mvp\\datasets",
+  "model_type": "decision_tree",
+  "n_samples": 19,
+  "n_features": 28,
+  "feature_names": [
+    "commands_count",
+    "error_last_step",
+    "findings_count",
+    "focus_host_has_http",
+    "focus_host_has_ssh",
+    "focus_host_open_ports_count",
+    "focus_level_id",
+    "focus_service_is_http",
+    "focus_service_port",
+    "focus_service_proto_id",
+    "goal_type_id",
+    "has_focus_host",
+    "has_focus_service",
+    "hosts_count",
+    "last_action_id",
+    "last_event_type_id",
+    "last_rc",
+    "net_arp_neighbors_count",
+    "net_default_gw_count",
+    "net_ipv4_count",
+    "net_routes_count",
+    "networks_count",
+    "new_hosts_last_step",
+    "new_services_last_step",
+    "notes_count",
+    "services_count",
+    "step_idx",
+    "steps_since_progress"
+  ],
+  "accuracy": 0.0,
+  "confusion_matrix": [
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ]
+  ],
+  "classification_report": {
+    "1": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "2": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "3": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "4": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "11": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "12": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "13": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "accuracy": 0.0,
+    "macro avg": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    },
+    "weighted avg": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 5.0
+    }
+  }
+}
