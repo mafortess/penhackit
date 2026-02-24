@@ -1,0 +1,2 @@
+{"type": "META", "schema_id": "penhackit.freeform.v1", "session_id": "20260224_205216_mvp"}
+{"type": "FREEFORM", "t": 3, "ts": "2026-02-24T19:52:28Z", "state": {"goal_type": "recon", "focus_level": "global", "has_focus_host": false, "has_focus_service": false, "net_ipv4_count": 0, "net_gw_count": 0, "net_if_count": 0, "net_arp_count": 0, "net_routes_count": 0, "hosts_count": 0, "services_count": 0, "findings_count": 0, "last_action_id": 2, "last_action_name": "INSPECT_ARP", "last_rc": 1, "last_event_type": "COMMAND_ERROR", "step_idx": 2}, "cmd": "route print"}

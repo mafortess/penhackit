@@ -1,0 +1,27 @@
+{
+  "session_id": "20260224_205025_mvp",
+  "name_enterprise": "ITIS",
+  "networks": {},
+  "hosts": [],
+  "services": [],
+  "findings": [],
+  "notes": [],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  },
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "commands": [],
+  "step_idx": 0,
+  "last_action_id": null,
+  "last_action_name": null,
+  "last_rc": null,
+  "last_event_type": null
+}

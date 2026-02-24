@@ -1,0 +1,2 @@
+{"type": "META", "schema_id": "penhackit.freeform.v1", "session_id": "20260224_205025_mvp"}
+{"type": "FREEFORM", "t": 0, "ts": "2026-02-24T19:50:27Z", "state": {"goal_type": "recon", "focus_level": "global", "has_focus_host": false, "has_focus_service": false, "net_ipv4_count": 0, "net_gw_count": 0, "net_if_count": 0, "net_arp_count": 0, "net_routes_count": 0, "hosts_count": 0, "services_count": 0, "findings_count": 0, "last_action_id": null, "last_action_name": null, "last_rc": null, "last_event_type": null, "step_idx": 0}, "cmd": "ipconfig"}

@@ -1,0 +1,46 @@
+{
+  "session_id": "20260224_201805_mvp",
+  "name_enterprise": "ITIS",
+  "networks": {},
+  "hosts": [],
+  "services": [],
+  "findings": [],
+  "notes": [
+    {
+      "type": "COMMAND_ERROR",
+      "action": "USER_COMMAND",
+      "rc": 1,
+      "stderr": ""
+    },
+    {
+      "type": "COMMAND_ERROR",
+      "action": "USER_COMMAND",
+      "rc": 1,
+      "stderr": ""
+    }
+  ],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  },
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "commands": [
+    "ping 127.0.0.1",
+    "ipconfig",
+    "arp",
+    "arp",
+    "ping 127.0.0.1"
+  ],
+  "step_idx": 4,
+  "last_action_id": -1,
+  "last_action_name": "USER_COMMAND",
+  "last_rc": 0,
+  "last_event_type": "NO_EVENT"
+}

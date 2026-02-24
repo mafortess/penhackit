@@ -1,0 +1,49 @@
+{
+  "session_id": "20260224_195533_mvp",
+  "name_enterprise": "ITIS",
+  "networks": {},
+  "hosts": [],
+  "services": [],
+  "findings": [],
+  "notes": [
+    {
+      "type": "COMMAND_ERROR",
+      "action": "PING_FOCUS_HOST",
+      "rc": 1,
+      "stderr": ""
+    },
+    {
+      "type": "COMMAND_ERROR",
+      "action": "PING_FOCUS_HOST",
+      "rc": 1,
+      "stderr": ""
+    }
+  ],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  },
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "commands": [
+    "route print",
+    "arp",
+    "arp",
+    "ipconfig"
+  ],
+  "step_idx": 4,
+  "last_action_id": 4,
+  "last_action_name": "PING_FOCUS_HOST",
+  "last_rc": 0,
+  "last_event_type": "NO_EVENT",
+  "last_suggested_action_id": 4,
+  "last_suggested_action_name": "PING_FOCUS_HOST",
+  "last_suggested_command": null,
+  "last_accepted_suggestion": true
+}

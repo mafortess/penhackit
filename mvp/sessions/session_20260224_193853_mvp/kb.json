@@ -1,0 +1,159 @@
+{
+  "session_id": "20260224_193853_mvp",
+  "name_enterprise": "ITIS",
+  "networks": {},
+  "hosts": [
+    {
+      "ip": "192.168.56.255",
+      "source": "arp"
+    },
+    {
+      "ip": "224.0.0.22",
+      "source": "arp"
+    },
+    {
+      "ip": "224.0.0.251",
+      "source": "arp"
+    },
+    {
+      "ip": "224.0.0.252",
+      "source": "arp"
+    },
+    {
+      "ip": "239.255.255.250",
+      "source": "arp"
+    },
+    {
+      "ip": "192.168.197.254",
+      "source": "arp"
+    },
+    {
+      "ip": "192.168.197.255",
+      "source": "arp"
+    },
+    {
+      "ip": "255.255.255.255",
+      "source": "arp"
+    },
+    {
+      "ip": "192.168.1.1",
+      "source": "arp"
+    },
+    {
+      "ip": "192.168.1.129",
+      "source": "arp"
+    },
+    {
+      "ip": "192.168.1.255",
+      "source": "arp"
+    },
+    {
+      "ip": "192.168.245.254",
+      "source": "arp"
+    },
+    {
+      "ip": "192.168.245.255",
+      "source": "arp"
+    },
+    {
+      "ip": "172.20.111.255",
+      "source": "arp"
+    }
+  ],
+  "services": [],
+  "findings": [],
+  "notes": [],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [
+      {
+        "ip": "192.168.56.255",
+        "mac": "ff-ff-ff-ff-ff-ff",
+        "type": "est"
+      },
+      {
+        "ip": "224.0.0.22",
+        "mac": "01-00-5e-00-00-16",
+        "type": "est"
+      },
+      {
+        "ip": "224.0.0.251",
+        "mac": "01-00-5e-00-00-fb",
+        "type": "est"
+      },
+      {
+        "ip": "224.0.0.252",
+        "mac": "01-00-5e-00-00-fc",
+        "type": "est"
+      },
+      {
+        "ip": "239.255.255.250",
+        "mac": "01-00-5e-7f-ff-fa",
+        "type": "est"
+      },
+      {
+        "ip": "192.168.197.254",
+        "mac": "00-50-56-f6-c9-25",
+        "type": "din"
+      },
+      {
+        "ip": "192.168.197.255",
+        "mac": "ff-ff-ff-ff-ff-ff",
+        "type": "est"
+      },
+      {
+        "ip": "255.255.255.255",
+        "mac": "ff-ff-ff-ff-ff-ff",
+        "type": "est"
+      },
+      {
+        "ip": "192.168.1.1",
+        "mac": "20-e8-82-c4-c2-57",
+        "type": "din"
+      },
+      {
+        "ip": "192.168.1.129",
+        "mac": "30-56-0f-50-f0-b4",
+        "type": "din"
+      },
+      {
+        "ip": "192.168.1.255",
+        "mac": "ff-ff-ff-ff-ff-ff",
+        "type": "est"
+      },
+      {
+        "ip": "192.168.245.254",
+        "mac": "00-50-56-eb-76-52",
+        "type": "din"
+      },
+      {
+        "ip": "192.168.245.255",
+        "mac": "ff-ff-ff-ff-ff-ff",
+        "type": "est"
+      },
+      {
+        "ip": "172.20.111.255",
+        "mac": "ff-ff-ff-ff-ff-ff",
+        "type": "est"
+      }
+    ],
+    "routes": []
+  },
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "commands": [
+    "ipconfig /all",
+    "arp -a",
+    "route print"
+  ],
+  "step_idx": 3,
+  "last_action_id": 3,
+  "last_action_name": "INSPECT_ROUTE",
+  "last_rc": 0,
+  "last_event_type": "NO_EVENT"
+}

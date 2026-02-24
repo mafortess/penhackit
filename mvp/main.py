@@ -16,9 +16,39 @@ from sklearn.neural_network import MLPClassifier
 import joblib
 
 import markdown
-import matplotlib.pyplot as plt
-
 # from weasyprint import HTML
+import matplotlib.pyplot as plt # para gráficos simples en el reporte (p.ej. hosts descubiertos, servicios, etc)
+
+from prompt_toolkit import prompt # input mejorada (historial, autocompletado, multilinea, etc)
+from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
+
+import torch # para modelos LLM locales (p.ej. llama.cpp con bindings de Python, o modelos más pequeños)
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer # para cargar modelos LLM locales con HuggingFace (si no usas ollama)  
+
+import threading
+import random
+
+BANNERS = [
+r"""
+   ____            __  __            _    _ __
+  / __ \___  ____ / /_/ /_  ___ ____| |  (_) /_
+ / /_/ / _ \/ __ `/ __/ __ \/ _ `/ __| | / / __/
+/ ____/  __/ /_/ / /_/ / / /  __/ /  | |/ / /_
+/_/    \___/\__,_/\__/_/ /_/\___/_/   |___/\__/
+
+ PenHackIt — controlled pentesting automation (research prototype)
+""" ,
+
+r"""
+ ____            _   _            _    ___ _____
+|  _ \ ___ _ __ | | | | __ _  ___| | _|_ _|_   _|
+| |_) / _ \ '_ \| |_| |/ _` |/ __| |/ /| |  | |
+|  __/  __/ | | |  _  | (_| | (__|   < | |  | |
+|_|   \___|_| |_|_| |_|\__,_|\___|_|\_\___| |_|
+
+          PenHackIt — Pentest agent (BC + local LLM reporting)
+"""
+]
 
 # action_id -> (name, command)
 ACTIONS = {
@@ -39,12 +69,54 @@ ACTIONS = {
     104: ("INSPECT_SS", "ss -tulpn"),
 }
 
+def extract_action_id_from_cmd(cmd: str) -> int:
+    """
+    MVP extractor: mapea command raw -> action_id usando heurísticas simples.
+    Soporta tus ACTIONS actuales.
+    """
+    if not cmd:
+        return None
+
+    s = cmd.strip().lower()
+    s = re.sub(r"\s+", " ", s)
+
+    # Windows (acepta "ipconfig" y "ipconfig /all")
+    if s == "ipconfig" or s.startswith("ipconfig "):
+        return 1
+    if s == "arp" or s.startswith("arp "):
+        return 2
+    if s == "route" or s.startswith("route "):
+        return 3
+    # ping -n 1 <ipv4>
+    if re.fullmatch(r"ping -n 1 (?:\d{1,3}\.){3}\d{1,3}", s):
+        return 4
+
+    # ping -n 1 <ipv4> (y también ping <ipv4> como fallback MVP)
+    if re.fullmatch(r"ping -n 1 (?:\d{1,3}\.){3}\d{1,3}", s):
+        return 4
+    if re.fullmatch(r"ping (?:\d{1,3}\.){3}\d{1,3}", s):
+        return 4
+    
+    # Linux/Kali
+    if s == "ip a":
+        return 101
+    if s == "ip r":
+        return 102
+    if s == "ip neigh":
+        return 103
+    if s == "ss -tulpn":
+        return 104
+
+    return None
+
+
 # Ruta base para sesiones, modelos, reportes.
 BASE_DIR = Path("mvp")
 SESSIONS_DIR = BASE_DIR / "sessions"
 MODELS_DIR = BASE_DIR / "models"
 DATASETS_DIR = BASE_DIR / "datasets"
 REPORTS_DIR = BASE_DIR / "reports"
+LLM_MODELS_DIR = BASE_DIR / "llm_models" 
 
 # Menu principal: sesiones, entrenamiento, reporte.
 def main_menu():
@@ -53,22 +125,36 @@ def main_menu():
     print("2) Train models")
     print("3) Generate report")
     print("0) Exit")
+    return prompt("Select option> ", completer=WordCompleter(["1", "2", "3", "0"])).strip()
 # Menu de sesiones: run session en autonomous mode.
 def session_menu():
     print("--- Run session ---")
     print("1) Run session (autonomous)")
+    print("2) Run session (observation mode)")
+    print("3) Run session (suggestion mode)")
     print("0) Back")
+    return prompt("Select option> ", completer=WordCompleter(["1", "2", "3", "0"])).strip()
 # Menu de entrenamiento: entrenar modelo arbol de decisión con dataset creado por mi.
 def training_menu():
     print("--- Train models ---")
     print("1) Train decision tree model")
     print("0) Back")
+    return prompt("Select option> ", completer=WordCompleter(["1", "0"])).strip()
 # Menu de reporte: generar reporte con métricas de la sesión (en KB creada por mi).
 def report_menu():
     print("--- Generate report ---")
     print("1) Generate session report")
     print("2) Export report.pdf from report.md")
-    print("0) Back")
+    print("0) Back")   
+    return prompt("Select option> ", completer=WordCompleter(["1", "2", "0"])).strip()
+# Menu de selección de backend LLM para generación de reportes (ollama vs transformers local). 
+def choose_llm_backend_menu() -> str | None:
+    print("\nReport LLM backend:")
+    print("1) Baseline (no LLM)")
+    print("2) Ollama (HTTP local)")
+    print("3) Transformers (torch local)")
+    print("0) Cancel")
+    return prompt("Select backend> ", completer=WordCompleter(["1", "2", "3", "0"])).strip()
 
 # Clase sesión:
 class Session:
@@ -146,6 +232,7 @@ def build_state(kb: dict, session_context: dict) -> dict:
 def policy_decide_action(state, t):
     print("Deciding action based on state...")
     action = t
+
     return action
 
 def command_builder(action, kb):
@@ -708,6 +795,143 @@ def run_training_interactive(datasets_dir: Path, models_dir: Path) -> None:
     print(f"Output dir: {out_dir}")
 
 
+def baseline_section_body(section_title: str, kb_compact: dict) -> str:
+    """
+    Baseline deterministic generator: no LLM.
+    Uses only kb_compact, does not invent facts.
+    """
+    counts = kb_compact.get("counts", {}) or {}
+    net = kb_compact.get("net", {}) or {}
+    focus = kb_compact.get("focus", {}) or {}
+    sid = kb_compact.get("session_id") or ""
+    goal_type = kb_compact.get("goal_type") or "unknown"
+    target = kb_compact.get("target") or "unknown"
+
+    hosts_n = int(counts.get("hosts", 0) or 0)
+    services_n = int(counts.get("services", 0) or 0)
+    findings_n = int(counts.get("findings", 0) or 0)
+    notes_n = int(counts.get("notes", 0) or 0)
+    commands_n = int(counts.get("commands", 0) or 0)
+
+    ipv4 = net.get("ipv4", []) or []
+    gws = net.get("default_gw", []) or []
+    arps = net.get("arp_neighbors", []) or []
+
+    commands_tail = kb_compact.get("commands_tail", []) or []
+    findings_sample = kb_compact.get("findings_sample", []) or []
+    hosts_sample = kb_compact.get("hosts_sample", []) or []
+    services_sample = kb_compact.get("services_sample", []) or []
+    notes_tail = kb_compact.get("notes_tail", []) or []
+
+    def bullet_list(items: list[str], empty_msg: str = "No data captured in KB.") -> str:
+        if not items:
+            return empty_msg
+        return "\n".join([f"- {x}" for x in items])
+
+    def fmt_arp(n: dict) -> str:
+        ip = (n or {}).get("ip", "") or ""
+        mac = (n or {}).get("mac", "") or ""
+        kind = (n or {}).get("type", "") or ""
+        s = ip
+        if mac:
+            s += f" ({mac})"
+        if kind:
+            s += f" [{kind}]"
+        return s.strip() or "(unknown)"
+
+    def fmt_host(h: dict) -> str:
+        ip = (h or {}).get("ip", "") or ""
+        src = (h or {}).get("source", "") or ""
+        return f"{ip} [{src}]" if src else ip
+
+    def fmt_service(svc: dict) -> str:
+        # si tu KB no tiene estructura de services aún, esto no inventa nada
+        if not isinstance(svc, dict):
+            return str(svc)
+        parts = []
+        for k in ("host", "ip", "port", "proto", "name", "product", "version"):
+            v = svc.get(k)
+            if v is None or v == "":
+                continue
+            parts.append(f"{k}={v}")
+        return ", ".join(parts) if parts else str(svc)
+
+    if section_title == "Executive Summary":
+        lines = []
+        lines.append(f"Session {sid} executed as a baseline report (no LLM).")
+        lines.append(f"Goal: {goal_type}. Target: {target}.")
+        lines.append(f"Captured: {commands_n} commands, {hosts_n} hosts, {services_n} services, {findings_n} findings, {notes_n} notes.")
+        if findings_n == 0:
+            lines.append("Outcome: no findings recorded in KB for this session.")
+        else:
+            lines.append("Outcome: findings were recorded in KB; see Findings section for details.")
+        return " ".join(lines)
+
+    if section_title == "Scope and Context":
+        lines = []
+        lines.append(f"Scope is limited to the data captured in the session KB and command outputs.")
+        lines.append(f"Goal type: {goal_type}. Target: {target}.")
+        fl = (focus or {}).get("level", "global")
+        fh = (focus or {}).get("host", "") or ""
+        fs = (focus or {}).get("service", "") or ""
+        lines.append(f"Focus: level={fl}, host={fh or 'none'}, service={fs or 'none'}.")
+        lines.append("Environment details (OS, tooling versions, constraints) are not fully captured unless stored in KB.")
+        return "\n".join(lines)
+
+    if section_title == "Environment Observations":
+        lines = []
+        lines.append("Network observations captured from KB:")
+        lines.append("")
+        lines.append(f"- Local IPv4(s): {', '.join(ipv4) if ipv4 else 'Not captured'}")
+        lines.append(f"- Default gateway(s): {', '.join(gws) if gws else 'Not captured'}")
+        if arps:
+            lines.append(f"- ARP neighbors ({min(len(arps), 30)} shown):")
+            for n in arps[:30]:
+                lines.append(f"  - {fmt_arp(n)}")
+        else:
+            lines.append("- ARP neighbors: Not captured")
+        return "\n".join(lines)
+
+    if section_title == "Actions Performed":
+        # lista solo lo que existe en KB, sin interpretación
+        if not commands_tail:
+            return "No commands recorded in KB."
+        items = [c for c in commands_tail if isinstance(c, str) and c.strip()]
+        return bullet_list(items, empty_msg="No commands recorded in KB.")
+
+    if section_title == "Findings":
+        if findings_n == 0:
+            return "No findings in this session (KB.findings is empty)."
+        # si findings son dicts, los serializamos de forma segura
+        out = []
+        for f in findings_sample[:30]:
+            if isinstance(f, dict):
+                out.append(json.dumps(f, ensure_ascii=False))
+            else:
+                out.append(str(f))
+        return bullet_list(out, empty_msg="Findings present but not readable.")
+
+    if section_title == "Next Steps":
+        steps = []
+        # heurísticas simples basadas en "qué falta"
+        if hosts_n == 0:
+            steps.append("Capture discovery output to populate KB.hosts (e.g., ARP/scan results).")
+        elif services_n == 0:
+            steps.append("Capture service enumeration to populate KB.services (ports/protocols/banners).")
+        if commands_n == 0:
+            steps.append("Ensure executed commands are appended to KB.commands for traceability.")
+        if findings_n == 0:
+            steps.append("If the goal is vulnerability assessment, add steps that produce findings and store them in KB.findings.")
+        if not ipv4 and not gws:
+            steps.append("Capture basic network context (IPv4/default gateway/interfaces) to support environment section.")
+        if not steps:
+            steps.append("Refine KB schema for the target scenario and increase coverage of actions/parsers.")
+            steps.append("Run additional sessions to build a larger dataset for BC training and evaluation.")
+        return bullet_list(steps)
+
+    # fallback (shouldn't happen)
+    return "No baseline implementation for this section."
+
 REPORT_SECTIONS = [
     ("Executive Summary", "Resumen ejecutivo: 5-8 líneas, objetivo y resultado general."),
     ("Scope and Context", "Alcance: objetivo, target(s), entorno (Kali VM + contenedores), restricciones."),
@@ -764,6 +988,147 @@ class Report:
     def __init__(self, session: Session):
         self.session = session
         self.content = ""
+
+
+def ollama_list_models_http(timeout_s: int = 10) -> list[str]:
+    """
+    Returns installed model names from Ollama.
+    Uses /api/tags so it reflects what's available locally.
+    """
+    try:
+        r = requests.get("http://localhost:11434/api/tags", timeout=timeout_s)
+        r.raise_for_status()
+        data = r.json() or {}
+        models = data.get("models", []) or []
+        names = []
+        for m in models:
+            name = (m or {}).get("name")
+            if name:
+                names.append(name)
+        # stable-ish order
+        names.sort()
+        return names
+    except Exception:
+        return []
+
+
+def ollama_list_models_cli(timeout_s: int = 5) -> list[str]:
+    """
+    Fallback: calls `ollama list` and parses the first column (NAME).
+    """
+    try:
+        o = subprocess.run(
+            ["ollama", "list"],
+            capture_output=True,
+            text=True,
+            timeout=timeout_s,
+            check=False,
+        )
+        if o.returncode != 0:
+            return []
+        lines = (o.stdout or "").splitlines()
+        if not lines:
+            return []
+        # header: NAME  ID  SIZE  MODIFIED
+        out = []
+        for ln in lines[1:]:
+            ln = ln.strip()
+            if not ln:
+                continue
+            # NAME is the first token
+            out.append(ln.split()[0])
+        out = sorted(set(out))
+        return out
+    except Exception:
+        return []
+    
+def choose_ollama_model_interactive(default: str | None = None) -> str | None:
+    """
+    Interactive chooser:
+    - fetches local models via HTTP (preferred), CLI fallback
+    - provides:
+      * numbered list selection
+      * optional text filter
+      * best-effort TAB autocomplete (if readline is available)
+    Returns selected model name or None if cancelled.
+    """
+    models = ollama_list_models_http()
+    if not models:
+        models = ollama_list_models_cli()
+
+    if not models:
+        print("No Ollama models found (is Ollama running, and are models installed?).")
+        print("Try: ollama list  |  ollama pull <model>")
+        return None
+
+    # best-effort TAB completion (works on Linux/macOS; on Windows may require pyreadline3)
+    try:
+        import readline  # type: ignore
+
+        def _completer(text, state):
+            matches = [m for m in models if m.startswith(text)]
+            return matches[state] if state < len(matches) else None
+
+        readline.set_completer(_completer)
+        readline.parse_and_bind("tab: complete")
+    except Exception:
+        pass
+
+    print("\nAvailable Ollama models:")
+    for i, m in enumerate(models, start=1):
+        tag = " (default)" if default and m == default else ""
+        print(f"{i}) {m}{tag}")
+
+    while True:
+        raw = input("Select model [number | name | /filter | 0 cancel]> ").strip()
+        if raw == "0":
+            return None
+
+        # filter mode: /text
+        if raw.startswith("/"):
+            q = raw[1:].strip().lower()
+            if not q:
+                continue
+            filtered = [m for m in models if q in m.lower()]
+            if not filtered:
+                print("No matches.")
+                continue
+            print("\nMatches:")
+            for i, m in enumerate(filtered, start=1):
+                print(f"{i}) {m}")
+            raw2 = input("Select from matches (number | name | 0 back)> ").strip()
+            if raw2 == "0":
+                continue
+            if raw2.isdigit():
+                idx = int(raw2)
+                if 1 <= idx <= len(filtered):
+                    return filtered[idx - 1]
+                print("Out of range.")
+                continue
+            if raw2 in filtered:
+                return raw2
+            print("Invalid selection.")
+            continue
+
+        # numeric selection
+        if raw.isdigit():
+            idx = int(raw)
+            if 1 <= idx <= len(models):
+                return models[idx - 1]
+            print("Out of range.")
+            continue
+
+        # exact name selection (autocomplete helps here)
+        if raw in models:
+            return raw
+
+        # small convenience: if user typed prefix and it's unique
+        pref = [m for m in models if m.startswith(raw)]
+        if len(pref) == 1:
+            return pref[0]
+
+        print("Invalid selection. Tip: type / to filter, or TAB to autocomplete (if supported).")
+
 
 
 OLLAMA_GENERATE_URL = "http://localhost:11434/api/generate"
@@ -974,28 +1339,392 @@ def md_to_pdf_simple(md_path: Path, pdf_path: Path) -> None:
 
     c.save()
 
+# 4) List local HF models (directories under mvp/llm_models/)
+def list_hf_model_candidates(models_dir: Path) -> list[Path]:
+    if not models_dir.exists():
+        return []
+    items = []
+    for p in models_dir.iterdir():
+        if not p.is_dir():
+            continue
+        # heuristics: a HF model folder usually has config.json
+        if (p / "config.json").exists():
+            items.append(p)
+    items.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+    return items
+
+def choose_hf_model_dir_interactive(models_dir: Path, default_name: str | None = None) -> Path | None:
+    items = list_hf_model_candidates(models_dir)
+    if not items:
+        print(f"No HF models found in: {models_dir}")
+        print("Expected folders like: mvp/llm_models/<model_id>/config.json")
+        return None
+
+    print("\nAvailable HF models (local):")
+    for i, p in enumerate(items, start=1):
+        tag = " (default)" if default_name and p.name == default_name else ""
+        print(f"{i}) {p.name}{tag}")
+
+    raw = prompt("Select model [num | name | 0 cancel]> ").strip()
+    if raw == "0":
+        return None
+    if raw.isdigit():
+        idx = int(raw)
+        if 1 <= idx <= len(items):
+            return items[idx - 1]
+        print("Out of range.")
+        return None
+
+    # name selection
+    for p in items:
+        if p.name == raw:
+            return p
+
+    # prefix unique
+    pref = [p for p in items if p.name.startswith(raw)]
+    if len(pref) == 1:
+        return pref[0]
+
+    print("Invalid selection.")
+    return None
+
+def choose_hf_device_interactive() -> str:
+    # keep it simple for MVP
+    # - "cuda" if available
+    # - else "cpu"
+    default = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"\nDevice (default: {default})")
+    print("1) auto")
+    print("2) cuda")
+    print("3) cpu")
+    raw = prompt("Select device> ", completer=WordCompleter(["1", "2", "3"])).strip()
+    if raw == "2":
+        return "cuda"
+    if raw == "3":
+        return "cpu"
+    return default
+
+# 5) Transformers generator with caching (load once, reuse per section)
+_HF_CACHE = {
+    "model_dir": None,
+    "device": None,
+    "tokenizer": None,
+    "model": None,
+}
+
+def hf_load_model(model_dir: Path, device: str):
+    global _HF_CACHE
+    if _HF_CACHE["model_dir"] == str(model_dir) and _HF_CACHE["device"] == device and _HF_CACHE["model"] is not None:
+        return _HF_CACHE["tokenizer"], _HF_CACHE["model"]
+
+    # Clean previous (optional)
+    _HF_CACHE = {"model_dir": str(model_dir), "device": device, "tokenizer": None, "model": None}
+
+    print(f"\n[HF] Loading model from: {model_dir}")
+    tok = AutoTokenizer.from_pretrained(str(model_dir), use_fast=True)
+
+    # If tokenizer has no pad_token (common), set it to eos to avoid warnings in generation
+    if tok.pad_token_id is None and tok.eos_token_id is not None:
+        tok.pad_token = tok.eos_token
+
+    # For small models: float16 on cuda; float32 on cpu
+    dtype = torch.float16 if device == "cuda" else torch.float32
+
+    model = AutoModelForCausalLM.from_pretrained(
+        str(model_dir),
+        torch_dtype=dtype,
+        low_cpu_mem_usage=True,
+    )
+
+    if device == "cuda":
+        model = model.to("cuda")
+    else:
+        model = model.to("cpu")
+
+    model.eval()
+
+    _HF_CACHE["tokenizer"] = tok
+    _HF_CACHE["model"] = model
+    return tok, model
+
+def hf_generate_stream(model_dir: Path, prompt_text: str, max_new_tokens: int = 350) -> str:
+    print(f"[HF] Loading model from: {model_dir}")
+
+    tokenizer = AutoTokenizer.from_pretrained(str(model_dir), local_files_only=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        str(model_dir),
+        local_files_only=True,
+        device_map="auto",
+        torch_dtype="auto",
+    )
+    model.eval()
+
+    inputs = tokenizer(prompt_text, return_tensors="pt")
+    inputs = {k: v.to(model.device) for k, v in inputs.items()}
+
+    streamer = TextIteratorStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True)
+
+    gen_kwargs = dict(
+        **inputs,
+        streamer=streamer,
+        max_new_tokens=max_new_tokens,
+        do_sample=False,
+        temperature=0.0,
+        eos_token_id=tokenizer.eos_token_id,
+        pad_token_id=tokenizer.eos_token_id,
+    )
+
+    t = threading.Thread(target=model.generate, kwargs=gen_kwargs)
+    t.start()
+
+    chunks = []
+    for tok in streamer:
+        print(tok, end="", flush=True)
+        chunks.append(tok)
+
+    print()
+    t.join()
+    return "".join(chunks).strip()
+
+def hf_generate_text(
+    model_dir: Path,
+    prompt_text: str,
+    device: str,
+    max_new_tokens: int = 350,
+    temperature: float = 0.2,
+    top_p: float = 0.95,
+) -> str:
+    tok, model = hf_load_model(model_dir, device)
+
+    inputs = tok(prompt_text, return_tensors="pt")
+    if device == "cuda":
+        inputs = {k: v.to("cuda") for k, v in inputs.items()}
+    else:
+        inputs = {k: v.to("cpu") for k, v in inputs.items()}
+
+    # Stream output tokens to console (similar feel to your Ollama streaming)
+    streamer = TextIteratorStreamer(tok, skip_prompt=True, skip_special_tokens=True)
+
+    gen_kwargs = dict(
+        **inputs,
+        max_new_tokens=int(max_new_tokens),
+        do_sample=True if temperature > 0 else False,
+        temperature=float(temperature),
+        top_p=float(top_p),
+        streamer=streamer,
+        eos_token_id=tok.eos_token_id,
+        pad_token_id=tok.pad_token_id,
+    )
+
+    # Run generation in a background thread so streamer can iterate
+
+    t = threading.Thread(target=model.generate, kwargs=gen_kwargs)
+    t.start()
+
+    chunks = []
+    for new_text in streamer:
+        print(new_text, end="", flush=True)
+        chunks.append(new_text)
+    print()
+    t.join()
+
+    return "".join(chunks).strip()
+
+# 6) Make report generation accept either backend
+def generate_report_md_sectionwise_llm(
+    session_dir: Path,
+    kb: dict,
+    backend: str,
+    ollama_model: str | None = None,
+    hf_model_dir: Path | None = None,
+    hf_device: str = "cpu",
+) -> Path:
+    kb_compact = compact_kb_for_report(kb)
+    report_path = next_available_path(session_dir, "report", ".md")
+
+    header = []
+    header.append("# PenHackIt Report")
+    header.append("")
+    header.append(f"- Session ID: {kb.get('session_id','')}")
+    header.append(f"- Generated at: {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}")
+
+    if backend == "ollama":
+        header.append(f"- Backend: ollama")
+        header.append(f"- Model: {ollama_model or ''}")
+    else:
+        header.append(f"- Backend: transformers")
+        header.append(f"- Model dir: {str(hf_model_dir) if hf_model_dir else ''}")
+        header.append(f"- Device: {hf_device}")
+
+    header.append("")
+    report_path.write_text("\n".join(header) + "\n", encoding="utf-8")
+
+    fig_dir = session_dir / "figures"
+    plot_counts(kb, fig_dir / "counts.png")
+    plot_hosts_kpi(kb, fig_dir / "hosts.png")
+
+    with report_path.open("a", encoding="utf-8") as f:
+        f.write("## Figures\n\n")
+        f.write("![](figures/counts.png)\n\n")
+        f.write("![](figures/hosts.png)\n\n")
+
+    for title, guidance in REPORT_SECTIONS:
+        with report_path.open("a", encoding="utf-8") as f:
+            f.write(f"## {title}\n\n")
+
+        section_prompt = build_section_prompt(title, guidance, kb_compact)
+
+        if backend == "ollama":
+            if not ollama_model:
+                raise ValueError("ollama_model is required for backend='ollama'")
+            body = ollama_generate_http(ollama_model, section_prompt, timeout_s=180).strip()
+        else:
+            if not hf_model_dir:
+                raise ValueError("hf_model_dir is required for backend='transformers'")
+            body = hf_generate_text(
+                hf_model_dir,
+                section_prompt,
+                device=hf_device,
+                max_new_tokens=350,
+                temperature=0.2,
+                top_p=0.95,
+            ).strip()
+
+        body = sanitize_llm_section(body, title)
+
+        with report_path.open("a", encoding="utf-8") as f:
+            f.write(body + "\n\n")
+
+    return report_path
+
+def generate_report_md_baseline(session_dir: Path, kb: dict) -> Path:
+    kb_compact = compact_kb_for_report(kb)
+    report_path = next_available_path(session_dir, "report", ".md")
+
+    header = []
+    header.append("# PenHackIt Report")
+    header.append("")
+    header.append(f"- Session ID: {kb.get('session_id','')}")
+    header.append(f"- Generated at: {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}")
+    header.append(f"- Backend: baseline (no LLM)")
+    header.append("")
+
+    report_path.write_text("\n".join(header) + "\n", encoding="utf-8")
+
+    fig_dir = session_dir / "figures"
+    plot_counts(kb, fig_dir / "counts.png")
+    plot_hosts_kpi(kb, fig_dir / "hosts.png")
+
+    with report_path.open("a", encoding="utf-8") as f:
+        f.write("## Figures\n\n")
+        f.write("![](figures/counts.png)\n\n")
+        f.write("![](figures/hosts.png)\n\n")
+
+    for title, guidance in REPORT_SECTIONS:
+        with report_path.open("a", encoding="utf-8") as f:
+            f.write(f"## {title}\n\n")
+        body = baseline_section_body(title, kb_compact).strip()
+        with report_path.open("a", encoding="utf-8") as f:
+            f.write(body + "\n\n")
+
+    return report_path
+
+def rules_policy_decide_action(state: dict) -> int:
+    # Reglas mínimas y deterministas para tu MVP (Windows-centric)
+    # 1) Si aún no tenemos IPv4, primero ipconfig /all
+    if int(state.get("net_ipv4_count", 0) or 0) == 0:
+        return 1  # INSPECT_IPCONFIG
+
+    # 2) Si aún no tenemos vecinos ARP, pedir arp -a
+    if int(state.get("net_arp_count", 0) or 0) == 0:
+        return 2  # INSPECT_ARP
+
+    # 3) Si ya hay hosts, prueba ping al foco/primer host
+    if int(state.get("hosts_count", 0) or 0) > 0:
+        return 4  # PING_FOCUS_HOST
+
+    # 4) Fallback: nada que hacer
+    return 0  # NONE
+
+def model_policy_decide_action(state: dict, model, feature_names: list[str]) -> int:
+    """
+    model: cualquier sklearn classifier ya entrenado (joblib.load(...))
+    feature_names: lista de features en el orden usado al entrenar (metrics.json["feature_names"])
+    """
+    x = np.zeros((1, len(feature_names)), dtype=np.float32)
+
+    for j, k in enumerate(feature_names):
+        v = state.get(k, 0)
+        if isinstance(v, bool):
+            v = 1 if v else 0
+        if v is None:
+            v = 0
+        x[0, j] = float(v)
+
+    y_pred = model.predict(x)
+    return int(y_pred[0])
+
+# def log_bc_row(session_dir: Path, session_id: str, row: dict) -> None:
+#     path = session_dir / "dataset.jsonl"
+#     session_dir.mkdir(parents=True, exist_ok=True)
+
+#     need_meta = (not path.exists()) or (path.stat().st_size == 0)
+#     with path.open("a", encoding="utf-8") as f:
+#         if need_meta:
+#             meta = {
+#                 "type": "META",
+#                 "schema_id": "penhackit.bc.v1",
+#                 "session_id": session_id,
+#                 "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+#             }
+#             f.write(json.dumps(meta, ensure_ascii=False) + "\n")
+
+#         f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+def log_dataset_row(session_dir, session_id: str, row: dict) -> None:
+    path = session_dir / "dataset.jsonl"
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def log_freeform_row(session_dir: Path, session_id: str, row: dict) -> None:
+    path = session_dir / "dataset_freeform.jsonl"
+    need_meta = (not path.exists()) or (path.stat().st_size == 0)
+    with path.open("a", encoding="utf-8") as f:
+        if need_meta:
+            f.write(json.dumps({"type":"META","schema_id":"penhackit.freeform.v1","session_id":session_id}, ensure_ascii=False) + "\n")
+        f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 def main():
 
     # Lógica navegación entre menús
     while True:
-        main_menu()
-        choice = input("> ").strip()
-
+        print(random.choice(BANNERS))
+        print()
+        choice = main_menu()
+ 
         if choice == "1":
             # Lógica de menu session
             while True:
-                session_menu()
-                sub_choice = input("> ").strip()
-                if sub_choice == "1":
+                sub_choice = session_menu()
+                # Modo autónomo y modo sugerencia: el sistema decide qué acción ejecutar en cada paso para avanzar hacia el objetivo
+                # Puede ser con una función de decisión basada en reglas (rules_policy_decide_action) 
+                # o un modelo de ML (model_policy_decide_action).
+                # Para la demo se usó una secuencia fija de acciones, pero la idea es que el sistema tome decisiones autónomas basadas en el estado actual (KB) y el objetivo de la sesión.
+                # Modo sugerencia es igual, excepto que el sistema sugiere la acción y el usuario confirma antes de ejecutarla.
+                if sub_choice == "1" or sub_choice == "3":
                     # Aquí irá un wizard para crear la sesión (tipo, objetivo, etc.)
                     # y luego se creará la sesión con esos parámetros.
                     # session_wizard()
-                    mode = "autonomous" # suggestion, observation
+                    if sub_choice == "1":
+                        mode = "autonomous" # suggestion, observation
+                    elif sub_choice == "3":
+                        mode = "suggestion"
                     # mode = "suggestion"
                     goal_type = "recon"
                     target = "127.0.0.1"
                     name = "mvp"
+                    max_steps = 5
 
                     #Se crea sesión con parámetros por defecto (autonomous, goal_type y target hardcodeados)
                     # para poder avanzar con el desarrollo del MVP.
@@ -1012,7 +1741,8 @@ def main():
                         "id": session_id,
                         "mode": mode,
                         "goal_type": goal_type,
-                        "target": target
+                        "target": target,
+                        "max_steps": max_steps,
                     }
 
                     s = Session(session_id)
@@ -1073,7 +1803,29 @@ def main():
                     )
                     # La función de arriba crea/sobrescribe kb.json en la carpeta de la sesión y guarda dentro la KB inicial en formato JSON legible.
 
-                    for t in range(5):  # Simulación de 10 pasos de la sesión
+                    # Para el MVP, la decisión de acción se hará con una función policy_decide_action(state, t) que implementaremos con lógica fija (scripted) o reglas simples. T
+                    # También podría usar un modelo de ML entrenado con los datos de sesiones anteriores.
+                    autonomous_decider = "model"  # "scripted" | "rules" | "model"
+                    model = None
+                    feature_names = None
+                    # model = joblib.load("mvp/models/<...>/model.joblib")
+                    # feature_names = json.loads(Path("mvp/models/<...>/metrics.json").read_text())["feature_names"]
+                    
+                    if autonomous_decider == "model":
+                        print("Loading ML model for autonomous decision...")
+                        model_path = MODELS_DIR / "datasets" /"decision_tree" / "model.joblib"
+                        metrics_path = model_path.parent / "metrics.json"
+
+                        if not model_path.exists() or not metrics_path.exists():
+                            print(f"Model files not found: {model_path}, {metrics_path}")
+                            print("Make sure to train a model first and place the files in mvp/models/")
+                            return
+
+                        model = joblib.load(model_path)
+                        feature_names = json.loads(metrics_path.read_text())["feature_names"]
+                        print(f"Loaded model: {model_path}, features: {feature_names}")
+
+                    for t in range(max_steps):  # Simulación de max_steps pasos de la sesión
                         print(f"\n--- Step {t} ---")
 
                         # ESTADO
@@ -1102,7 +1854,16 @@ def main():
                                 cmd_template = None
                                 command = raw
                         else:
-                            action_id = policy_decide_action(state, t)
+                            if autonomous_decider == "rules":
+                                print("Deciding action with rules policy...")
+                                action_id = rules_policy_decide_action(state)
+                            elif autonomous_decider == "model":
+                                print("Deciding action with ML model...")
+                                action_id = model_policy_decide_action(state, model, feature_names)
+                            else:
+                                print("Deciding action with scripted policy, only for MVP demo...")
+                                action_id = policy_decide_action(state, t)
+
                             action_name, cmd_template = ACTIONS.get(action_id, ("NONE", None))
 
                         print(f"Decided action: {action_name} (ID: {action_id})")
@@ -1177,6 +1938,220 @@ def main():
                     print("Session finished\n")
 
                     break
+
+                # Modo observación: el sistema solo observa la sesión sin sugerir ni tomar decisiones. El pentester ejecuta comandos libremente y el sistema actualiza la KB y logs con lo que ocurre.
+                elif sub_choice == "2":
+                    print("Entering observation mode...")
+                    # Aquí irá un wizard para crear la sesión (tipo, objetivo, etc.)
+                    # y luego se creará la sesión con esos parámetros.
+                    # session_wizard()
+                    
+                    mode = "observation" # suggestion, observation
+                    goal_type = "recon"
+                    target = "127.0.0.1"
+                    name = "mvp"
+                    max_steps = 5
+
+                    #Se crea sesión con parámetros por defecto (autonomous, goal_type y target hardcodeados)
+                    # para poder avanzar con el desarrollo del MVP.
+                    session_id = time.strftime("%Y%m%d_%H%M%S") + "_" + name
+                    session_dir = SESSIONS_DIR / f"session_{session_id}"
+                    print(f"Creating session directory: {session_dir}")
+                    session_dir.mkdir(parents=True, exist_ok=True)
+
+                    session_config = {
+                        "id": session_id,
+                        "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+                    }
+                    session_context = {
+                        "id": session_id,
+                        "mode": mode,
+                        "goal_type": goal_type,
+                        "target": target,
+                        "max_steps": max_steps,
+                    }
+
+                    s = Session(session_id)
+
+                    print("Running session...")
+
+                    # Creación de KB inicial vacía en la carpeta de la sesión.
+                    session_dir.mkdir(parents=True, exist_ok=True)
+                    # Esta linea anterior crea la carpeta session_dir en el sistema de archivos.
+                    # # parents=True: si faltan carpetas “padre” en la ruta, también las crea. Ejemplo: si data/ o data/sessions/ no existen, los crea automáticamente.
+                    # exist_ok=True: si la carpeta ya existe, no da error. Sin esto, mkdir() lanzaría una excepción si la carpeta ya existe.
+
+                    # Creación de los archivos de configuración y contexto de la sesión (session_config.json y session_context.json) con los datos de la sesión.
+                     # 1) session_config.json (operativo)
+                    (session_dir / "session_config.json").write_text(
+                        json.dumps(session_config, indent=2, ensure_ascii=False),
+                        encoding="utf-8",
+                )
+
+                    # 2) session_context.json (tarea/objetivo)
+                    (session_dir / "session_context.json").write_text(
+                        json.dumps(session_context, indent=2, ensure_ascii=False),
+                        encoding="utf-8",
+                    )
+                    kb = {
+                        "session_id": session_id,
+
+                        # Memoria “pentest”
+                        "name_enterprise": "ITIS",
+                        "networks": {},
+                        "hosts": [],
+                        "services": [],
+                        "findings": [],
+                        "notes": [],
+
+                        # Memoria "entorno local"
+                        "net": {
+                            "interfaces": [],      # lista de interfaces (name, ipv4, mask, gw, mac opcional)
+                            "ipv4": [],            # lista plana (comodín)
+                            "default_gw": [],      # lista de gateways
+                            "arp_neighbors": [],   # lista de vecinos ARP (ip, mac opcional)
+                            "routes": [],          # opcional: ruta (dest, mask/prefix, gateway, if, metric)
+                        },
+                        "focus": {"level": "global", "host": "", "service": ""},
+                        "commands": [],
+
+                        # runtime / trazabilidad mínima (para el estado)
+                        "step_idx": 0,
+                        "last_action_id": None,
+                        "last_action_name": None,
+                        "last_rc": None,
+                        "last_event_type": None,
+                    }
+
+                    (session_dir / "kb.json").write_text(
+                        json.dumps(kb, indent=2, ensure_ascii=False),
+                        encoding="utf-8",
+                    )
+                    # La función de arriba crea/sobrescribe kb.json en la carpeta de la sesión y guarda dentro la KB inicial en formato JSON legible.
+
+                    for t in range(max_steps):  # Simulación de max_steps pasos de la sesión
+                        print(f"\n--- Step {t} ---")
+
+                        # ESTADO
+                        state = build_state(kb, session_context)
+                        print("Current state:", state)
+
+                        # DECISIÓN DE ACCIÓN
+                    
+                        # Pentestir elige acción (ID) o mete comando directo
+                        raw = input("OBS> action_id (num) OR type a command (0 stop)> ").strip()
+
+                        # El pentester quiere parar la sesión
+                        if raw == "0":
+                            action_id = 0
+                            action_name, cmd_template = ACTIONS.get(action_id, ("NONE", None))
+                            command_to_run = None
+                            break
+
+                        # El pentester ha decidido ejecutar una acción predefinida (action_id) y el sistema construye el comando a ejecutar con command_builder(action_id, kb)
+                        elif raw.isdigit():
+                            action_id = int(raw)
+                            action_name, cmd_template = ACTIONS.get(action_id, ("NONE", None))
+                            command_to_run = command_builder(action_id, kb)
+                            print(f"Built command from action: {command_to_run}")
+                        
+                        # El pentester ha decidido escribir un comando libre (raw) y el sistema lo ejecuta tal cual (sin pasar por command_builder ni acciones predefinidas)
+                        else:
+                            # Comando directo (sin acción)
+                            # action_id = -1
+                            # action_name = "USER_COMMAND"
+                            # cmd_template = None
+                            command_to_run = raw
+                            action_id = extract_action_id_from_cmd(command_to_run)
+                            if action_id is None:
+                                print("No match -> FREEFORM (not added to dataset)")
+                                log_freeform_row(session_dir, session_id, {
+                                    "type": "FREEFORM",
+                                    "t": t,
+                                    "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                                    "state": state,
+                                    "cmd": command_to_run,
+                                })
+                                continue
+                            action_name, _ = ACTIONS.get(action_id, ("UNKNOWN", None))
+
+                        # ---- aquí ya tienes (state, action_id) => DATASET PURO
+                        log_dataset_row(session_dir, session_id, {
+                            # "schema": "penhackit.bc.v1",
+                            "t": t,
+                            # "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                            "state": state,
+                            "action_id": action_id,
+                        })
+
+                        print(f"Decided action: {action_name} (ID: {action_id})")
+                        print(f"Command to run: {command_to_run}")
+
+                        # DATASET (Behavioral Cloning): guardar (state_t, action_t)
+                        # Recomendación: NO guardes comandos libres (action_id=-1) en BC si tu modelo predice action_id.
+                        # if action_id >= 0:
+                        #     log_bc_row(session_dir, session_id, {
+                        #         "type": "BC",
+                        #         "t": t,
+                        #         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                        #         "mode": "observation",
+                        #         "state": state,          # dict numérico/booleano como ya lo construyes
+                        #         "action_id": int(action_id),
+                        #         "action_name": action_name,
+                        #         "cmd": command_to_run,   # opcional, útil para debug
+                        #     })
+                        # if action_id == -1:
+                        #     log_freeform_row(session_dir, session_id, {
+                        #         "type":"FREEFORM",
+                        #         "t": t,
+                        #         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                        #         "state": state,
+                        #         "cmd": command_to_run,
+                        #     })
+                        # EJECUCIÓN
+                        result = execute_command(command_to_run)
+
+                        # Para coherencia en los logs
+                        command = command_to_run
+
+
+                        log_command_output(session_dir, session_id, action_id, action_name, result)
+
+                        # PARSEAR RESULTADO Y ACTUALIZAR KB
+                        events = parse_command_result(action_name, result)
+                        print(f"Events generated from command result: {events}")
+
+                        # MEMORY (KB) UPDATE
+                        kb = update_kb(kb, events)
+
+                        kb.setdefault("commands", [])
+                        if result.get("cmd"):
+                            kb["commands"].append(result["cmd"])
+
+                        kb["step_idx"] = t
+                        kb["last_action_id"] = action_id
+                        kb["last_action_name"] = action_name
+                        kb["last_rc"] = result.get("rc")
+                        kb["last_event_type"] = events[0].get("type") if events else None
+
+                        print(f"Updated KB: {kb}")
+                        save_kb(session_dir, kb)
+
+                        # Logging del paso completo (estado, acción, comando, resultado) para trazabilidad y posible entrenamiento futuro
+                        log_step(session_dir, session_id,{
+                        "t": t,
+                        "state": state,
+                        "action_id": action_id,
+                        "command": command,
+                        })
+
+                        time.sleep(0.5)
+
+                    print("Session finished\n")
+
+                    break
+
+
                 elif sub_choice == "0":
                     break
                 else:
@@ -1186,8 +2161,7 @@ def main():
         elif choice == "2":
             # Lógica de menu training
             while True:
-                training_menu()
-                sub_choice = input("> ").strip()
+                sub_choice = training_menu()
                 if sub_choice == "1":
                     print("Training model...")
                     # Lógica de entrenamiento de modelo usando dataset creado por mi
@@ -1209,11 +2183,10 @@ def main():
         elif choice == "3":
             # Lógica de menu report
             while True:
-                report_menu()
-                sub_choice = input("> ").strip()
+                sub_choice = report_menu()
                 if sub_choice == "1":
-                    print("Generating report...")
-                    # Lógica de generación de reporte usando datos de sesión
+
+                    
                     session_dir = SESSIONS_DIR / "session_20260224_000156_mvp"
 
                     if not session_dir or not session_dir.exists():
@@ -1227,15 +2200,69 @@ def main():
 
                     # 2) cargar kb (AQUÍ es donde faltaba)
                     kb = json.loads(kb_path.read_text(encoding="utf-8"))
+                    
+                    # Lógica de generación de reporte usando datos de sesión
+                    backend_choice = choose_llm_backend_menu()
+                    if backend_choice == 0 or backend_choice == "0":
+                        print("Report generation cancelled.")
+                        break
+                    elif backend_choice == 1 or backend_choice == "1":
+                        print("Selected LLM backend: Baseline (no LLM)")
+                        try:
+                            generate_report_md_baseline(session_dir, kb)
+                        except Exception as e:
+                            print(f"Error generating baseline report: {e}")
 
-                    # 3) generar reporte sección por sección usando modelo LLM local (ollama)
-                    # Download model ollama by using: ollama pull <model_name>
-                    # model_llm = "qwen3:4b" # esto casi explota
-                    model_llm = "gemma3:1b"
-                    try:
-                        generate_report_md_sectionwise(session_dir, kb, model_llm)
-                    except Exception as e:
-                        print(f"Error generating report: {e}")
+                    elif backend_choice == 2 or backend_choice == "2":
+                        print("Selected LLM backend: Ollama (local)")
+                        
+                        # 3) elegir modelo LLM local (ollama) para generación de reporte
+                        # Download model ollama by using: ollama pull <model_name>
+                        # model_llm = "qwen3:4b" # esto casi explota
+
+                        models = ollama_list_models_http()
+
+                        if not models:
+                            models = ollama_list_models_cli()
+
+                        if not models:
+                            print("No Ollama models found (is Ollama running, and are models installed?).")
+                            print("Try: ollama list  |  ollama pull <model>")
+                            return None
+                        
+                    
+                        default_model = "gemma3:1b"
+                        model_llm = choose_ollama_model_interactive(default=default_model)
+                        
+                        # 4) generar reporte sección por sección usando modelo LLM local (ollama)
+                        try:
+                            print("Generating report...")
+                            generate_report_md_sectionwise(session_dir, kb, model_llm)
+                        except Exception as e:
+                            print(f"Error generating report: {e}")
+                    
+                    elif backend_choice == 3 or backend_choice == "3":
+                        print("Selected LLM backend: transfomers (local)")
+                        # TRANSFORMERS (torch)
+                        default_hf = None  # e.g. "qwen2.5-1.5b-instruct" if you want
+                        hf_dir = choose_hf_model_dir_interactive(LLM_MODELS_DIR, default_name=default_hf)
+                        if not hf_dir:
+                            print("Cancelled.")
+                            break
+
+                        device = choose_hf_device_interactive()
+
+                        try:
+                            print("Generating report...")
+                            generate_report_md_sectionwise_llm(
+                                session_dir=session_dir,
+                                kb=kb,
+                                backend="transformers",
+                                hf_model_dir=hf_dir,
+                                hf_device=device,
+                            )
+                        except Exception as e:
+                            print(f"Error generating report: {e}")
 
                 elif sub_choice == "2":
                     print("Converting report to PDF...")
