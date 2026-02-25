@@ -14,6 +14,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
 
 import joblib
+from collections import Counter
 
 import markdown
 # from weasyprint import HTML
@@ -499,7 +500,6 @@ def is_interactive_shell(cmd: str) -> bool:
     c = cmd.strip().lower()
     return c in BLOCKED or c.startswith("powershell ") or c.startswith("cmd ") or c.startswith("bash ")
 
-
 # Clase modelo:
 class Model:
     def __init__(self, name: str):
@@ -579,8 +579,9 @@ def train_models_from_dataset(dataset_dir: Path, models_dir: Path) -> Path:
 def list_dataset_candidates(datasets_dir: Path) -> list[Path]:
     """
     Devuelve una lista de 'dataset_dir' candidatos.
-    - Si existe datasets/dataset.jsonl, añade datasets/ como candidato.
     - Añade cada subdirectorio que contenga dataset.jsonl.
+    - Añade el propio datasets_dir si contiene dataset.jsonl (caso plano).
+    Sort by mtime (últimos primero).
     """
     candidates = []
 
@@ -598,7 +599,6 @@ def list_dataset_candidates(datasets_dir: Path) -> list[Path]:
     candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
     return candidates
 
-
 def choose_dataset_dir(datasets_dir: Path) -> Path | None:
     items = list_dataset_candidates(datasets_dir)
     if not items:
@@ -612,8 +612,7 @@ def choose_dataset_dir(datasets_dir: Path) -> Path | None:
     for i, p in enumerate(items, start=1):
         label = p.name if p != datasets_dir else "(root) datasets/"
         print(f"{i}) {label}")
-
-    raw = input("Select number (0 cancel)> ").strip()
+    raw = prompt("Select dataset> ", completer=WordCompleter([str(i) for i in range(1, len(items) + 1)] + ["0"])).strip()
     if raw == "0":
         return None
     if not raw.isdigit():
@@ -627,11 +626,23 @@ def choose_dataset_dir(datasets_dir: Path) -> Path | None:
 
 
 def load_dataset_jsonl(dataset_dir: Path) -> list[dict]:
-    path = dataset_dir / "dataset.jsonl"
+    # Show dataset options in this directort (dataset_dir)
+    jsonl_files = sorted(
+        [p.name for p in dataset_dir.iterdir() if p.is_file() and p.suffix.lower() == ".jsonl"],
+        key=str.lower,
+    )
+    if not jsonl_files:
+        raise FileNotFoundError(f"No .jsonl files found in: {dataset_dir}")
+    
+    dataset_choice = prompt(f"Load dataset from: {dataset_dir} > ", completer=WordCompleter(jsonl_files))
+
+    
+    path = dataset_dir / dataset_choice
     if not path.exists():
         raise FileNotFoundError(f"dataset.jsonl not found: {path}")
 
     rows = []
+    print(f"Loading dataset: {path} ...")
     with path.open("r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
@@ -643,7 +654,6 @@ def load_dataset_jsonl(dataset_dir: Path) -> list[dict]:
     if not rows:
         raise RuntimeError("Dataset is empty.")
     return rows
-
 
 def vectorize_bc_rows(rows: list[dict]):
     # Collect all keys from "state"
@@ -676,7 +686,6 @@ def vectorize_bc_rows(rows: list[dict]):
 
     return X, y, feature_names
 
-
 # =========================
 # Model helpers
 # =========================
@@ -688,12 +697,12 @@ MODEL_CHOICES = {
     "4": ("mlp", "MLP (2 hidden layers)", lambda: MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=2000, random_state=42)),
 }
 
-
 def choose_model_type() -> tuple[str, str, callable] | None:
     print("\nModel types:")
     for k, (name, desc, _) in MODEL_CHOICES.items():
         print(f"{k}) {name} - {desc}")
-    raw = input("Select model (0 cancel)> ").strip()
+    # raw = input("Select model (0 cancel)> ").strip()
+    raw = prompt("Select model> ", completer=WordCompleter(list(MODEL_CHOICES.keys()) + ["0"])).strip()
     if raw == "0":
         return None
     if raw not in MODEL_CHOICES:
@@ -705,28 +714,28 @@ def choose_model_type() -> tuple[str, str, callable] | None:
 # Training (single function)
 # =========================
 
-from collections import Counter
-
 def run_training_interactive(datasets_dir: Path, models_dir: Path) -> None:
     """
     Interactive training:
-    - choose dataset folder (must contain dataset.jsonl)
     - choose model type
+    - choose dataset folder (must contain dataset.jsonl)
     - train + evaluate
     - save model + metrics under models_dir/<dataset>/<model>_<n>/
     """
-    dataset_dir = choose_dataset_dir(datasets_dir)
-    if not dataset_dir:
-        return
 
+    # 1) elegir modelo
     choice = choose_model_type()
     if not choice:
         return
     model_key, model_desc, model_factory = choice
-
-    print(f"\nSelected dataset: {dataset_dir.name}")
     print(f"Selected model: {model_key} ({model_desc})")
 
+    # 2) elegir dataset
+    dataset_dir = choose_dataset_dir(datasets_dir)
+    if not dataset_dir:
+        return    
+    print(f"\nSelected dataset session: {dataset_dir.name}")
+    
     rows = load_dataset_jsonl(dataset_dir)
     X, y, feature_names = vectorize_bc_rows(rows)
 
@@ -793,7 +802,6 @@ def run_training_interactive(datasets_dir: Path, models_dir: Path) -> None:
     print(f"\nSaved model: {model_path}")
     print(f"Saved metrics: {out_dir / 'metrics.json'}")
     print(f"Output dir: {out_dir}")
-
 
 def baseline_section_body(section_title: str, kb_compact: dict) -> str:
     """
@@ -1011,7 +1019,6 @@ def ollama_list_models_http(timeout_s: int = 10) -> list[str]:
     except Exception:
         return []
 
-
 def ollama_list_models_cli(timeout_s: int = 5) -> list[str]:
     """
     Fallback: calls `ollama list` and parses the first column (NAME).
@@ -1129,8 +1136,6 @@ def choose_ollama_model_interactive(default: str | None = None) -> str | None:
 
         print("Invalid selection. Tip: type / to filter, or TAB to autocomplete (if supported).")
 
-
-
 OLLAMA_GENERATE_URL = "http://localhost:11434/api/generate"
 
 def ollama_generate_http(model: str, prompt: str, timeout_s: int = 180) -> str:
@@ -1156,7 +1161,6 @@ def ollama_generate_http(model: str, prompt: str, timeout_s: int = 180) -> str:
 
     print()  # newline final
     return "".join(chunks).strip()
-
 
 def sanitize_llm_section(text: str, section_title: str) -> str:
     t = (text or "").strip()
@@ -1682,7 +1686,8 @@ def model_policy_decide_action(state: dict, model, feature_names: list[str]) -> 
 #         f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 def log_dataset_row(session_dir, session_id: str, row: dict) -> None:
-    path = session_dir / "dataset.jsonl"
+    path = DATASETS_DIR / f"dataset_{session_id}" / "dataset.jsonl"
+    path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
@@ -1696,7 +1701,6 @@ def log_freeform_row(session_dir: Path, session_id: str, row: dict) -> None:
         f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 def main():
-
     # Lógica navegación entre menús
     while True:
         print(random.choice(BANNERS))
@@ -1902,7 +1906,6 @@ def main():
                         # Para coherencia en los logs
                         command = command_to_run
 
-
                         log_command_output(session_dir, session_id, action_id, action_name, result)
 
                         # PARSEAR RESULTADO Y ACTUALIZAR KB
@@ -1936,7 +1939,6 @@ def main():
                         time.sleep(0.5)
 
                     print("Session finished\n")
-
                     break
 
                 # Modo observación: el sistema solo observa la sesión sin sugerir ni tomar decisiones. El pentester ejecuta comandos libremente y el sistema actualiza la KB y logs con lo que ocurre.
@@ -2114,7 +2116,6 @@ def main():
                         # Para coherencia en los logs
                         command = command_to_run
 
-
                         log_command_output(session_dir, session_id, action_id, action_name, result)
 
                         # PARSEAR RESULTADO Y ACTUALIZAR KB
@@ -2146,11 +2147,8 @@ def main():
                         })
 
                         time.sleep(0.5)
-
                     print("Session finished\n")
-
                     break
-
 
                 elif sub_choice == "0":
                     break
@@ -2186,8 +2184,20 @@ def main():
                 sub_choice = report_menu()
                 if sub_choice == "1":
 
-                    
-                    session_dir = SESSIONS_DIR / "session_20260224_000156_mvp"
+                    # Mostrar listado de sesiones disponibles (carpetas dentro de SESSIONS_DIR) y elegir una para generar el PDF a partir del md generado en esa sesión.
+                    sessions_list = [s for s in SESSIONS_DIR.iterdir() if s.is_dir()]
+                    if not sessions_list:
+                        print("No sessions found.")
+                        break
+                    print("Available sessions:")
+                    for i, s in enumerate(sessions_list):
+                        print(f"{i+1}) {s.name}")
+                    # options = [str(i) for i in range(1, len(sessions_list) + 1)] + [s.name for s in sessions_list] + ["c", "C"]
+                    options =  [s.name for s in sessions_list] + ["c", "C"]
+                    completer = WordCompleter(options, ignore_case=True, match_middle=True)
+
+                    session_choice = prompt("Choose session [num|name|c=cancel]> ", completer=completer).strip()
+                    session_dir = SESSIONS_DIR / session_choice     # session_dir = SESSIONS_DIR / "session_20260224_000156_mvp" # default para pruebas, luego elegiré de la lista
 
                     if not session_dir or not session_dir.exists():
                         print(f"Session dir not found: {session_dir}")
@@ -2266,7 +2276,21 @@ def main():
 
                 elif sub_choice == "2":
                     print("Converting report to PDF...")
-                    session_dir = SESSIONS_DIR / "session_20260224_000156_mvp"
+
+                    # Mostrar listado de sesiones disponibles (carpetas dentro de SESSIONS_DIR) y elegir una para generar el PDF a partir del md generado en esa sesión.
+                    sessions_list = [s for s in SESSIONS_DIR.iterdir() if s.is_dir()]
+                    if not sessions_list:
+                        print("No sessions found.")
+                        break
+                    print("Available sessions:")
+                    for i, s in enumerate(sessions_list):
+                        print(f"{i+1}) {s.name}")
+                    # options = [str(i) for i in range(1, len(sessions_list) + 1)] + [s.name for s in sessions_list] + ["c", "C"]
+                    options =  [s.name for s in sessions_list] + ["c", "C"]
+                    completer = WordCompleter(options, ignore_case=True, match_middle=True)
+
+                    session_choice = prompt("Choose session [num|name|c=cancel]> ", completer=completer).strip()
+                    session_dir = SESSIONS_DIR / session_choice     # session_dir = SESSIONS_DIR / "session_20260224_000156_mvp" # default para pruebas, luego elegiré de la lista
                     md_path = session_dir / "report_2.md"
                     # pdf_path = session_dir / "report.pdf"
                     pdf_path = next_available_path(session_dir, "report", ".pdf")
