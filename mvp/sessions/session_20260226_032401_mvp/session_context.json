@@ -1,0 +1,7 @@
+{
+  "id": "20260226_032401_mvp",
+  "mode": "autonomous",
+  "goal_type": "recon",
+  "target": "127.0.0.1",
+  "max_steps": 5
+}

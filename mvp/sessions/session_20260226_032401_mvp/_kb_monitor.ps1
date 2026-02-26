@@ -1,0 +1,1 @@
+$kb='C:\Users\mafer\Mi unidad\1-MASTER_INFORMATICA\2-1-Cyber\213-TFM\tfm\penhackit\mvp\sessions\session_20260226_032401_mvp\kb.json'; while($true){cls; if(Test-Path $kb){gc $kb -Raw} else {'Waiting for kb.json'}; sleep -m 500}

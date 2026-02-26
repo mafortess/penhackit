@@ -1,0 +1,29 @@
+{
+  "session_id": "20260226_031018_mvp",
+  "name_enterprise": "ITIS",
+  "networks": {},
+  "hosts": [],
+  "services": [],
+  "findings": [],
+  "notes": [],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  },
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "commands": [
+    "route print"
+  ],
+  "step_idx": 4,
+  "last_action_id": 4,
+  "last_action_name": "PING_FOCUS_HOST",
+  "last_rc": 0,
+  "last_event_type": "NO_EVENT"
+}

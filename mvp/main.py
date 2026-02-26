@@ -1,6 +1,8 @@
 from pathlib import Path
 import json
+import platform
 import subprocess
+import os
 import time
 import re
 import requests
@@ -28,6 +30,58 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStream
 
 import threading
 import random
+
+def launch_kb_monitor_window_windows(session_dir: Path, cols: int = 60, rows: int = 14) -> None:
+    """
+    Opens a separate small PowerShell window that continuously shows kb.json.
+    Windows-only. No interaction with the core; read-only.
+    """
+    if os.name != "nt":
+        return
+    session_dir = session_dir.resolve()
+    kb_path = (session_dir / "kb.json").resolve()
+    ps1 = (session_dir / "_kb_monitor.ps1").resolve()
+
+    # # PowerShell script to set window size and refresh output
+    ps_script = rf"""
+    $kb = '{str(kb_path)}'
+    $ErrorActionPreference='Continue'
+    try {{
+      $raw = $Host.UI.RawUI
+      $raw.WindowTitle = 'PenHackIt KB'
+      $size = New-Object System.Management.Automation.Host.Size({cols},{rows})
+      $raw.WindowSize = $size
+      $raw.BufferSize = New-Object System.Management.Automation.Host.Size({cols}, 3000)
+    }} catch {{Write-Host "ERROR: $($_.Exception.Message)"}}
+    
+    while ($true) {{
+      Clear-Host
+      if (Test-Path -LiteralPath $kb) {{
+        Get-Content -LiteralPath $kb -Raw
+      }} else {{
+        Write-Host "Waiting for kb.json: $kb"
+      }}
+      Start-Sleep -Milliseconds 500
+    }}
+    """.strip()
+        # IMPORTANT: start "" ...  (empty title), otherwise args get mis-parsed and it exits.
+   
+    # Launch new console window
+    # ps_script = "while ($true) { Clear-Host; 'alive'; Start-Sleep -Milliseconds 500 }"
+    
+    ps1.write_text(
+        f"$kb='{kb_path}'; while($true){{cls; if(Test-Path $kb){{gc $kb -Raw}} else {{'Waiting for kb.json'}}; sleep -m 500}}",
+        encoding="utf-8",
+    )
+
+    subprocess.Popen(["cmd", "/c", "start", "", "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(ps1)])
+    # subprocess.Popen(
+    #     ["cmd.exe", "/c", "start", "", "powershell.exe", "-NoExit", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps_script],
+    #     stdout=subprocess.DEVNULL,
+    #     stderr=subprocess.DEVNULL,
+    #     stdin=subprocess.DEVNULL,
+    #     creationflags=subprocess.CREATE_NEW_CONSOLE,
+    # )
 
 BANNERS = [
 r"""
@@ -451,6 +505,75 @@ def save_kb(session_dir, kb: dict) -> None:
         json.dumps(kb, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
+
+from typing import Any, Dict, Set, Tuple
+
+
+def compute_kb_progress_simple(prev_kb: Dict[str, Any], new_kb: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Very simple progress detector. Assumes a simple KB shape:
+
+      kb["hosts"] -> iterable of host strings (or dicts with "ip")
+      kb["open_ports"] -> iterable of {"host": "...", "port": 80}
+      kb["services"] -> iterable of {"host": "...", "port": 80, "name": "http"}
+      kb["findings"] -> iterable of strings
+
+    Returns counts + has_progress.
+    """
+
+    def _host(x: Any) -> str:
+        if isinstance(x, str):
+            return x.strip()
+        if isinstance(x, dict):
+            return str(x.get("ip") or x.get("host") or "").strip()
+        return str(x).strip()
+
+    prev_hosts: Set[str] = set(_host(h) for h in prev_kb.get("hosts", []) if _host(h))
+    new_hosts: Set[str] = set(_host(h) for h in new_kb.get("hosts", []) if _host(h))
+
+    prev_ports: Set[Tuple[str, int]] = set(
+        (_host(p.get("host") or p.get("ip")), int(p.get("port")))
+        for p in prev_kb.get("open_ports", [])
+        if isinstance(p, dict) and _host(p.get("host") or p.get("ip")) and str(p.get("port", "")).isdigit()
+    )
+    new_ports: Set[Tuple[str, int]] = set(
+        (_host(p.get("host") or p.get("ip")), int(p.get("port")))
+        for p in new_kb.get("open_ports", [])
+        if isinstance(p, dict) and _host(p.get("host") or p.get("ip")) and str(p.get("port", "")).isdigit()
+    )
+
+    prev_services: Set[Tuple[str, int, str]] = set(
+        (_host(s.get("host") or s.get("ip")), int(s.get("port")), str(s.get("name", "")).strip().lower())
+        for s in prev_kb.get("services", [])
+        if isinstance(s, dict)
+        and _host(s.get("host") or s.get("ip"))
+        and str(s.get("port", "")).isdigit()
+        and str(s.get("name", "")).strip()
+    )
+    new_services: Set[Tuple[str, int, str]] = set(
+        (_host(s.get("host") or s.get("ip")), int(s.get("port")), str(s.get("name", "")).strip().lower())
+        for s in new_kb.get("services", [])
+        if isinstance(s, dict)
+        and _host(s.get("host") or s.get("ip"))
+        and str(s.get("port", "")).isdigit()
+        and str(s.get("name", "")).strip()
+    )
+
+    prev_findings: Set[str] = set(str(f).strip() for f in prev_kb.get("findings", []) if str(f).strip())
+    new_findings: Set[str] = set(str(f).strip() for f in new_kb.get("findings", []) if str(f).strip())
+
+    added_hosts = new_hosts - prev_hosts
+    added_ports = new_ports - prev_ports
+    added_services = new_services - prev_services
+    added_findings = new_findings - prev_findings
+
+    return {
+        "has_progress": bool(added_hosts or added_ports or added_services or added_findings),
+        "new_hosts_count": len(added_hosts),
+        "new_ports_count": len(added_ports),
+        "new_services_count": len(added_services),
+        "new_findings_count": len(added_findings),
+    }
 
 def log_step(session_dir, session_id: str, record: dict) -> None:
     path = session_dir / "steps.jsonl"
@@ -1705,6 +1828,11 @@ def main():
     while True:
         print(random.choice(BANNERS))
         print()
+
+        print("Operative System:", platform.system())  # solo para mostrar que se puede usar info del sistema en el menú si se quiere
+        print("Architecture:", platform.machine() )
+        print()
+
         choice = main_menu()
  
         if choice == "1":
@@ -1752,7 +1880,7 @@ def main():
                     s = Session(session_id)
 
                     print("Running session...")
-
+                    
                     # Creación de KB inicial vacía en la carpeta de la sesión.
                     session_dir.mkdir(parents=True, exist_ok=True)
                     # Esta linea anterior crea la carpeta session_dir en el sistema de archivos.
@@ -1807,9 +1935,12 @@ def main():
                     )
                     # La función de arriba crea/sobrescribe kb.json en la carpeta de la sesión y guarda dentro la KB inicial en formato JSON legible.
 
+                    launch_kb_monitor_window_windows(session_dir)
+                    time.sleep(2)
+                    
                     # Para el MVP, la decisión de acción se hará con una función policy_decide_action(state, t) que implementaremos con lógica fija (scripted) o reglas simples. T
                     # También podría usar un modelo de ML entrenado con los datos de sesiones anteriores.
-                    autonomous_decider = "model"  # "scripted" | "rules" | "model"
+                    autonomous_decider = "scripted"  # "scripted" | "rules" | "model"
                     model = None
                     feature_names = None
                     # model = joblib.load("mvp/models/<...>/model.joblib")
@@ -1869,6 +2000,11 @@ def main():
                                 action_id = policy_decide_action(state, t)
 
                             action_name, cmd_template = ACTIONS.get(action_id, ("NONE", None))
+                        
+                        import copy
+                        # Esto no hace una copia, solo referencia.
+                        # prev_kb = kb 
+                        prev_kb = copy.deepcopy(kb) # para comparar antes/después y calcular progreso
 
                         print(f"Decided action: {action_name} (ID: {action_id})")
 
@@ -1913,7 +2049,9 @@ def main():
                         print(f"Events generated from command result: {events}")
 
                         # MEMORY (KB) UPDATE
-                        kb = update_kb(kb, events)
+                        new_kb = update_kb(kb, events)
+
+                        kb = new_kb
 
                         kb.setdefault("commands", [])
                         if result.get("cmd"):
@@ -1928,6 +2066,18 @@ def main():
                         print(f"Updated KB: {kb}")
                         save_kb(session_dir, kb)
 
+                        progress = compute_kb_progress_simple(prev_kb, kb)
+
+                        if progress["has_progress"]:
+                            print(
+                                f"PROGRESS: +hosts={progress['new_hosts_count']} "
+                                f"+ports={progress['new_ports_count']} "
+                                f"+services={progress['new_services_count']} "
+                                f"+findings={progress['new_findings_count']}"
+                            )
+                        else:
+                            print("NO PROGRESS")
+
                         # Logging del paso completo (estado, acción, comando, resultado) para trazabilidad y posible entrenamiento futuro
                         log_step(session_dir, session_id,{
                         "t": t,
@@ -1936,7 +2086,7 @@ def main():
                         "command": command,
                         })
 
-                        time.sleep(0.5)
+                        time.sleep(1)
 
                     print("Session finished\n")
                     break
@@ -1977,6 +2127,8 @@ def main():
 
                     print("Running session...")
 
+                    # launch_kb_monitor_window_windows(session_dir)
+                    
                     # Creación de KB inicial vacía en la carpeta de la sesión.
                     session_dir.mkdir(parents=True, exist_ok=True)
                     # Esta linea anterior crea la carpeta session_dir en el sistema de archivos.
