@@ -167,11 +167,11 @@ def extract_action_id_from_cmd(cmd: str) -> int:
 
 # Ruta base para sesiones, modelos, reportes.
 BASE_DIR = Path("mvp")
-SESSIONS_DIR = BASE_DIR / "sessions"
-MODELS_DIR = BASE_DIR / "models"
-DATASETS_DIR = BASE_DIR / "datasets"
-REPORTS_DIR = BASE_DIR / "reports"
-LLM_MODELS_DIR = BASE_DIR / "llm_models" 
+SESSIONS_DIR = BASE_DIR / "workspace/data/sessions"
+MODELS_DIR = BASE_DIR / "workspace/models"
+DATASETS_DIR = BASE_DIR / "workspace/data/datasets"
+REPORTS_DIR = BASE_DIR / "workspace/data/reports"
+LLM_MODELS_DIR = BASE_DIR / "workspace/llm_models" 
 
 # Menu principal: sesiones, entrenamiento, reporte.
 def main_menu():
