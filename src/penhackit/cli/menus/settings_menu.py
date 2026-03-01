@@ -1,7 +1,7 @@
 from prompt_toolkit import prompt # input mejorada (historial, autocompletado, multilinea, etc)
 from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
 
-def run_settings_menu() -> None:
+def run_settings_menu(app_context: dict) -> None:
     while True:
         choice = show_settings_menu()
         if choice == "1":

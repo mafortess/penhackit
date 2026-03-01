@@ -1,13 +1,13 @@
 from prompt_toolkit import prompt # input mejorada (historial, autocompletado, multilinea, etc)
 from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
 
-from penhackit.report.report_services import generate_report, list_reports, show_report_details
-def run_report_menu() -> None:
+from penhackit.report.report_services import run_generate_report_service, list_reports, show_report_details
+
+def run_report_menu(app_context: dict) -> None:
     while True:
         choice = show_report_menu()
         if choice == "1":
-            session_id = prompt("Enter session ID> ")
-            generate_report(session_id)
+            run_generate_report_service(app_context)
         elif choice == "2":
             list_reports()
         elif choice == "3":

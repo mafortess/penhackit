@@ -1,14 +1,14 @@
 from prompt_toolkit import prompt # input mejorada (historial, autocompletado, multilinea, etc)
 from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
 
-from penhackit.training.training_services import train_model, evaluate_model, list_datasets_and_models, rebuild_dataset_from_sessions
+from penhackit.training.training_services import run_train_model_service, run_evaluate_model_service, list_datasets_and_models, rebuild_dataset_from_sessions
 def run_training_menu(app_context: dict) -> None:
     while True:
         choice = show_training_menu()
         if choice == "1":
-            train_model(app_context)
+            run_train_model_service(app_context)
         elif choice == "2":
-            evaluate_model(app_context)
+            run_evaluate_model_service(app_context)
         elif choice == "3":
             list_datasets_and_models(app_context)
         elif choice == "4":

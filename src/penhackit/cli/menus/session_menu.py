@@ -1,13 +1,13 @@
 from prompt_toolkit import prompt # input mejorada (historial, autocompletado, multilinea, etc)
 from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
 
-from penhackit.session.session_services import run_session, list_sessions, show_session_details, delete_session
+from penhackit.session.session_services import run_session_service, list_sessions, show_session_details, delete_session
 
 def run_session_menu(app_context: dict) -> None:
     while True:
         choice = show_session_menu()
         if choice == "1":
-            run_session(app_context)
+            run_session_service(app_context)
         elif choice == "2":
             list_sessions()
         elif choice == "3":
