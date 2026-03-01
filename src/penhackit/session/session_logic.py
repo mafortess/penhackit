@@ -11,6 +11,8 @@ import copy
 from penhackit.common.paths import Paths
 from penhackit.session.command import command_builder
 
+import numpy as np
+
 def new_session_logic(session_settings: dict, env_settings: dict, paths: Paths) -> dict:
     """
     kb: dict con el conocimiento actual (hosts, servicios, etc.)
@@ -141,8 +143,11 @@ def new_session_autonomous(session_settings: dict, paths: Paths, session_info: d
     kb = session_info["kb"]
     session_context = session_info["session_context"]
     session_config = session_info["session_config"]
+    session_dir = session_info["session_dir"]
     model = session_info["model"]
     fn = session_info["feature_names"]
+
+    print(f"Session ID: {session_info['session_id']}")
 
     for t in range(max_steps):  # Simulación de max_steps pasos de la sesión
         print(f"\n--- Step {t} ---")
@@ -171,7 +176,15 @@ def new_session_autonomous(session_settings: dict, paths: Paths, session_info: d
 
         command_to_run = command
 
-        result = execute_command(command_to_run)
+        print(f"Executing command: {command_to_run}")
+        rc, stdout, stderr = execute_command(command_to_run)
+        result = {
+            "rc": rc,
+            "stdout": stdout,
+            "stderr": stderr,
+            "cmd": command_to_run
+        }
+        
         log_command_output(session_info["session_dir"], session_info["session_id"], action_id, action_name, result)
 
         events = parse_command_result(action_name, result)
@@ -180,7 +193,8 @@ def new_session_autonomous(session_settings: dict, paths: Paths, session_info: d
         kb = update_kb(kb, events)
 
         kb.setdefault("commands", [])
-        if result.get("cmd"):
+
+        if result["cmd"]:
             kb["commands"].append(result["cmd"])
 
         kb["step_idx"] = t
@@ -221,10 +235,12 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
     kb = session_info["kb"]
     session_context = session_info["session_context"]
     session_config = session_info["session_config"]
-    action_id = 1  # INSPECT_IPCONFIG
-    action_name = ACTIONS.get(action_id, ("UNKNOWN", None))[0]
-    cmd = command_builder(action_id, kb)
+    session_dir = session_info["session_dir"]  
+    session_id = session_info["session_id"]
+    dataset_dir = paths.datasets_dir / session_id
 
+    print(f"Session ID: {session_info['session_id']}")
+    
     for t in range(max_steps):  # Simulación de max_steps pasos de la sesión
         print(f"\n--- Step {t} ---")
 
@@ -236,6 +252,7 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
 
         # El pentester quiere parar la sesión
         if raw == "0":
+            print("Stopping session as per user request.")
             action_id = 0
             action_name, cmd_template = ACTIONS.get(action_id, ("NONE", None))
             command_to_run = None
@@ -243,6 +260,7 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
 
         # El pentester ha decidido ejecutar una acción predefinida (action_id) y el sistema construye el comando a ejecutar con command_builder(action_id, kb)
         elif raw.isdigit():
+            print("Interpreting input as action ID...")
             action_id = int(raw)
             action_name, cmd_template = ACTIONS.get(action_id, ("NONE", None))
             command_to_run = command_builder(action_id, kb)
@@ -250,15 +268,23 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
         
         # El pentester ha decidido escribir un comando libre (raw) y el sistema lo ejecuta tal cual (sin pasar por command_builder ni acciones predefinidas)
         else:
+            print("Interpreting input as freeform command...")
             # Comando directo (sin acción)
             # action_id = -1
             # action_name = "USER_COMMAND"
             # cmd_template = None
             command_to_run = raw
-            action_id = extract_action_id_from_cmd(command_to_run)
+            try:
+                print("Trying to extract action_id from freeform command for logging...")
+                action_id = extract_action_id_from_cmd(command_to_run)
+                print(f"Extracted action_id: {action_id} from command: {command_to_run}")
+            except Exception:
+                print("Error extracting action_id from command, treating as freeform.")
+                action_id = None
+
             if action_id is None:
                 print("No match -> FREEFORM (not added to dataset)")
-                log_freeform_row(session_config["session_dir"], session_config["session_id"], {
+                log_freeform_row(session_dir, session_info["session_id"], {
                     "type": "FREEFORM",
                     "t": t,
                     "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -266,10 +292,12 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
                     "cmd": command_to_run,
                 })
                 continue
+
             action_name, _ = ACTIONS.get(action_id, ("UNKNOWN", None))
 
         # ---- aquí ya tienes (state, action_id) => DATASET PURO
-        log_dataset_row(session_config["session_dir"], session_config["session_id"], {
+        print(f"Logging dataset row for state and action...")
+        log_dataset_row(session_dir, session_id, dataset_dir, {
             # "schema": "penhackit.bc.v1",
             "t": t,
             # "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -281,12 +309,17 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
         print(f"Command to run: {command_to_run}")
 
         # EJECUCIÓN
-        result = execute_command(command_to_run)
-
+        rc, stdout, stderr = execute_command(command_to_run)
+        result = {
+            "rc": rc,
+            "stdout": stdout,
+            "stderr": stderr,
+            "cmd": command_to_run
+        }
         # Para coherencia en los logs
         command = command_to_run
 
-        log_command_output(session_config["session_dir"], session_config["session_id"], action_id, action_name, result)
+        log_command_output(session_dir, session_id, action_id, action_name, result)
 
         # PARSEAR RESULTADO Y ACTUALIZAR KB
         events = parse_command_result(action_name, result)
@@ -296,7 +329,7 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
         kb = update_kb(kb, events)
 
         kb.setdefault("commands", [])
-        if result.get("cmd"):
+        if result["cmd"]:
             kb["commands"].append(result["cmd"])
 
         kb["step_idx"] = t
@@ -306,10 +339,10 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
         kb["last_event_type"] = events[0].get("type") if events else None
 
         print(f"Updated KB: {kb}")
-        save_kb(session_config["session_dir"], kb)
+        save_kb(session_dir, kb)
 
         # Logging del paso completo (estado, acción, comando, resultado) para trazabilidad y posible entrenamiento futuro
-        log_step(session_config["session_dir"], session_config["session_id"],{
+        log_step(session_dir, session_id,{
         "t": t,
         "state": state,
         "action_id": action_id,
@@ -576,23 +609,54 @@ def command_builder(action, kb):
 
     return cmd
 
+# def execute_command(cmd):
+#     print(f"Executing command: {cmd} and capturing result...")
+#     if not cmd:  # None o "" => no ejecutar
+#         return {"rc": 0, "stdout": "", "stderr": "", "cmd": cmd}
+#     o  = subprocess.run(
+#         cmd,
+#         shell=True,
+#         capture_output=True,
+#         text=True,
+#         timeout=30,
+#     )
+#     return {
+#         "cmd": cmd,
+#         "rc": int(o.returncode),
+#         "stdout": o.stdout or "",
+#         "stderr": o.stderr or "",
+#     }
+
 def execute_command(cmd):
-    print(f"Executing command: {cmd} and capturing result...")
-    if not cmd:  # None o "" => no ejecutar
-        return {"rc": 0, "stdout": "", "stderr": "", "cmd": cmd}
-    o  = subprocess.run(
+    stdout_chunks = []
+    stderr_chunks = []
+
+    process = subprocess.Popen(
         cmd,
         shell=True,
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
         text=True,
-        timeout=30,
+        bufsize=1,  # Línea por línea
     )
-    return {
-        "cmd": cmd,
-        "rc": int(o.returncode),
-        "stdout": o.stdout or "",
-        "stderr": o.stderr or "",
-    }
+    
+    assert process.stdout is not None
+    assert process.stderr is not None
+
+    for line in process.stdout:
+        print(line, end="")  # Imprime en tiempo real
+        stdout_chunks.append(line) # Guarda en chunks para no perder datos grandes
+
+    for line in process.stderr:
+        print(line, end="")  # Imprime en tiempo real
+        stderr_chunks.append(line) # Guarda en chunks para no perder datos grandes
+
+    return_code = process.wait()  # Espera a que termine el proceso
+
+    stdout_text = "".join(stdout_chunks)
+    stderr_text = "".join(stderr_chunks)
+
+    return return_code, stdout_text, stderr_text
 
 def parse_command_result(action_name: str, result: dict) -> list[dict]:
     """
@@ -920,8 +984,8 @@ def model_policy_decide_action(state: dict, model, feature_names: list[str]) -> 
     y_pred = model.predict(x)
     return int(y_pred[0])
 
-def log_dataset_row(session_dir, session_id: str, row: dict) -> None:
-    path = DATASETS_DIR / f"dataset_{session_id}" / "dataset.jsonl"
+def log_dataset_row(session_dir, session_id: str, dataset_dir: Path, row: dict) -> None:
+    path = dataset_dir / "dataset.jsonl"
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(row, ensure_ascii=False) + "\n")

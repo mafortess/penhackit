@@ -1,0 +1,438 @@
+"filename", "language", "JSON", "PowerShell", "JSON Lines", "Python", "Markdown", "comment", "blank", "total"
+"/home/kali/penhackit/mvp/README.md", "Markdown", 0, 0, 0, 0, 134, 0, 22, 156
+"/home/kali/penhackit/mvp/_kb_monitor.ps1", "PowerShell", 0, 6, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/datasets/dataset_20260225_005806_mvp/dataset.jsonl", "JSON Lines", 0, 0, 2, 0, 0, 0, 1, 3
+"/home/kali/penhackit/mvp/datasets/examples_demo/dataset copy 2.jsonl", "JSON Lines", 0, 0, 19, 0, 0, 0, 0, 19
+"/home/kali/penhackit/mvp/datasets/examples_demo/dataset copy 3.jsonl", "JSON Lines", 0, 0, 19, 0, 0, 0, 0, 19
+"/home/kali/penhackit/mvp/datasets/examples_demo/dataset copy 4.jsonl", "JSON Lines", 0, 0, 19, 0, 0, 0, 0, 19
+"/home/kali/penhackit/mvp/datasets/examples_demo/dataset copy.jsonl", "JSON Lines", 0, 0, 19, 0, 0, 0, 0, 19
+"/home/kali/penhackit/mvp/datasets/examples_demo/dataset.jsonl", "JSON Lines", 0, 0, 19, 0, 0, 0, 0, 19
+"/home/kali/penhackit/mvp/kb1.json", "JSON", 46, 0, 0, 0, 0, 0, 0, 46
+"/home/kali/penhackit/mvp/main copy.py", "Python", 0, 0, 0, 64, 0, 362, 11, 437
+"/home/kali/penhackit/mvp/main.py", "Python", 0, 0, 0, 120, 0, 2334, 17, 2471
+"/home/kali/penhackit/mvp/models/datasets/decision_tree/metrics.json", "JSON", 161, 0, 0, 0, 0, 0, 0, 161
+"/home/kali/penhackit/mvp/models/datasets/decision_tree_1/metrics.json", "JSON", 161, 0, 0, 0, 0, 0, 0, 161
+"/home/kali/penhackit/mvp/models/datasets/decision_tree_2/metrics.json", "JSON", 161, 0, 0, 0, 0, 0, 0, 161
+"/home/kali/penhackit/mvp/models/datasets/decision_tree_3/metrics.json", "JSON", 161, 0, 0, 0, 0, 0, 0, 161
+"/home/kali/penhackit/mvp/models/datasets/mlp/metrics.json", "JSON", 184, 0, 0, 0, 0, 0, 0, 184
+"/home/kali/penhackit/mvp/models/datasets/mlp_1/metrics.json", "JSON", 184, 0, 0, 0, 0, 0, 0, 184
+"/home/kali/penhackit/mvp/models/datasets/mlp_2/metrics.json", "JSON", 184, 0, 0, 0, 0, 0, 0, 184
+"/home/kali/penhackit/mvp/models/datasets/random_forest/metrics.json", "JSON", 140, 0, 0, 0, 0, 0, 0, 140
+"/home/kali/penhackit/mvp/models/examples_demo/decision_tree/metrics.json", "JSON", 161, 0, 0, 0, 0, 0, 0, 161
+"/home/kali/penhackit/mvp/models/examples_demo/logreg/metrics.json", "JSON", 140, 0, 0, 0, 0, 0, 0, 140
+"/home/kali/penhackit/mvp/models/examples_demo/random_forest/metrics.json", "JSON", 140, 0, 0, 0, 0, 0, 0, 140
+"/home/kali/penhackit/mvp/models/examples_demo/random_forest_1/metrics.json", "JSON", 140, 0, 0, 0, 0, 0, 0, 140
+"/home/kali/penhackit/mvp/sessions/session_20260223_205113/kb.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_205638/kb.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_205638/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_205638/session_context.json", "JSON", 5, 0, 0, 0, 0, 0, 0, 5
+"/home/kali/penhackit/mvp/sessions/session_20260223_205845/kb.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_205845/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_205845/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_210053/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_210053/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_210053/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_210908/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_210908/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_210908/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_210932/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_210932/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_210932/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_211551/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_211551/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_211551/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_211551/steps.jsonl", "JSON Lines", 0, 0, 10, 0, 0, 0, 1, 11
+"/home/kali/penhackit/mvp/sessions/session_20260223_212147/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_212147/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_212147/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_212147/steps.jsonl", "JSON Lines", 0, 0, 10, 0, 0, 0, 1, 11
+"/home/kali/penhackit/mvp/sessions/session_20260223_212955/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_212955/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_212955/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_213020/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_213020/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_213020/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_213020/steps.jsonl", "JSON Lines", 0, 0, 11, 0, 0, 0, 1, 12
+"/home/kali/penhackit/mvp/sessions/session_20260223_213136/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_213136/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_213136/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_213136/steps.jsonl", "JSON Lines", 0, 0, 11, 0, 0, 0, 1, 12
+"/home/kali/penhackit/mvp/sessions/session_20260223_213204/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_213204/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_213204/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_213204/steps.jsonl", "JSON Lines", 0, 0, 11, 0, 0, 0, 1, 12
+"/home/kali/penhackit/mvp/sessions/session_20260223_213405/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_213405/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_213405/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_213405/steps.jsonl", "JSON Lines", 0, 0, 11, 0, 0, 0, 1, 12
+"/home/kali/penhackit/mvp/sessions/session_20260223_214436/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_214436/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_214436/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_214436/steps.jsonl", "JSON Lines", 0, 0, 11, 0, 0, 0, 1, 12
+"/home/kali/penhackit/mvp/sessions/session_20260223_214604/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_214604/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_214604/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_214604/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_215427/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_215427/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_215427/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_215540/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_215540/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_215540/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_215540/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_215604/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_215604/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_215604/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_215604/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_215639/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_215639/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_215639/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_215639/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_215756/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_215756/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_215756/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_215756/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_220227/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_220227/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_220227/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_220312/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_220312/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_220312/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_220312/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_221119/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_221119/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_221119/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_221335/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_221335/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_221335/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_221401/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_221401/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_221401/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_221401/steps.jsonl", "JSON Lines", 0, 0, 2, 0, 0, 0, 1, 3
+"/home/kali/penhackit/mvp/sessions/session_20260223_221458/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_221458/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_221458/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_221706/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_221706/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_221706/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_221706/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_221937/kb.json", "JSON", 8, 0, 0, 0, 0, 0, 0, 8
+"/home/kali/penhackit/mvp/sessions/session_20260223_221937/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_221937/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_221937/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_222806/kb.json", "JSON", 15, 0, 0, 0, 0, 0, 0, 15
+"/home/kali/penhackit/mvp/sessions/session_20260223_222806/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_222806/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_222806/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_223336/kb.json", "JSON", 15, 0, 0, 0, 0, 0, 0, 15
+"/home/kali/penhackit/mvp/sessions/session_20260223_223336/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_223336/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_223336/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_223606/kb.json", "JSON", 15, 0, 0, 0, 0, 0, 0, 15
+"/home/kali/penhackit/mvp/sessions/session_20260223_223606/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_223606/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_223606/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_223715/kb.json", "JSON", 15, 0, 0, 0, 0, 0, 0, 15
+"/home/kali/penhackit/mvp/sessions/session_20260223_223715/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_223715/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_223715/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_224125/kb.json", "JSON", 158, 0, 0, 0, 0, 0, 0, 158
+"/home/kali/penhackit/mvp/sessions/session_20260223_224125/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_224125/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_224125/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_224908/kb.json", "JSON", 158, 0, 0, 0, 0, 0, 0, 158
+"/home/kali/penhackit/mvp/sessions/session_20260223_224908/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_224908/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_224908/steps.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_225050/kb.json", "JSON", 158, 0, 0, 0, 0, 0, 0, 158
+"/home/kali/penhackit/mvp/sessions/session_20260223_225050/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_225050/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_225050/steps.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_225224/kb.json", "JSON", 165, 0, 0, 0, 0, 0, 0, 165
+"/home/kali/penhackit/mvp/sessions/session_20260223_225224/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_225224/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_225224/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_225420/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_225420/kb.json", "JSON", 165, 0, 0, 0, 0, 0, 0, 165
+"/home/kali/penhackit/mvp/sessions/session_20260223_225420/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_225420/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_225420/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_225935/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_225935/kb.json", "JSON", 165, 0, 0, 0, 0, 0, 0, 165
+"/home/kali/penhackit/mvp/sessions/session_20260223_225935/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_225935/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_225935/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_230553mvp_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_230553mvp_mvp/kb.json", "JSON", 165, 0, 0, 0, 0, 0, 0, 165
+"/home/kali/penhackit/mvp/sessions/session_20260223_230553mvp_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_230553mvp_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_230553mvp_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_230632_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_230632_mvp/kb.json", "JSON", 165, 0, 0, 0, 0, 0, 0, 165
+"/home/kali/penhackit/mvp/sessions/session_20260223_230632_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_230632_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_230632_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_230814_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_230814_mvp/kb.json", "JSON", 165, 0, 0, 0, 0, 0, 0, 165
+"/home/kali/penhackit/mvp/sessions/session_20260223_230814_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_230814_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_230814_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_231458_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_231458_mvp/kb.json", "JSON", 171, 0, 0, 0, 0, 0, 0, 171
+"/home/kali/penhackit/mvp/sessions/session_20260223_231458_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_231458_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_231458_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_231729_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_231729_mvp/kb.json", "JSON", 171, 0, 0, 0, 0, 0, 0, 171
+"/home/kali/penhackit/mvp/sessions/session_20260223_231729_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_231729_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_231729_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_232239_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_232239_mvp/kb.json", "JSON", 176, 0, 0, 0, 0, 0, 0, 176
+"/home/kali/penhackit/mvp/sessions/session_20260223_232239_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_232239_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_232239_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_233937_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_233937_mvp/kb.json", "JSON", 180, 0, 0, 0, 0, 0, 0, 180
+"/home/kali/penhackit/mvp/sessions/session_20260223_233937_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_233937_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_233937_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_233951_mvp/kb.json", "JSON", 27, 0, 0, 0, 0, 0, 0, 27
+"/home/kali/penhackit/mvp/sessions/session_20260223_233951_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_233951_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_234259_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_234259_mvp/kb.json", "JSON", 180, 0, 0, 0, 0, 0, 0, 180
+"/home/kali/penhackit/mvp/sessions/session_20260223_234259_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_234259_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_234259_mvp/steps.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_235828_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260223_235828_mvp/kb.json", "JSON", 176, 0, 0, 0, 0, 0, 0, 176
+"/home/kali/penhackit/mvp/sessions/session_20260223_235828_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260223_235828_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260223_235828_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/kb.json", "JSON", 176, 0, 0, 0, 0, 0, 0, 176
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report.md", "Markdown", 0, 0, 0, 0, 46, 0, 25, 71
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_1.md", "Markdown", 0, 0, 0, 0, 106, 0, 19, 125
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_2.md", "Markdown", 0, 0, 0, 0, 44, 0, 27, 71
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_3.md", "Markdown", 0, 0, 0, 0, 11, 0, 10, 21
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_4.md", "Markdown", 0, 0, 0, 0, 8, 0, 7, 15
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_5.md", "Markdown", 0, 0, 0, 0, 8, 0, 7, 15
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_6.md", "Markdown", 0, 0, 0, 0, 10, 0, 7, 17
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_7.md", "Markdown", 0, 0, 0, 0, 10, 0, 7, 17
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_8.md", "Markdown", 0, 0, 0, 0, 65, 0, 55, 120
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_9.md", "Markdown", 0, 0, 0, 0, 45, 0, 19, 64
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/report_gemma3-1b.md", "Markdown", 0, 0, 0, 0, 75, 0, 23, 98
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_000156_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_024953_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_024953_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260224_024953_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_024953_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_024953_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_025337_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_025337_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260224_025337_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_025337_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_025337_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_025734_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_025734_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260224_025734_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_025734_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_025734_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_170152_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_170152_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260224_170152_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_170152_mvp/session_context.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_170152_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_193841_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_193841_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260224_193841_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_193841_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_193841_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_193853_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_193853_mvp/kb.json", "JSON", 159, 0, 0, 0, 0, 0, 0, 159
+"/home/kali/penhackit/mvp/sessions/session_20260224_193853_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_193853_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_193853_mvp/steps.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_193919_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_193919_mvp/kb.json", "JSON", 33, 0, 0, 0, 0, 0, 0, 33
+"/home/kali/penhackit/mvp/sessions/session_20260224_193919_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_193919_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_193919_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_194319_mvp/kb.json", "JSON", 27, 0, 0, 0, 0, 0, 0, 27
+"/home/kali/penhackit/mvp/sessions/session_20260224_194319_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_194319_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_194733_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_194733_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260224_194733_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_194733_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_194733_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_195418_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_195418_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260224_195418_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_195418_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_195418_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_195533_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_195533_mvp/kb.json", "JSON", 49, 0, 0, 0, 0, 0, 0, 49
+"/home/kali/penhackit/mvp/sessions/session_20260224_195533_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_195533_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_195533_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_201805_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_201805_mvp/kb.json", "JSON", 46, 0, 0, 0, 0, 0, 0, 46
+"/home/kali/penhackit/mvp/sessions/session_20260224_201805_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_201805_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_201805_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_204753_mvp/dataset.jsonl", "JSON Lines", 0, 0, 1, 0, 0, 0, 1, 2
+"/home/kali/penhackit/mvp/sessions/session_20260224_204753_mvp/kb.json", "JSON", 27, 0, 0, 0, 0, 0, 0, 27
+"/home/kali/penhackit/mvp/sessions/session_20260224_204753_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_204753_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_205025_mvp/dataset_freeform.jsonl", "JSON Lines", 0, 0, 2, 0, 0, 0, 1, 3
+"/home/kali/penhackit/mvp/sessions/session_20260224_205025_mvp/kb.json", "JSON", 27, 0, 0, 0, 0, 0, 0, 27
+"/home/kali/penhackit/mvp/sessions/session_20260224_205025_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_205025_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_205216_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_205216_mvp/dataset.jsonl", "JSON Lines", 0, 0, 8, 0, 0, 0, 1, 9
+"/home/kali/penhackit/mvp/sessions/session_20260224_205216_mvp/dataset_freeform.jsonl", "JSON Lines", 0, 0, 2, 0, 0, 0, 1, 3
+"/home/kali/penhackit/mvp/sessions/session_20260224_205216_mvp/kb.json", "JSON", 51, 0, 0, 0, 0, 0, 0, 51
+"/home/kali/penhackit/mvp/sessions/session_20260224_205216_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_205216_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_205216_mvp/steps.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_205831_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_205831_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260224_205831_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_205831_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_205831_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_205839_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_205839_mvp/dataset.jsonl", "JSON Lines", 0, 0, 4, 0, 0, 0, 1, 5
+"/home/kali/penhackit/mvp/sessions/session_20260224_205839_mvp/dataset_freeform.jsonl", "JSON Lines", 0, 0, 2, 0, 0, 0, 1, 3
+"/home/kali/penhackit/mvp/sessions/session_20260224_205839_mvp/kb.json", "JSON", 45, 0, 0, 0, 0, 0, 0, 45
+"/home/kali/penhackit/mvp/sessions/session_20260224_205839_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_205839_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_205839_mvp/steps.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260224_214756_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_214756_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260224_214756_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260224_214756_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260224_214756_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260225_005806_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 3, 0, 0, 0, 1, 4
+"/home/kali/penhackit/mvp/sessions/session_20260225_005806_mvp/kb.json", "JSON", 37, 0, 0, 0, 0, 0, 0, 37
+"/home/kali/penhackit/mvp/sessions/session_20260225_005806_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260225_005806_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260225_005806_mvp/steps.jsonl", "JSON Lines", 0, 0, 3, 0, 0, 0, 1, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025230_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025230_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_025230_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025230_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025230_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025245_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025245_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_025245_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025245_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025245_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025402_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025402_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_025402_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025402_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025402_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025434_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025434_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_025434_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025434_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025434_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025520_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 2, 0, 0, 0, 1, 3
+"/home/kali/penhackit/mvp/sessions/session_20260226_025520_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_025520_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025520_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025520_mvp/steps.jsonl", "JSON Lines", 0, 0, 2, 0, 0, 0, 1, 3
+"/home/kali/penhackit/mvp/sessions/session_20260226_025658_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025658_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_025658_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025658_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025658_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025717_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025717_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_025717_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_025717_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_025717_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030017_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260226_030017_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_030017_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_030017_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030017_mvp/steps.jsonl", "JSON Lines", 0, 0, 5, 0, 0, 0, 1, 6
+"/home/kali/penhackit/mvp/sessions/session_20260226_030209_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030209_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_030209_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_030209_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030209_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030303_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030303_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_030303_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_030303_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030303_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030532_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030532_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_030532_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_030532_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_030532_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_031018_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_031018_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_031018_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_031018_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_031018_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_031919_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_031919_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_031919_mvp/kb.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 29
+"/home/kali/penhackit/mvp/sessions/session_20260226_031919_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_031919_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_031919_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032008_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_032008_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032008_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260226_032008_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_032008_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032008_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032302_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_032302_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032302_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260226_032302_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_032302_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032302_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032401_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_032401_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032401_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260226_032401_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_032401_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_032401_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_033436_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_033436_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_033436_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260226_033436_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_033436_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_033436_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_033941_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_033941_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_033941_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260226_033941_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_033941_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_033941_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_034247_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_034247_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_034247_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260226_034247_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_034247_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_034247_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_034443_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260226_034443_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_034443_mvp/kb.json", "JSON", 167, 0, 0, 0, 0, 0, 0, 167
+"/home/kali/penhackit/mvp/sessions/session_20260226_034443_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260226_034443_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260226_034443_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260227_000106_mvp/_kb_monitor.ps1", "PowerShell", 0, 1, 0, 0, 0, 0, 0, 1
+"/home/kali/penhackit/mvp/sessions/session_20260227_000106_mvp/command_outputs.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"/home/kali/penhackit/mvp/sessions/session_20260227_000106_mvp/kb.json", "JSON", 158, 0, 0, 0, 0, 0, 0, 158
+"/home/kali/penhackit/mvp/sessions/session_20260227_000106_mvp/session_config.json", "JSON", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kali/penhackit/mvp/sessions/session_20260227_000106_mvp/session_context.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 7
+"/home/kali/penhackit/mvp/sessions/session_20260227_000106_mvp/steps.jsonl", "JSON Lines", 0, 0, 6, 0, 0, 0, 1, 7
+"Total", "-", 9033, 15, 851, 184, 562, 2696, 385, 13726

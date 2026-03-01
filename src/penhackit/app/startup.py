@@ -6,6 +6,11 @@ import json
 import shutil
 import sys
 
+from dotenv import load_dotenv
+
+# Cargar las variables del archivo .env
+load_dotenv()
+
 SETTINGS_FILENAME = "settings.json"
 ENVIRONMENT_PROFILE_FILENAME = "environment_profile.json"
 
@@ -13,19 +18,22 @@ from penhackit.common.paths import Paths
 
 def bootstrap_app() -> dict:
     print("Bootstrapping application...")
-
+    print("=================================")
     print("0) Resolving workspace directory...")
     workspace_dir = resolve_workspace_dir()
     paths = Paths(workspace_dir)
+    print(f"Workspace directory resolved: {workspace_dir}")
 
-    print("1) Loading settings...")
-    settings = setup_settings(workspace_dir)
-    # print(f"Settings loaded: {settings}")
-
-    print("2) Setting up workspace directories...")   
+    print("\n1) Setting up workspace directories...")   
     setup_workspace_dirs(paths)
+    print("Workspace directories set up.")
+
+    print("\n2) Loading settings...")
+    settings = setup_settings(workspace_dir)
+    print(f"Settings loaded: {settings}")
+
     
-    print("3) Loading environment profiles...")
+    print("\n3) Loading environment profiles...")
     enviroment_profile = setup_environment_profile(workspace_dir, settings)
 
     return {
