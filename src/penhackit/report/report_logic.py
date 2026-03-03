@@ -9,7 +9,7 @@ import markdown
 import subprocess
 
 import torch # para modelos LLM locales (p.ej. llama.cpp con bindings de Python, o modelos más pequeños)
-from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer # para cargar modelos LLM locales con HuggingFace (si no usas ollama)  
+# from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer # para cargar modelos LLM locales con HuggingFace (si no usas ollama)  
 
 from penhackit.common.paths import Paths, next_available_path
 
@@ -470,6 +470,8 @@ _HF_CACHE = {
 }
 
 def hf_load_model(model_dir: Path, device: str):
+
+    from transformers import AutoModelForCausalLM, AutoTokenizer     
     global _HF_CACHE
     if _HF_CACHE["model_dir"] == str(model_dir) and _HF_CACHE["device"] == device and _HF_CACHE["model"] is not None:
         return _HF_CACHE["tokenizer"], _HF_CACHE["model"]
@@ -505,6 +507,8 @@ def hf_load_model(model_dir: Path, device: str):
     return tok, model
 
 def hf_generate_stream(model_dir: Path, prompt_text: str, max_new_tokens: int = 350) -> str:
+    from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer # para cargar modelos LLM locales con HuggingFace (si no usas ollama)  
+
     print(f"[HF] Loading model from: {model_dir}")
 
     tokenizer = AutoTokenizer.from_pretrained(str(model_dir), local_files_only=True)
@@ -551,6 +555,7 @@ def hf_generate_text(
     temperature: float = 0.2,
     top_p: float = 0.95,
 ) -> str:
+    from transformers import TextIteratorStreamer
     print(f"\n[HF] Loading model from: {model_dir} on device: {device}")
     tok, model = hf_load_model(model_dir, device)
 

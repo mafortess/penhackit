@@ -18,12 +18,13 @@ from penhackit.common.paths import Paths
 
 def bootstrap_app() -> dict:
     print("Bootstrapping application...")
-    print("=================================")
+    print("=====================================================")
     print("0) Resolving workspace directory...")
     workspace_dir = resolve_workspace_dir()
     paths = Paths(workspace_dir)
-    print(f"Workspace directory resolved: {workspace_dir}")
 
+    print(f"Workspace directory resolved: {workspace_dir}")
+    print(f"Workspace directory resolved: {workspace_dir.resolve()}")
     print("\n1) Setting up workspace directories...")   
     setup_workspace_dirs(paths)
     print("Workspace directories set up.")
@@ -35,7 +36,8 @@ def bootstrap_app() -> dict:
     
     print("\n3) Loading environment profiles...")
     enviroment_profile = setup_environment_profile(workspace_dir, settings)
-
+    print(f"Environment profile loaded: {enviroment_profile}")
+    print("=====================================================")
     return {
         "paths": paths,
         "settings": settings,

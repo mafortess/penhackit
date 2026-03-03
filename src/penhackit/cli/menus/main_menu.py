@@ -40,11 +40,11 @@ def show_banner() -> None:
 
 BANNERS = [
 r"""
-   ____            __  __            _    _ __
-  / __ \___  ____ / /_/ /_  ___ ____| |  (_) /_
- / /_/ / _ \/ __ `/ __/ __ \/ _ `/ __| | / / __/
-/ ____/  __/ /_/ / /_/ / / /  __/ /  | |/ / /_
-/_/    \___/\__,_/\__/_/ /_/\___/_/   |___/\__/
+ ____            _   _            _    ___ _____
+|  _ \ ___ _ __ | | | | __ _  ___| | _|_ _|_   _|
+| |_) / _ \ '_ \| |_| |/ _` |/ __| |/ /| |  | |
+|  __/  __/ | | |  _  | (_| | (__|   < | |  | |
+|_|   \___|_| |_|_| |_|\__,_|\___|_|\_\___| |_|
 
  PenHackIt — controlled pentesting automation (research prototype)
 """ ,
@@ -59,11 +59,3 @@ r"""
           PenHackIt — Pentest agent (BC + local LLM reporting)
 """
 ]
-
-
-# def _read_choice(prompt: str, valid: set[str]) -> str:
-#     while True:
-#         s = input(prompt).strip()
-#         if s in valid:
-#             return s
-#         print("Opción inválida.")
