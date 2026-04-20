@@ -8,27 +8,31 @@ import requests
 import markdown
 import subprocess
 
-import torch # para modelos LLM locales (p.ej. llama.cpp con bindings de Python, o modelos más pequeños)
+# import torch # para modelos LLM locales (p.ej. llama.cpp con bindings de Python, o modelos más pequeños)
 # from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer # para cargar modelos LLM locales con HuggingFace (si no usas ollama)  
 
 from penhackit.common.paths import Paths, next_available_path
 
-REPORT_SECTIONS = [
-    ("Executive Summary", "Resumen ejecutivo: 5-8 líneas, objetivo y resultado general."),
-    # ("Scope and Context", "Alcance: objetivo, target(s), entorno (Kali VM + contenedores), restricciones."),
-    # ("Environment Observations", "Observaciones del entorno: red local, interfaces, gateways, vecinos ARP relevantes."),
-    # ("Actions Performed", "Acciones ejecutadas: lista concisa de comandos y propósito."),
-    # ("Findings", "Hallazgos: si no hay, indicar 'No findings in this session' y por qué."),
-    ("Next Steps", "Siguientes pasos concretos: 5-10 bullets priorizados."),
-]
+
+# from penhackit.report.report_schema import REPORT_SECTIONS
+from penhackit.report.report_schema import REPORT_TEMPLATES
+
+def get_report_sections(template_name: str):
+    if template_name in REPORT_TEMPLATES:
+        return REPORT_TEMPLATES[template_name]
+    
+    print(f"Warning: template '{template_name}' not found, using 'standard' template.")
+    return REPORT_TEMPLATES["standard"]
 
 def generate_report(report_settings: dict, paths: Paths) -> Path:
     kb_path = paths.sessions_dir / report_settings["session_id"] / "kb.json"
+    template = report_settings["template"]
     if report_settings["backend"] == "baseline":
         try:
             return generate_report_md_baseline(
                 session_dir=paths.sessions_dir / report_settings["session_id"],
-                kb=json.loads(kb_path.read_text(encoding="utf-8"))
+                kb=json.loads(kb_path.read_text(encoding="utf-8")),
+                template=template
             )
         except Exception as e:
             print(f"Error generating baseline report: {e}")
@@ -39,6 +43,7 @@ def generate_report(report_settings: dict, paths: Paths) -> Path:
                 session_dir=paths.sessions_dir / report_settings["session_id"],
                 kb=json.loads(kb_path.read_text(encoding="utf-8")),
                 model=report_settings["ollama_model_name"],
+                template=template
             )
         except Exception as e:
             print(f"Error generating report with Ollama: {e}")
@@ -50,20 +55,17 @@ def generate_report(report_settings: dict, paths: Paths) -> Path:
                 kb=json.loads(kb_path.read_text(encoding="utf-8")),
                 backend=report_settings["backend"],
                 hf_model_dir= report_settings["transformers_model_name"],
+                template=template
             )
         except Exception as e:
             print(f"Error generating report with Transformers: {e}")
             raise
 
 # MAIN FUNCTION OF THE LLM-BASED REPORT GENERATION (SECTION-WISE, WITH EITHER BACKEND)
-def generate_report_md_llm(
-    session_dir: Path,
-    kb: dict,
-    backend: str,
-    ollama_model: str | None = None,
-    hf_model_dir: Path | None = None,
-    hf_device: str = "cpu",
-) -> Path:
+def generate_report_md_llm(session_dir: Path, kb: dict, backend: str,
+    ollama_model: str | None = None, hf_model_dir: Path | None = None,
+    hf_device: str = "cpu", template: str = "standard") -> Path:
+
     print(f"Hf_model_dir: {hf_model_dir})")
     try:
         kb_compact = compact_kb_for_report(kb)
@@ -75,7 +77,6 @@ def generate_report_md_llm(
     except Exception as e:
         print(f"Error determining report path: {e}")
         raise
-
 
     header = []
     header.append("# PenHackIt Report")
@@ -103,7 +104,8 @@ def generate_report_md_llm(
         f.write("![](figures/counts.png)\n\n")
         f.write("![](figures/hosts.png)\n\n")
 
-    for title, guidance in REPORT_SECTIONS:
+    sections = get_report_sections(template)
+    for title, guidance in sections:
         with report_path.open("a", encoding="utf-8") as f:
             f.write(f"## {title}\n\n")
 
@@ -140,7 +142,7 @@ def generate_report_md_llm(
     return report_path
 
 # MAIN FUNCTION OF THE OLLAMA-BASED REPORT GENERATION (SECTION-WISE, WITH EITHER BACKEND)
-def generate_report_md_ollama(session_dir: Path, kb: dict, model: str) -> Path:
+def generate_report_md_ollama(session_dir: Path, kb: dict, model: str, template: str) -> Path:
     kb_compact = compact_kb_for_report(kb)
 
     # report_path = session_dir / "report.md" # estándar, pero si quieres evitar sobreescribir: next_available_path(session_dir, "report", ".md")
@@ -168,8 +170,10 @@ def generate_report_md_ollama(session_dir: Path, kb: dict, model: str) -> Path:
         f.write("![](figures/counts.png)\n\n")
         f.write("![](figures/hosts.png)\n\n")
 
+    sections = get_report_sections(template)
+
     # 3) secciones fijas (append)
-    for title, guidance in REPORT_SECTIONS:
+    for title, guidance in sections:
         with report_path.open("a", encoding="utf-8") as f:
             f.write(f"## {title}\n\n")
 
@@ -183,7 +187,7 @@ def generate_report_md_ollama(session_dir: Path, kb: dict, model: str) -> Path:
     return report_path
 
 # MAIN FUNCTION OF THE BASELINE (NO LLM) REPORT GENERATION
-def generate_report_md_baseline(session_dir: Path, kb: dict) -> Path:
+def generate_report_md_baseline(session_dir: Path, kb: dict, template: str) -> Path:
     print("Generating baseline report (no LLM)...")
     try:
         kb_compact = compact_kb_for_report(kb)
@@ -216,10 +220,15 @@ def generate_report_md_baseline(session_dir: Path, kb: dict) -> Path:
         f.write("![](figures/counts.png)\n\n")
         f.write("![](figures/hosts.png)\n\n")
 
-    for title, guidance in REPORT_SECTIONS:
+    # Para cada sección, generar el cuerpo con la función determinista y añadirlo al MD
+    sections = get_report_sections(template)
+
+    for title, guidance in sections:
         with report_path.open("a", encoding="utf-8") as f:
             f.write(f"## {title}\n\n")
+
         body = baseline_section_body(title, kb_compact).strip()
+
         with report_path.open("a", encoding="utf-8") as f:
             f.write(body + "\n\n")
 
@@ -471,7 +480,9 @@ _HF_CACHE = {
 
 def hf_load_model(model_dir: Path, device: str):
 
+    import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer     
+    
     global _HF_CACHE
     if _HF_CACHE["model_dir"] == str(model_dir) and _HF_CACHE["device"] == device and _HF_CACHE["model"] is not None:
         return _HF_CACHE["tokenizer"], _HF_CACHE["model"]

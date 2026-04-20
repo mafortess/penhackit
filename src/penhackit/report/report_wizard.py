@@ -5,7 +5,6 @@ from prompt_toolkit.completion import WordCompleter # autcompletado para menus y
 
 from penhackit.report.report_storage import list_reportable_sessions, list_local_ollama_models, list_local_hf_transformers_models
 
-import torch
 
 def generate_report_wizard(report_settings: dict, paths: Paths) -> dict | None:
     print("Starting report generation wizard...")
@@ -48,6 +47,11 @@ def generate_report_wizard(report_settings: dict, paths: Paths) -> dict | None:
         if device is None:
             return None
         
+    # SELECT TEMPLATE
+    template = wizard_select_template(report_settings)
+    if template is None:
+        return None
+    
     # PDF GENERATION
     output_format = choose_output_format(report_settings)
     # pdf_generation = wizard_pdf_generation()
@@ -58,6 +62,7 @@ def generate_report_wizard(report_settings: dict, paths: Paths) -> dict | None:
         model_name=model_name,
         output_format=output_format,
         device=device,
+        template=template
     )
     if not confirmed:
         return None
@@ -69,6 +74,7 @@ def generate_report_wizard(report_settings: dict, paths: Paths) -> dict | None:
         "ollama_model_name": model_name if backend == "ollama" else None,
         "transformers_model_name": model_name if backend == "transformers" else None,
         "device": device if backend == "transformers" else None,
+        "template": template if template is not None else None,
     }
 
 
@@ -108,8 +114,8 @@ def wizard_select_backend(report_settings: dict) -> str | None:
     print("\n--- Generate report / Select backend ---")
     print(f"Default backend: {default_backend}")
     print("1) Use default")
-    print("1) Baseline (no LLM)")
-    print("2) Ollama (HTTP local)")
+    print("2) Baseline (no LLM)")
+    print("3) Ollama (HTTP local)")
     print("4) Transformers (local, HF models)")
     print("0) Cancel")
 
@@ -147,13 +153,14 @@ def wizard_pdf_generation() -> bool:
             return False
         print("Invalid option.")
 
-def wizard_confirm(session_id: str, backend: str, model_name: str | None, output_format: str | None, device: str | None) -> bool:
+def wizard_confirm(session_id: str, backend: str, model_name: str | None, output_format: str | None, device: str | None, template: str | None) -> bool:
     print("\n--- Generate report / Confirm ---")
     print(f"Session: {session_id}")
     print(f"Backend: {backend}")
     print(f"Model: {model_name if model_name is not None else '-'}")
     print(f"Output format: {output_format if output_format is not None else '-'}")
     print(f"Device: {device if device is not None else '-'}")
+    print(f"Template: {template if template is not None else '-'}")
 
     while True:
         options = ["yes", "no"]
@@ -201,8 +208,11 @@ def choose_ollama_model_interactive(models: list[str], default_model: str | None
         tag = " (default)" if default_model and m == default_model else ""
         print(f"{i}) {m}{tag}")
 
+    options = [ str(i) for i in range(1, len(models) + 1) ] + ["0"]
+    completer = WordCompleter(options, ignore_case=True, match_middle=True)
+
     while True:
-        raw = input("Select model [number | name | /filter | 0 cancel]> ").strip()
+        raw = prompt("Select model [number | name | /filter | 0 cancel]> ", completer=completer).strip()
         if raw == "0":
             return None
 
@@ -298,6 +308,8 @@ def choose_hf_device_interactive() -> str:
     # keep it simple for MVP
     # - "cuda" if available
     # - else "cpu"
+    import torch
+
     default = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"\nDevice (default: {default})")
     print("1) auto")
@@ -322,7 +334,7 @@ def choose_output_format(report_settings: dict) -> str | None:
     print("3) md+pdf")
     print("0) Cancel")
 
-    completer = WordCompleter(["0", "1", "2", "3"], ignore_case=True)
+    completer = WordCompleter(["1", "2", "3", "0"], ignore_case=True)
 
     while True:
         raw = prompt("> ", completer=completer).strip()
@@ -335,5 +347,40 @@ def choose_output_format(report_settings: dict) -> str | None:
             return "md"
         if raw == "3":
             return "md+pdf"
+
+        print("Invalid option.")
+
+
+from penhackit.report.report_schema import REPORT_TEMPLATES
+
+def wizard_select_template(report_settings: dict) -> str | None:
+    default_template = report_settings["default_template"]
+
+    print("\n--- Generate report / Select template ---")
+    print(f"Default template: {default_template}")
+
+    template_names = list(REPORT_TEMPLATES.keys())
+
+    print("1) Use default")
+    for idx, name in enumerate(template_names, start=2):
+        print(f"{idx}) {name}")
+    print("0) Cancel")
+
+    options = [ str(i) for i in range(1, len(template_names) + 2) ] + ["0"]
+    completer = WordCompleter(options, ignore_case=True)
+
+    while True:
+        raw = prompt("> ", completer=completer).strip()
+
+        if raw == "0":
+            return None
+        if raw == "1":
+            return default_template
+
+        if raw.isdigit():
+            idx = int(raw)
+            mapped = idx - 2
+            if 0 <= mapped < len(template_names):
+                return template_names[mapped]
 
         print("Invalid option.")

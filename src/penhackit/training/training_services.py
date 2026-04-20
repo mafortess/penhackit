@@ -50,11 +50,11 @@ def run_train_model_service(app_context: dict) -> None:
     print("model_type:", model_type)
     print("MODEL_CHOICES keys:", list(MODEL_CHOICES.keys()))
     print("MODEL_CHOICES keys and descriptions:")
-    for k, (name, desc, _) in MODEL_CHOICES.items():
+    for k, (name, desc) in MODEL_CHOICES.items():
         print(f"  {k}: {name} - {desc}")
 
     try:
-        training_model(training_settings, dataset_path, model_type[0], model_type[2], paths)
+        training_model(training_settings, dataset_path, model_type[0], paths)
     except Exception as e:
         print(f"Error during training: {e}")
 

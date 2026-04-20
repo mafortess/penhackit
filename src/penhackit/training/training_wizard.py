@@ -19,8 +19,9 @@ def train_model_wizard(training_settings: dict, path: Paths) -> dict | None:
     # SELECT MODEL TYPE
     model_type = choose_model_type(training_settings, path)
     print(f"Selected model type: {model_type}")
-    model_key, model_desc, model_factory = model_type
-    print(f"Selected model: {model_key} ({model_desc}) {model_factory}")
+    # model_key, model_desc, model_factory = model_type
+    model_key, model_desc = model_type
+    print(f"Selected model: {model_key} ({model_desc})")
 
     if model_type is None:
         return None
@@ -43,19 +44,22 @@ def train_model_wizard(training_settings: dict, path: Paths) -> dict | None:
 def wizard_select_dataset(settings: dict, paths: Paths) -> str | None:
     datasets_dir = paths.datasets_dir
     print(f"Looking for datasets in: {datasets_dir}")
-    datasets = [f.name for f in datasets_dir.glob("*.jsonl") if f.is_file()]
+    datasets = [f for f in datasets_dir.rglob("*.jsonl") if f.is_file()]
+    # datasets = [f.name for f in datasets_dir.glob("*.jsonl") if f.is_file()]
     if not datasets:
         print("No datasets available. Please create a dataset first.")
         return None
 
     print("\nAvailable datasets:")
     for i, ds in enumerate(datasets, 1):
-        print(f"{i}) {ds}")
+        print(f"{i}) {ds.relative_to(datasets_dir)}")
+        # print(f"{i}) {ds}")
     choice = prompt("Select dataset> ", completer=WordCompleter([str(i) for i in range(1, len(datasets)+1)]))
     try:
         idx = int(choice) - 1
         if 0 <= idx < len(datasets):
-            return str(datasets_dir / datasets[idx])
+            return str(datasets[idx])
+            # return str(datasets_dir / datasets[idx])
     except ValueError:
         pass
 
@@ -122,7 +126,7 @@ def choose_dataset_dir(datasets_dir: Path) -> Path | None:
 
 def choose_model_type(training_settings: dict, paths: Paths) -> tuple[str, str, callable] | None:
     print("\nModel types:")
-    for k, (name, desc, _) in MODEL_CHOICES.items():
+    for k, (name, desc) in MODEL_CHOICES.items():
         print(f"{k}) {name} - {desc}")
     # raw = input("Select model (0 cancel)> ").strip()
     try:

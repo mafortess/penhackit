@@ -2,6 +2,7 @@ from prompt_toolkit import prompt # input mejorada (historial, autocompletado, m
 from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
 
 from penhackit.training.training_services import run_train_model_service, run_evaluate_model_service, list_datasets_and_models, rebuild_dataset_from_sessions
+
 def run_training_menu(app_context: dict) -> None:
     while True:
         choice = show_training_menu()

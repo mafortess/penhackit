@@ -7,26 +7,35 @@ from prompt_toolkit.completion import WordCompleter # autcompletado para menus y
 
 import numpy as np
 
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
+# from sklearn.tree import DecisionTreeClassifier
+# from sklearn.ensemble import RandomForestClassifier
+# from sklearn.linear_model import LogisticRegression
+# from sklearn.neural_network import MLPClassifier
 
 import joblib
 from collections import Counter
 
 from penhackit.common.paths import Paths
 
+# Problema con esta estructura: carga/importa los archivos enormes de sklearn incluso si solo quieres usar la parte de report generation, que no tiene nada que ver con sklearn.
+# Solución: lazy import dentro de la función de training, así solo se cargan esos módulos si realmente se va a usar la parte de training. 
+# Está acoplado, depende de sklearn
+# MODEL_CHOICES = {
+#     "logreg": ("logreg", "Logistic Regression (multinomial)", lambda: LogisticRegression(max_iter=2000)),
+#     "decision_tree": ("decision_tree", "Decision Tree", lambda: DecisionTreeClassifier(random_state=42)),
+#     "random_forest": ("random_forest", "Random Forest", lambda: RandomForestClassifier(n_estimators=200, random_state=42)),
+#     "mlp": ("mlp", "MLP (2 hidden layers)", lambda: MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=2000, random_state=42)),
+# }
+
 MODEL_CHOICES = {
-    "logreg": ("logreg", "Logistic Regression (multinomial)", lambda: LogisticRegression(max_iter=2000)),
-    "decision_tree": ("decision_tree", "Decision Tree", lambda: DecisionTreeClassifier(random_state=42)),
-    "random_forest": ("random_forest", "Random Forest", lambda: RandomForestClassifier(n_estimators=200, random_state=42)),
-    "mlp": ("mlp", "MLP (2 hidden layers)", lambda: MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=2000, random_state=42)),
+    "logreg": ("logreg", "Logistic Regression (multinomial)"),
+    "decision_tree": ("decision_tree", "Decision Tree"),
+    "random_forest": ("random_forest", "Random Forest"),
+    "mlp": ("mlp", "MLP (2 hidden layers)"),
 }
 
-def training_model(training_settings: dict, dataset_path: Path, model_key: str, model_factory, paths: Paths) -> None:
+
+def training_model(training_settings: dict, dataset_path: Path, model_key: str, paths: Paths) -> None:
     """
     Interactive training:       
     - select dataset (from dataset_path)
@@ -34,6 +43,9 @@ def training_model(training_settings: dict, dataset_path: Path, model_key: str, 
     - train + evaluate
     - save model + metrics under models_dir/<dataset>/<model>_<n>/
     """
+    from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+    from sklearn.model_selection import train_test_split
+
     # Convert dataset_path to Path if it's a string
     if isinstance(dataset_path, str):
        dataset_path = Path(dataset_path)
@@ -73,6 +85,9 @@ def training_model(training_settings: dict, dataset_path: Path, model_key: str, 
         print(f"Error during train/test split: {e}")
         return
     
+    # Create model instance
+    print(f"Creating model instance for: {model_key} ...")
+    model_factory = get_model_factory(model_key)
     model = model_factory()
     
     # Train the model
@@ -143,6 +158,26 @@ def training_model(training_settings: dict, dataset_path: Path, model_key: str, 
     print(f"Output dir: {out_dir}")
 
 
+def get_model_factory(model_key: str):
+    if model_key == "decision_tree":
+        from sklearn.tree import DecisionTreeClassifier
+        return lambda: DecisionTreeClassifier(random_state=42)
+
+    elif model_key == "random_forest":
+        from sklearn.ensemble import RandomForestClassifier
+        return lambda: RandomForestClassifier(n_estimators=200, random_state=42)
+
+    elif model_key == "logreg":
+        from sklearn.linear_model import LogisticRegression
+        return lambda: LogisticRegression(max_iter=2000)
+
+    elif model_key == "mlp":
+        from sklearn.neural_network import MLPClassifier
+        return lambda: MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=2000, random_state=42)
+
+    else:
+        raise ValueError(f"Unknown model_key: {model_key}")
+    
 def vectorize_dataset(rows: list[dict]):
     all_keys = set()
     for r in rows:

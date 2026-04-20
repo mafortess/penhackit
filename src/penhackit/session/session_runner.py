@@ -1,135 +1,50 @@
-import json
-import time
-from pathlib import Path
-
 import copy
-
+import time
 from penhackit.common.paths import Paths
-from penhackit.session.command import command_builder
+
+from penhackit.session.command.command_builder import command_builder
 from penhackit.session.event.event_builder import parse_command_result
-from penhackit.session.kb.kb_updater import update_kb, compute_kb_progress_simple, save_kb, build_initial_kb
+from penhackit.session.kb.kb_updater import update_kb, compute_kb_progress_simple, save_kb
 from penhackit.session.state.state_builder import build_state
 from penhackit.session.action.action_ids import ACTIONS, extract_action_id_from_cmd
 
 from penhackit.session.decision.policies import policy_decide_action, model_policy_decide_action, rules_policy_decide_action
-from penhackit.session.decision.model_loader import load_decision_model
-from penhackit.session.kb.kb_updater import launch_kb_monitor_window_windows
 
 from penhackit.session.execution.execute import execute_command
 
 from penhackit.session.logging.logger import log_command_output, log_step, log_dataset_row, log_freeform_row
 
-import numpy as np
 
-def new_session_logic(session_settings: dict, env_profile: dict, paths: Paths) -> dict:
+def run_session_loop(session_settings: dict, session_info: dict, paths: Paths):
+    mode = session_settings["mode"]
+     # Dependiendo del modo de la sesión, ejecuta la lógica correspondiente (autonomous, observation, suggestion).
+    if mode == "autonomous":
+        run_session_autonomous(session_settings, session_info, paths)
+        return
+    elif mode == "observation":
+        new_session_observation(session_settings, session_info, paths)
+        return
+    elif mode == "suggestion":
+        new_session_suggestion(session_settings, session_info, paths)
+        return
+    
+    raise ValueError(f"Invalid session mode: {mode}")
+
+
+# ============================================================================================================
+# ============================================================================================================
+# ============================================================================================================
+
+def run_session_autonomous(session_settings: dict, session_info: dict, paths: Paths) -> None:
     """
-    kb: dict con el conocimiento actual (hosts, servicios, etc.)
-    session_context: dict con info de la sesión (goal_type, focus_level, etc.)
-    model + feature_names: si usas policy basada en ML, el modelo cargado y el orden de features esperado.
-
-    Retorna un dict con:
-      - action_id: int
-      - action_name: str
-      - cmd: str o None
-      - cmd_result: dict con rc, stdout, stderr (si se ejecutó comando)
-      - events: list de dicts con eventos extraídos del resultado para actualizar la KB
-    """
-    print("Starting session logic...")
-
-    session_id = time.strftime("%Y%m%d_%H%M%S") + "_" + session_settings["name"].replace(" ", "_")
-    session_dir = paths.sessions_dir / session_id
-    
-    # Crear la carpeta session_dir en el sistema de archivos.
-    print(f"Creating session directory: {session_dir}")
-    session_dir.mkdir(parents=True, exist_ok=False)
-    
-    print("Creation of session config and context files...")
-    session_config = {
-        "id": session_id,
-        "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-    }
-    session_context = {
-        "id": session_id,
-        "mode": session_settings["mode"],
-        "goal_type": session_settings["goal_type"],
-        "target": session_settings["target"],
-        "max_steps": session_settings["max_steps"],
-    }
-    
-    # parents=True: si faltan carpetas “padre” en la ruta, también las crea. Ejemplo: si data/ o data/sessions/ no existen, los crea automáticamente.
-    # exist_ok=True: si la carpeta ya existe, no da error. Sin esto, mkdir() lanzaría una excepción si la carpeta ya existe.
-    
-    # Creación de los archivos de configuración y contexto de la sesión (session_config.json y session_context.json) con los datos de la sesión.
-    # 1) session_config.json (operativo)
-    (session_dir / "session_config.json").write_text(
-        json.dumps(session_config, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-
-    # 2) session_context.json (tarea/objetivo)
-    (session_dir / "session_context.json").write_text(
-        json.dumps(session_context, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-
-    print("Initializing KB...")
-    kb = build_initial_kb(session_id)
-
-    # 3) kb.json (conocimiento, inicialmente vacío o con datos predeterminados)
-    (session_dir / "kb.json").write_text(
-        json.dumps(kb, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-
-    print("Loading model for session (if applicable)...")
-    model = None
-    feature_names = None
-    
-    if session_settings["mode"] in ["autonomous", "suggestion"]:
-        model_path = paths.models_dir / "decision_tree" / "model.joblib"
-        metrics_path = model_path.parent / "metrics.json"
-        
-        if not model_path.exists() or not metrics_path.exists():
-            print(f"Model files not found: {model_path}, {metrics_path}")
-            print("Make sure to train a model first and place the files in mvp/models/")
-            return
-        
-        model, feature_names = load_decision_model(model_path, metrics_path)
-        print(f"Loaded model from {model_path} with features: {feature_names}")
-
-    session_info = {
-        "session_id": session_id,
-        "session_dir": session_dir, 
-        "session_config": session_config,
-        "session_context": session_context,
-        "kb": kb,
-        "model": model,
-        "feature_names": feature_names,
-    }
-
-    # Si la configuración de la sesión indica que se debe lanzar el monitor de KB, lo lanza pasando la ruta de session_dir para que pueda leer/escribir los archivos de KB y contexto.
-    if session_settings["launch_kb_monitor"]:
-        launch_kb_monitor_window_windows(session_dir)
-
-    # Dependiendo del modo de la sesión, ejecuta la lógica correspondiente (autonomous, observation, suggestion).
-    if session_settings["mode"] == "autonomous":
-        return new_session_autonomous(session_settings, paths, session_info)
-    elif session_settings["mode"] == "observation":
-        return new_session_observation(session_settings, paths, session_info)
-    elif session_settings["mode"] == "suggestion":
-        return new_session_suggestion(session_settings, paths, session_info)
-    
-    print("Session finished")
-
-def new_session_autonomous(session_settings: dict, paths: Paths, session_info: dict) -> dict:
-    """
-    Versión simple de new_session_logic que ignora la política y siempre devuelve la misma acción (para testing).
+    Modo autónomo: el sistema decide la acción a ejecutar (usando la política elegida) 
+    y ejecuta el comando construido sin intervención del pentester.
     """
     print("Starting autonomous session logic...")
 
     # Initatlize sessión_context
     # Initialize KB (knowledge base)
-
+    # Setup inicial: cargar KB, contexto, modelo (si aplica), etc. desde session_info.
     max_steps = session_settings["max_steps"]
     kb = session_info["kb"]
     session_context = session_info["session_context"]
@@ -149,29 +64,64 @@ def new_session_autonomous(session_settings: dict, paths: Paths, session_info: d
         state = build_state(kb, session_context)
         print(f"State at step {t}: {state}")
 
-        # Decide action_id based on the chosen policy (scripted, model-based, rules-based)
-        if session_settings["decider"] == "scripted":
-            print("Using scripted policy to decide action...")
-            action_id = policy_decide_action(state, t)
-        elif session_settings["decider"] == "model":
-            print("Using model-based policy to decide action...")
-            action_id = model_policy_decide_action(state, model, fn)
-        elif session_settings["decider"] == "rules":
-            print("Using rules-based policy to decide action...")
-            action_id = rules_policy_decide_action(state)
+        # Decide action_id based on the chosen policy (scripted, model-based, rules-based) for autonomous mode.
+        action_id = decide_autonomous_action(session_settings=session_settings, state=state, step=t, model=model, feature_names=fn)
 
-        # Build commmand to execute based on the decided action_id, using from KB and session context. 
-        # action_id = 1  # INSPECT_IPCONFIG
-        action_name, _ = ACTIONS.get(action_id, ("NONE", None))
+        # Based on the decided action_id, build the command to execute using command_builder(action_id, kb).
+        action_name, result, events = execute_autonomous_action(action_id, kb)
+
+        print(f"Events generated from command result: {events}")
+
+        log_command_output(session_info["session_dir"], session_info["session_id"], action_id, action_name, result)
+     
+        # Update KB
+        kb = update_kb_with_events(kb, events, result, action_id, action_name, t)
+
+        print(f"Updated KB: {kb}")
+        save_kb(session_info["session_dir"], kb)
+
+        # Update sessión_context       
+        progress = compute_kb_progress_simple(prev_kb, kb)
+        print_autonomous_progress(progress)
+
+        # Save/log step(state, action, command, result, kb, context, state)
+        log_step(session_info["session_dir"], session_info["session_id"], {"t": t, "state": state, "action_id": action_id, "command": result.get("cmd")})
+
+        time.sleep(1)
         
-        print(f"Decided action: {action_name} (ID: {action_id})")
+    print("Session finished loop")
 
-        command = command_builder(action_id, kb)
-        print(f"Built command: {command}")
+# ============================================================================================================
 
+def execute_autonomous_action(action_id: int, kb: dict) -> tuple:
+    """
+    Ejecuta el comando correspondiente al action_id dado, parsea el resultado y devuelve el resultado y los eventos generados para actualizar la KB.
+    Devuelve una tupla con (action_name, result, events) donde:
+      - action_name: str con el nombre de la acción ejecutada
+      - result: dict con rc, stdout, stderr, cmd
+      - events: list de dicts con eventos extraídos del resultado para actualizar la KB
+    """
+
+    # Build commmand to execute based on the decided action_id, using from KB and session context. 
+    # action_id = 1  # INSPECT_IPCONFIG
+    action_name, _ = ACTIONS.get(action_id, ("NONE", None))
+    print(f"Decided action: {action_name} (ID: {action_id})")
+
+    command = command_builder(action_id, kb)
+    print(f"Built command: {command}")
+
+    if command is None:
+        print(f"No command to execute for action: {action_name} (ID: {action_id}), skipping execution.")
+        return action_name, {
+            "rc": None,
+            "stdout": "",
+            "stderr": "",
+            "cmd": None
+        }, []
+
+    else:
         command_to_run = command
-
-        print(f"Executing command: {command_to_run}")
+        print(f"Executing command for action: {action_name} (ID: {action_id}): {command_to_run}")
         rc, stdout, stderr = execute_command(command_to_run)
         result = {
             "rc": rc,
@@ -179,59 +129,81 @@ def new_session_autonomous(session_settings: dict, paths: Paths, session_info: d
             "stderr": stderr,
             "cmd": command_to_run
         }
-        
-        log_command_output(session_info["session_dir"], session_info["session_id"], action_id, action_name, result)
-
         events = parse_command_result(action_name, result)
-        print(f"Events generated from command result: {events}")
+    
+    return action_name, result, events
 
-        
-        # Update KB
-        kb = update_kb(kb, events)
 
-        kb.setdefault("commands", [])
-
-        if result["cmd"]:
-            kb["commands"].append(result["cmd"])
-
-        kb["step_idx"] = t
-        kb["last_action_id"] = action_id
-        kb["last_action_name"] = action_name
-        kb["last_rc"] = result.get("rc")
-        kb["last_event_type"] = events[0].get("type") if events else None
-
-        print(f"Updated KB: {kb}")
-        save_kb(session_info["session_dir"], kb)
-
-        # Update sessión_context
-        
-        progress = compute_kb_progress_simple(prev_kb, kb)
-        if progress["has_progress"]:
-            print(
-                f"PROGRESS: +hosts={progress['new_hosts_count']} "
-                f"+ports={progress['new_ports_count']} "
-                f"+services={progress['new_services_count']} "
-                f"+findings={progress['new_findings_count']}"
-            )
-        else:
-            print("NO PROGRESS")
-
-        # Save/log step(state, action, command, result, kb, context, state)
-        
-        log_step(session_info["session_dir"], session_info["session_id"], {
-            "t": t,
-            "state": state,
-            "action_id": action_id,
-            "command": command_to_run,
-        })
-
-        time.sleep(1)
-
-def new_session_observation(session_settings: dict, paths: Paths, session_info: dict) -> dict:
+def decide_autonomous_action(session_settings: dict, state: dict, step: int, model=None, feature_names=None) -> int:
     """
-    Versión de new_session_logic que no ejecuta comandos, solo decide una acción y devuelve un evento simulado.
-    Útil para testing de la parte de policy sin ejecutar comandos reales.
+    Decide action_id based on the chosen policy (scripted, model-based, rules-based) for autonomous mode.
+    Devuelve el action_id decidido.
     """
+    decider = session_settings["decider"]
+    if decider == "scripted":
+        print("Using scripted policy to decide action...")
+        action_id = policy_decide_action(state, step)
+    elif decider == "model":
+        print("Using model-based policy to decide action...")
+        action_id = model_policy_decide_action(state, model, feature_names)
+    elif decider == "rules":
+        print("Using rules-based policy to decide action...")
+        action_id = rules_policy_decide_action(state)
+    else:
+        raise ValueError(f"Invalid decider type: {decider}")
+
+    if action_id not in ACTIONS:
+        print(f"Invalid decider type: {session_settings['decider']}, defaulting to 0 (NONE)")
+        return 0
+    
+    return action_id
+
+def update_kb_with_events(kb: dict, events, result: dict, action_id: int, action_name: str, step: int) -> dict:
+    """
+    Actualiza la KB con los eventos generados a partir del resultado de ejecutar un comando.
+    Devuelve la KB actualizada.
+    """
+    kb = update_kb(kb, events)
+
+    kb.setdefault("commands", [])
+    if result.get("cmd"):
+        kb["commands"].append(result["cmd"])
+
+    kb["step_idx"] = step
+    kb["last_action_id"] = action_id
+    kb["last_action_name"] = action_name
+    kb["last_rc"] = result.get("rc")
+    kb["last_event_type"] = events[0].get("type") if events else None
+
+
+    return kb
+
+
+def print_autonomous_progress(progress: dict):
+    if progress["has_progress"]:
+        print(
+            f"PROGRESS: +hosts={progress['new_hosts_count']} "
+            f"+ports={progress['new_ports_count']} "
+            f"+services={progress['new_services_count']} "
+            f"+findings={progress['new_findings_count']}"
+        )
+    else:
+        print("NO PROGRESS")
+
+# ============================================================================================================
+
+def new_session_observation(session_settings: dict, session_info: dict, paths: Paths) -> None:
+    """
+    Modo observación: el sistema muestra el estado actual y sugiere una acción 
+    (usando la política elegida),
+    pero no la ejecuta automáticamente. En su lugar, muestra la acción sugerida al pentester 
+    y le da la opción de aceptarla (ejecutar el comando sugerido) o escribir un comando 
+    alternativo. El sistema registra la acción sugerida, la acción final ejecutada 
+    (si es diferente) y el resultado de la ejecución para análisis posterior.
+    """
+    print("Starting observation session logic...")
+
+    # Setup inicial similar a modo autónomo: inicializar sesión_context, KB, cargar modelo si es necesario, etc.
     max_steps = session_settings["max_steps"]
     kb = session_info["kb"]
     session_context = session_info["session_context"]
@@ -352,15 +324,24 @@ def new_session_observation(session_settings: dict, paths: Paths, session_info: 
 
         time.sleep(0.5)
 
-def new_session_suggestion(session_settings: dict, paths: Paths, session_info: dict) -> dict:
+    print("Session finished loop")
+
+
+def new_session_suggestion(session_settings: dict, session_info: dict, paths: Paths) -> None:
     """
-    Versión de new_session_logic que decide la acción usando un modelo de ML (si se proporciona).
-    Para testing, puede usar un modelo dummy que siempre devuelve la misma acción.
+    Modo sugerencia: el sistema sugiere una acción (usando la política elegida) 
+    pero no la ejecuta automáticamente.
+    En su lugar, muestra la acción sugerida al pentester y le da la opción de aceptarla 
+    (ejecutar el comando sugerido) o escribir un comando alternativo.
     """
+    print("Starting suggestion session logic...")
+
+    # Setup inicial similar a modo autónomo: inicializar sesión_context, KB, cargar modelo si es necesario, etc. desde session_info.
     max_steps = session_settings["max_steps"]
     kb = session_info["kb"]
     session_context = session_info["session_context"]
     session_config = session_info["session_config"]
+    session_dir = session_info["session_dir"]
     model = session_info["model"]
     fn = session_info["feature_names"]
 
@@ -448,4 +429,18 @@ def new_session_suggestion(session_settings: dict, paths: Paths, session_info: d
         })
 
         time.sleep(1)
+    
+    print("Session finished loop")
             
+def step_session(session_info: dict) -> dict:
+    """
+    Ejecuta un paso de la sesión: decide acción, construye comando, ejecuta, parsea resultado, actualiza KB, etc.
+
+    Devuelve un dict con:
+      - action_id: int
+      - action_name: str
+      - cmd: str o None
+      - cmd_result: dict con rc, stdout, stderr (si se ejecutó comando)
+      - events: list de dicts con eventos extraídos del resultado para actualizar la KB
+    """
+    print("Stepping through session logic...")

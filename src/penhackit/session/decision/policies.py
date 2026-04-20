@@ -1,7 +1,7 @@
 
 def policy_decide_action(state, t):
     print("Deciding action based on state...")
-    action = t
+    action = t+1
 
     return action
 

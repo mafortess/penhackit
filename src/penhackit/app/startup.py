@@ -37,6 +37,9 @@ def bootstrap_app() -> dict:
     print("\n3) Loading environment profiles...")
     enviroment_profile = setup_environment_profile(workspace_dir, settings)
     print(f"Environment profile loaded: {enviroment_profile}")
+    print("Environment profile loaded: ")
+    print(json.dumps(enviroment_profile, indent=2))
+
     print("=====================================================")
     return {
         "paths": paths,
@@ -165,16 +168,52 @@ def detect_system_info() -> dict:
         "python_executable": sys.executable,
     }
 
+from penhackit.common.environment import TOOL_CATALOG
+
 def detect_tool_groups() -> dict:
     detected = {}
-    from penhackit.common.environment import TOOL_CATALOG
+    
     for group_name, tool_names in TOOL_CATALOG.items():
         detected[group_name] = {}
 
         for tool_name in tool_names:
-            detected[group_name][tool_name] = shutil.which(tool_name) is not None
-
+            path = shutil.which(tool_name)
+            detected[group_name][tool_name] = {
+                "available": path is not None,
+                "path": path
+            }
+            
     return detected
+
+def discover_all_tools() -> list:
+    paths = os.environ.get("PATH", "").split(os.pathsep) # Cuidado con el separador de PATH en Windows (;), en Unix es (:)
+    executables = set()
+
+    is_windows = platform.system().lower() == "windows"
+
+    # Extensiones válidas en Windows
+    VALID_EXTENSIONS = {".exe", ".bat", ".cmd", ".ps1"}
+
+    for path in paths:
+        if not os.path.isdir(path):
+            continue
+
+        try:
+            for file in os.listdir(path):
+                full_path = os.path.join(path, file)
+
+                if is_windows:
+                    name, ext = os.path.splitext(file)
+                    if ext.lower() not in VALID_EXTENSIONS:
+                        continue
+
+                if os.access(full_path, os.X_OK) and not os.path.isdir(full_path):
+                    executables.add(file)
+
+        except Exception as e:
+            print(f"Error accessing {path}: {e}")
+
+    return sorted(executables)
 
 def build_capabilities(tool_groups: dict) -> dict:
     basic_network = tool_groups.get("basic_network", {})
@@ -185,12 +224,12 @@ def build_capabilities(tool_groups: dict) -> dict:
     exploitation = tool_groups.get("exploitation", {})
 
     return {
-        "can_do_basic_network_checks": any(basic_network.values()),
-        "can_do_host_discovery": any(host_discovery.values()),
-        "can_do_service_enumeration": any(service_enumeration.values()),
-        "can_do_web_enumeration": any(web_enumeration.values()),
-        "can_do_vulnerability_analysis": any(vulnerability_analysis.values()),
-        "can_do_exploitation": any(exploitation.values()),
+        "can_do_basic_network_checks": any(tool["available"] for tool in basic_network.values()),
+        "can_do_host_discovery": any(tool["available"] for tool in host_discovery.values()),
+        "can_do_service_enumeration": any(tool["available"] for tool in service_enumeration.values()),
+        "can_do_web_enumeration": any(tool["available"] for tool in web_enumeration.values()),
+        "can_do_vulnerability_analysis": any(tool["available"] for tool in vulnerability_analysis.values()),
+        "can_do_exploitation": any(tool["available"] for tool in exploitation.values()),
     }
 
 def build_goal_support(capabilities: dict) -> dict:
@@ -210,6 +249,7 @@ def build_goal_support(capabilities: dict) -> dict:
 def detect_environment_profile() -> dict:
     system_info = detect_system_info()  
     detected_tools = detect_tool_groups()
+    discovered_tools = discover_all_tools()
     capabilities = build_capabilities(detected_tools)
     goal_support = build_goal_support(capabilities)
 
@@ -217,7 +257,8 @@ def detect_environment_profile() -> dict:
         "schema_id": "environment_profile.v1",
         "detected_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "system": system_info,
-        "tools": detected_tools,
+        "curated_tools": detected_tools,
+        "all_tools": discovered_tools[:20],
         "capabilities": capabilities,
         "goal_support": goal_support,
     }
