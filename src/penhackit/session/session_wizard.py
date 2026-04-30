@@ -120,15 +120,32 @@ def choose_goal_type(session_settings: dict) -> str | None:
 
 def choose_target(session_settings: dict) -> str | None:
     default_target = session_settings["default_target"]
+    detected_networks = detect_networks()
+
+    target_options = [default_target]
+
+    for net in detected_networks:
+        if net not in target_options:
+            target_options.append(net)
+
+    completer = WordCompleter(target_options + ["0"], ignore_case=True)
 
     print("\n--- Select target ---")
     print(f"Default target: {default_target}")
 
-    raw = prompt("Target [enter=default, 0=cancel]> ").strip()
+    if target_options:
+        print("Available targets:")
+        for idx, option in enumerate(target_options, start=1):
+            print(f"{idx}) {option}")
+
+    raw = prompt("Target [TAB=suggestions, enter=default, 0=cancel]> ", completer=completer).strip()
+
     if raw == "0":
         return None
+    
     if raw == "":
-        return default_target
+        return default_target    
+
     return raw
 
 
@@ -244,3 +261,44 @@ def confirm_session_creation(
         if raw in ("n", "no"):
             return False
         print("Invalid option.")
+
+
+import subprocess
+import ipaddress
+
+
+def detect_networks():
+    try:
+        result = subprocess.run(
+            ["ip", "-o", "-4", "addr", "show"],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+    except Exception as e:
+        print(f"Error detecting networks: {e}")
+        return []
+    
+    networks = []
+
+    for line in result.stdout.splitlines():
+        parts = line.split()
+        if len(parts) < 4:
+            continue
+
+        cidr = parts[3]  # ej: 10.7.7.5/24
+
+        try:
+            ip_interface = ipaddress.ip_interface(cidr)
+            network = str(ip_interface.network)
+        except ValueError:
+            continue
+
+        # ignorar loopback
+        if network.startswith("127."):
+            continue
+
+        if network not in networks:
+            networks.append(network)
+
+    return networks

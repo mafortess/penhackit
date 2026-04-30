@@ -23,7 +23,7 @@ def create_session_runtime(session_settings: dict, env_profile: dict, paths: Pat
     persist_session_metadata(session_dir, session_config, session_context)
 
     # 3) Crear archivo de KB inicial (kb.json) con datos predeterminados o vacío.    
-    kb = initialize_kb(session_id, session_dir)
+    kb = initialize_kb(session_id, session_dir, session_settings["target"], session_settings["goal_type"])
 
     # 4) Si la política de decisión de la sesión es basada en modelo, cargar el modelo de decisión entrenado y su metadata (feature_names) para usarlo durante la sesión.    
     model, feature_names = load_model_if_needed(session_settings, paths)
@@ -88,9 +88,10 @@ def persist_session_metadata(session_dir: Path, session_config: dict, session_co
         encoding="utf-8",
     )
 
-def initialize_kb(session_id: str, session_dir: Path):
+def initialize_kb(session_id: str, session_dir: Path, target: str, goal_type: str | None = None):
+
     print("Initializing KB...")
-    kb = build_initial_kb(session_id)
+    kb = build_initial_kb(session_id, target, goal_type)
 
     # 3) kb.json (conocimiento, inicialmente vacío o con datos predeterminados)
     (session_dir / "kb.json").write_text(

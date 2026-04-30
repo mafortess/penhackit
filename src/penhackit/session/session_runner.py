@@ -8,7 +8,7 @@ from penhackit.session.kb.kb_updater import update_kb, compute_kb_progress_simpl
 from penhackit.session.state.state_builder import build_state
 from penhackit.session.action.action_ids import ACTIONS, extract_action_id_from_cmd
 
-from penhackit.session.decision.policies import policy_decide_action, model_policy_decide_action, rules_policy_decide_action
+from penhackit.session.decision.policies import  scripted_policy_decide_action, model_policy_decide_action, rules_policy_decide_action
 
 from penhackit.session.execution.execute import execute_command
 
@@ -55,17 +55,26 @@ def run_session_autonomous(session_settings: dict, session_info: dict, paths: Pa
 
     print(f"Session ID: {session_info['session_id']}")
 
+    print("Initial KB:")
+    print(kb)
+    
     for t in range(max_steps):  # Simulación de max_steps pasos de la sesión
-        print(f"\n--- Step {t} ---")
+        print(f"\n==========================")
+        print(f"-------- Step {t+1} --------")
 
         prev_kb = copy.deepcopy(kb)
 
+        print(f"STATE:")
         # Build state representation from KB and session context to feed into the policy/model for decision making.
         state = build_state(kb, session_context)
         print(f"State at step {t}: {state}")
 
         # Decide action_id based on the chosen policy (scripted, model-based, rules-based) for autonomous mode.
         action_id = decide_autonomous_action(session_settings=session_settings, state=state, step=t, model=model, feature_names=fn)
+
+        if action_id == 0:
+            print("STOP action selected. Finishing session loop.")
+            break
 
         # Based on the decided action_id, build the command to execute using command_builder(action_id, kb).
         action_name, result, events = execute_autonomous_action(action_id, kb)
@@ -101,16 +110,18 @@ def execute_autonomous_action(action_id: int, kb: dict) -> tuple:
       - result: dict con rc, stdout, stderr, cmd
       - events: list de dicts con eventos extraídos del resultado para actualizar la KB
     """
-
+    print("\nCOMMAND BUILDING...")
     # Build commmand to execute based on the decided action_id, using from KB and session context. 
     # action_id = 1  # INSPECT_IPCONFIG
-    action_name, _ = ACTIONS.get(action_id, ("NONE", None))
+    action_data = ACTIONS.get(action_id, ACTIONS[0])
+    action_name = action_data["name"]
+
     print(f"Decided action: {action_name} (ID: {action_id})")
 
-    command = command_builder(action_id, kb)
-    print(f"Built command: {command}")
+    command_ctx = command_builder(action_data, kb)
+    print(f"Built command: {command_ctx }")
 
-    if command is None:
+    if command_ctx is None:
         print(f"No command to execute for action: {action_name} (ID: {action_id}), skipping execution.")
         return action_name, {
             "rc": None,
@@ -120,14 +131,22 @@ def execute_autonomous_action(action_id: int, kb: dict) -> tuple:
         }, []
 
     else:
-        command_to_run = command
+        print("\nACTION EXECUTION...")
+        command_to_run = command_ctx["command"]
         print(f"Executing command for action: {action_name} (ID: {action_id}): {command_to_run}")
         rc, stdout, stderr = execute_command(command_to_run)
+
         result = {
             "rc": rc,
             "stdout": stdout,
             "stderr": stderr,
-            "cmd": command_to_run
+            "cmd": command_to_run,
+            "target": command_ctx.get("target"),
+            "target_ip": command_ctx.get("target_ip"),
+            "target_port": command_ctx.get("target_port"),
+            "known_open_ports_csv": command_ctx.get("known_open_ports_csv"),
+            "service_version_string": command_ctx.get("service_version_string"),
+            "parser_family": command_ctx.get("parser_family"),
         }
         events = parse_command_result(action_name, result)
     
@@ -139,10 +158,11 @@ def decide_autonomous_action(session_settings: dict, state: dict, step: int, mod
     Decide action_id based on the chosen policy (scripted, model-based, rules-based) for autonomous mode.
     Devuelve el action_id decidido.
     """
+    print("\nDECIDING ACTION...")
     decider = session_settings["decider"]
     if decider == "scripted":
         print("Using scripted policy to decide action...")
-        action_id = policy_decide_action(state, step)
+        action_id = scripted_policy_decide_action(state, step)
     elif decider == "model":
         print("Using model-based policy to decide action...")
         action_id = model_policy_decide_action(state, model, feature_names)
@@ -163,6 +183,8 @@ def update_kb_with_events(kb: dict, events, result: dict, action_id: int, action
     Actualiza la KB con los eventos generados a partir del resultado de ejecutar un comando.
     Devuelve la KB actualizada.
     """
+    print("\nUPDATING KB WITH EVENTS...")
+
     kb = update_kb(kb, events)
 
     kb.setdefault("commands", [])

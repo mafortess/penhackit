@@ -24,7 +24,7 @@ def run_generate_report_service(app_context: dict) -> None:
         "ollama_model_name": wizard_data["ollama_model_name"],
         "transformers_model_name": wizard_data["transformers_model_name"],
         # "pdf_generation": wizard_data["pdf_generation"],
-        "template": wizard_data["template"],
+        "default_template": wizard_data["template"],
         "device": wizard_data["device"],
     }
 
