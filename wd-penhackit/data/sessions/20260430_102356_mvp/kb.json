@@ -1,0 +1,141 @@
+{
+  "session_id": "20260430_102356_mvp",
+  "name_enterprise": "ITIS",
+  "scope": {
+    "target": "10.7.7.0/24"
+  },
+  "goal": {
+    "type": "recon"
+  },
+  "networks": [],
+  "hosts": {
+    "10.6.6.10": {
+      "ip": "10.6.6.10",
+      "alive": true,
+      "ports": {
+        "80": {
+          "port": 80,
+          "proto": "tcp",
+          "state": "open",
+          "service": "http"
+        }
+      },
+      "services": {
+        "80": {
+          "port": 80,
+          "proto": "tcp",
+          "service": "http",
+          "version": "Apache httpd 2.4.10 ((Debian))"
+        }
+      },
+      "web_paths": [],
+      "smb_shares": [],
+      "candidate_vulns": [],
+      "source": "nmap",
+      "http_headers": [
+        {
+          "port": 80,
+          "header": "Date",
+          "value": "Thu, 30 Apr 2026 08:24:11 GMT"
+        },
+        {
+          "port": 80,
+          "header": "Server",
+          "value": "Apache/2.4.10 (Debian)"
+        },
+        {
+          "port": 80,
+          "header": "Set-Cookie",
+          "value": "PHPSESSID=5kebc1ivgl1rl9smi6f2j5hfd4; path=/"
+        },
+        {
+          "port": 80,
+          "header": "Expires",
+          "value": "Thu, 19 Nov 1981 08:52:00 GMT"
+        },
+        {
+          "port": 80,
+          "header": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+        },
+        {
+          "port": 80,
+          "header": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "port": 80,
+          "header": "Set-Cookie",
+          "value": "PHPSESSID=5kebc1ivgl1rl9smi6f2j5hfd4; path=/; httponly"
+        },
+        {
+          "port": 80,
+          "header": "Set-Cookie",
+          "value": "security=impossible; httponly"
+        },
+        {
+          "port": 80,
+          "header": "Location",
+          "value": "login.php"
+        },
+        {
+          "port": 80,
+          "header": "Content-Type",
+          "value": "text/html; charset=UTF-8"
+        }
+      ]
+    },
+    "10.6.6.200": {
+      "ip": "10.6.6.200",
+      "alive": true,
+      "ports": {},
+      "services": {},
+      "web_paths": [],
+      "smb_shares": [],
+      "candidate_vulns": [],
+      "source": "nmap"
+    }
+  },
+  "services": [],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  },
+  "findings": [],
+  "notes": [
+    {
+      "type": "COMMAND_ERROR",
+      "action": "ENUM_SMB_SHARES",
+      "rc": 1,
+      "stderr": "do_connect: Connection to 10.6.6.10 failed (Error NT_STATUS_CONNECTION_REFUSED)\n"
+    },
+    {
+      "type": "COMMAND_ERROR",
+      "action": "CHECK_SERVICE_VERSION_VULNS",
+      "rc": 2,
+      "stderr": "/bin/sh: 1: Syntax error: \"(\" unexpected\n"
+    }
+  ],
+  "commands": [
+    "nmap -sn 10.6.6.0/24",
+    "nmap --top-ports 1000 --open -T3 10.6.6.10",
+    "nmap -sV -sC -O -T3 -p 80 10.6.6.10",
+    "curl -I --max-time 10 http://10.6.6.10:80",
+    "gobuster dir -u http://10.6.6.10:80 -w /usr/share/wordlists/dirb/common.txt -q",
+    "smbclient -L //10.6.6.10 -N",
+    "searchsploit http Apache httpd 2.4.10 ((Debian))"
+  ],
+  "focus": {
+    "level": "host",
+    "host": "10.6.6.10",
+    "service": ""
+  },
+  "step_idx": 6,
+  "last_action_id": 400,
+  "last_action_name": "CHECK_SERVICE_VERSION_VULNS",
+  "last_rc": 2,
+  "last_event_type": "COMMAND_ERROR"
+}

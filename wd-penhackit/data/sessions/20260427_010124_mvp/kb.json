@@ -1,0 +1,64 @@
+{
+  "session_id": "20260427_010124_mvp",
+  "name_enterprise": "ITIS",
+  "networks": {},
+  "hosts": [
+    {
+      "ip": "10.0.2.2",
+      "source": "arp"
+    },
+    {
+      "ip": "10.7.7.2",
+      "source": "arp"
+    }
+  ],
+  "services": [],
+  "findings": [],
+  "notes": [
+    {
+      "type": "COMMAND_ERROR",
+      "action": "INSPECT_IPCONFIG",
+      "rc": 127,
+      "stderr": "/bin/sh: 1: ipconfig: not found\n"
+    },
+    {
+      "type": "COMMAND_ERROR",
+      "action": "INSPECT_ROUTE",
+      "rc": 3,
+      "stderr": "Usage: route [-nNvee] [-FC] [<AF>]           List kernel routing tables\n       route [-v] [-FC] {add|del|flush} ...  Modify routing table for AF.\n\n       route {-h|--help} [<AF>]              Detailed usage syntax for specified AF.\n       route {-V|--version}                  Display version/author and exit.\n\n        -v, --verbose            be verbose\n        -n, --numeric            don't resolve names\n        -e, --extend             display other/more information\n        -F, --fib           "
+    }
+  ],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [
+      {
+        "ip": "10.0.2.2",
+        "mac": "",
+        "type": ""
+      },
+      {
+        "ip": "10.7.7.2",
+        "mac": "",
+        "type": ""
+      }
+    ],
+    "routes": []
+  },
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "commands": [
+    "ipconfig /all",
+    "arp -a",
+    "route print"
+  ],
+  "step_idx": 2,
+  "last_action_id": 3,
+  "last_action_name": "INSPECT_ROUTE",
+  "last_rc": 3,
+  "last_event_type": "COMMAND_ERROR"
+}

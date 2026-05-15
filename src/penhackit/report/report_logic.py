@@ -377,29 +377,169 @@ def baseline_section_body(section_title: str, kb_compact: dict) -> str:
 
 
 def compact_kb_for_report(kb: dict) -> dict:
+    """
+    Compacta la KB para generación de informes.
+
+    Estructura esperada:
+    - kb["hosts"] como dict indexado por IP.
+    - kb["services"] como índice global opcional.
+    - kb["networks"] como lista/dict opcional.
+    - kb["net"] para información local del atacante.
+    """
+     
     net = kb.get("net", {}) or {}
+    hosts = kb.get("hosts", {}) or {}
+    services_global = kb.get("services", []) or []
+    networks = kb.get("networks", []) or []
+
+    if not isinstance(hosts, dict):
+        hosts = {}
+
+    if not isinstance(services_global, list):
+        services_global = []
+
+    # -------------------------
+    # Hosts compactos
+    # -------------------------
+    hosts_sample = []
+
+    for ip, host in list(hosts.items())[:30]:
+        if not isinstance(host, dict):
+            continue
+
+        ports = host.get("ports", {}) or {}
+        services = host.get("services", {}) or {}
+
+        hosts_sample.append({
+            "ip": ip,
+            "role": host.get("role", ""),
+            "alive": host.get("alive"),
+            "source": host.get("source", ""),
+            "open_ports": list(ports.keys())[:50] if isinstance(ports, dict) else [],
+            "open_ports_count": len(ports) if isinstance(ports, dict) else 0,
+            "services_count": len(services) if isinstance(services, dict) else 0,
+            "web_paths_count": len(host.get("web_paths", []) or []),
+            "smb_shares_count": len(host.get("smb_shares", []) or []),
+            "candidate_vulns_count": len(host.get("candidate_vulns", []) or []),
+            "credentials_count": len(host.get("credentials", []) or []),
+            "sessions_count": len(host.get("sessions", []) or []),
+        })
+
+    # -------------------------
+    # Services compactos
+    # Prioridad: índice global kb["services"].
+    # Fallback: derivar desde hosts[ip]["services"].
+    # -------------------------
+    services_sample = []
+
+    if services_global:
+        for svc in services_global[:50]:
+            if not isinstance(svc, dict):
+                services_sample.append({"raw": str(svc)})
+                continue
+
+            services_sample.append({
+                "host": svc.get("host") or svc.get("ip"),
+                "port": svc.get("port"),
+                "proto": svc.get("proto", "tcp"),
+                "service": svc.get("service") or svc.get("name", ""),
+                "version": svc.get("version", ""),
+                "product": svc.get("product", ""),
+            })
+    else:
+        for ip, host in hosts.items():
+            if not isinstance(host, dict):
+                continue
+
+            host_services = host.get("services", {}) or {}
+            if not isinstance(host_services, dict):
+                continue
+
+            for port, svc in host_services.items():
+                if not isinstance(svc, dict):
+                    continue
+
+                services_sample.append({
+                    "host": ip,
+                    "port": svc.get("port", port),
+                    "proto": svc.get("proto", "tcp"),
+                    "service": svc.get("service") or svc.get("name", ""),
+                    "version": svc.get("version", ""),
+                    "product": svc.get("product", ""),
+                })
+
+    # -------------------------
+    # Networks compactas
+    # -------------------------
+    networks_sample = []
+
+    if isinstance(networks, dict):
+        for net_id, net_data in list(networks.items())[:20]:
+            if isinstance(net_data, dict):
+                item = {"id": net_id}
+                item.update(net_data)
+                networks_sample.append(item)
+            else:
+                networks_sample.append({
+                    "id": net_id,
+                    "value": str(net_data),
+                })
+
+    elif isinstance(networks, list):
+        for item in networks[:20]:
+            if isinstance(item, dict):
+                networks_sample.append(item)
+            else:
+                networks_sample.append({"value": str(item)})
+
+    # -------------------------
+    # Findings / sessions / credentials
+    # -------------------------
+    findings = kb.get("findings", []) or []
+    notes = kb.get("notes", []) or []
+    commands = kb.get("commands", []) or []
+    sessions = kb.get("sessions", []) or []
+    credentials = kb.get("credentials", []) or []
+
     return {
         "session_id": kb.get("session_id"),
-        "goal_type": (kb.get("session_context", {}) or {}).get("goal_type"),  # si existe
-        "target": (kb.get("session_context", {}) or {}).get("target"),        # si existe
-        "focus": kb.get("focus", {}),
+
+        "scope": kb.get("scope", {}) or {},
+        "goal": kb.get("goal", {}) or {},
+        "focus": kb.get("focus", {}) or {},
+
+        "goal_type": (kb.get("goal", {}) or {}).get("type"),
+        "target": (kb.get("scope", {}) or {}).get("target")
+            or (kb.get("scope", {}) or {}).get("target_host")
+            or (kb.get("scope", {}) or {}).get("target_network"),
+
         "counts": {
-            "hosts": len(kb.get("hosts", []) or []),
-            "services": len(kb.get("services", []) or []),
-            "findings": len(kb.get("findings", []) or []),
-            "notes": len(kb.get("notes", []) or []),
-            "commands": len(kb.get("commands", []) or []),
+            "networks": len(networks_sample),
+            "hosts": len(hosts),
+            "services": len(services_global) if services_global else len(services_sample),
+            "findings": len(findings),
+            "notes": len(notes),
+            "commands": len(commands),
+            "sessions": len(sessions),
+            "credentials": len(credentials),
         },
+
         "net": {
             "ipv4": (net.get("ipv4", []) or [])[:10],
             "default_gw": (net.get("default_gw", []) or [])[:10],
             "arp_neighbors": (net.get("arp_neighbors", []) or [])[:30],
+            "interfaces": (net.get("interfaces", []) or [])[:10],
+            "routes": (net.get("routes", []) or [])[:20],
         },
-        "hosts_sample": (kb.get("hosts", []) or [])[:30],
-        "services_sample": (kb.get("services", []) or [])[:30],
-        "findings_sample": (kb.get("findings", []) or [])[:30],
-        "commands_tail": (kb.get("commands", []) or [])[-40:],
-        "notes_tail": (kb.get("notes", []) or [])[-20:],
+
+        "networks_sample": networks_sample,
+        "hosts_sample": hosts_sample,
+        "services_sample": services_sample[:50],
+        "findings_sample": findings[:30],
+        "sessions_sample": sessions[:20],
+        "credentials_sample": credentials[:20],
+        "commands_tail": commands[-40:],
+        "notes_tail": notes[-20:],
     }
 
 def build_section_prompt(section_title: str, section_guidance: str, kb_compact: dict) -> str:
@@ -674,7 +814,15 @@ def md_to_pdf(md_path: Path, pdf_path: Path) -> None:
 
 # FIGURE GENERATION (USADO POR TODOS LOS BACKENDS, INDEPENDIENTE DE LLM)
 def plot_hosts_kpi(kb: dict, out_png: Path) -> None:
-    n = len(kb.get("hosts", []) or [])
+    hosts = kb.get("hosts", {}) or {}
+
+    if isinstance(hosts, dict):
+        n = len(hosts)
+    elif isinstance(hosts, list):
+        n = len(hosts)
+    else:
+        n = 0
+
     out_png.parent.mkdir(parents=True, exist_ok=True)
 
     plt.figure()

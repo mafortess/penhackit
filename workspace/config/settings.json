@@ -1,0 +1,34 @@
+{
+  "schema_id": "settings.v1",
+  "app": {
+    "show_banner": true,
+    "verbose": true,
+    "refresh_environment_on_startup": true,
+    "active_profile": "default"
+  },
+  "paths": {
+    "workspace_dir": "workspace"
+  },
+  "session": {
+    "default_name": "mvp",
+    "default_mode": "autonomous",
+    "default_goal_type": "recon",
+    "default_target": "127.0.0.1",
+    "default_max_steps": 5,
+    "launch_kb_monitor": false
+  },
+  "training": {
+    "default_test_size": 0.25,
+    "default_random_state": 42,
+    "default_model_type": "decision_tree"
+  },
+  "report": {
+    "default_backend": "baseline",
+    "default_output_format": "md",
+    "default_ollama_model": "gemma3:1b",
+    "default_transformers_model": "",
+    "default_template": "standard",
+    "default_transformers_device": "cpu",
+    "export_pdf_after_generation": false
+  }
+}
