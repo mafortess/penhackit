@@ -558,8 +558,9 @@ KB (JSON):
 {json.dumps(kb_compact, ensure_ascii=False, indent=2)}
 """
 
-
-OLLAMA_GENERATE_URL = "http://localhost:11434/api/generate"
+# ===========================================   ======================
+# API to generate report sections with Ollama
+OLLAMA_GENERATE_URL = "http://10.0.2.2:11434/api/generate"
 
 def ollama_generate_http(model: str, prompt: str, timeout_s: int = 180) -> str:
     r = requests.post(

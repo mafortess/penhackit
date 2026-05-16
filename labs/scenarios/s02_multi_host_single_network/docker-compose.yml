@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  meta_full:
+    build:
+      context: ../../images/meta_full
+      dockerfile: Dockerfile
+    container_name: s02_meta_full
+    hostname: s02-meta-full
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet1:
+        ipv4_address: 10.6.6.10
+
+  meta_smb:
+    build:
+      context: ../../images/meta_smb
+      dockerfile: Dockerfile
+    container_name: s02_meta_smb
+    hostname: s02-meta-smb
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet1:
+        ipv4_address: 10.6.6.20
+
+  meta_distcc:
+    build:
+      context: ../../images/meta_distcc
+      dockerfile: Dockerfile
+    container_name: s02_meta_distcc
+    hostname: s02-meta-distcc
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet1:
+        ipv4_address: 10.6.6.30
+
+  meta_web:
+    build:
+      context: ../../images/meta_web
+      dockerfile: Dockerfile
+    container_name: s02_meta_web
+    hostname: s02-meta-web
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet1:
+        ipv4_address: 10.6.6.40
+
+  meta_creds:
+    build:
+      context: ../../images/meta_creds
+      dockerfile: Dockerfile
+    container_name: s02_meta_creds
+    hostname: s02-meta-creds
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet1:
+        ipv4_address: 10.6.6.50
+
+networks:
+  labnet1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.6.0/24
+          gateway: 10.6.6.1

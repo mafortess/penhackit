@@ -264,7 +264,7 @@ def detect_environment_profile() -> dict:
     }
 
 def load_environment_profile(workspace_dir: Path) -> dict | None:
-    profile_path = workspace_dir / "data" / "env" / ENVIRONMENT_PROFILE_FILENAME
+    profile_path = workspace_dir / "data" / "env_profile" / ENVIRONMENT_PROFILE_FILENAME
 
     if not profile_path.exists():
         return None
@@ -273,7 +273,7 @@ def load_environment_profile(workspace_dir: Path) -> dict | None:
         return json.load(f)
     
 def save_environment_profile(workspace_dir: Path, profile: dict) -> Path:
-    profile_path = workspace_dir / "data" / "env" / ENVIRONMENT_PROFILE_FILENAME
+    profile_path = workspace_dir / "data" / "env_profile" / ENVIRONMENT_PROFILE_FILENAME
 
     with profile_path.open("w", encoding="utf-8") as f:
         json.dump(profile, f, indent=2, ensure_ascii=False)

@@ -27,7 +27,7 @@ def list_reportable_sessions(sessions_dir: Path) -> list[str]:
 
 # ===========================================   ======================
 # List local Ollama models
-OLLAMA_TAGS_URL = "http://localhost:11434/api/tags"
+OLLAMA_TAGS_URL = "http://10.0.2.2:11434/api/tags"
 
 def list_local_ollama_models() -> list[str]:
     """

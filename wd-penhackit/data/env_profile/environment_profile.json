@@ -1,0 +1,184 @@
+{
+  "schema_id": "environment_profile.v1",
+  "detected_at_utc": "2026-05-16T21:01:51Z",
+  "system": {
+    "os": "Linux",
+    "os_release": "6.18.9+kali-amd64",
+    "os_version": "#1 SMP PREEMPT_DYNAMIC Kali 6.18.9-1kali1 (2026-02-10)",
+    "machine": "x86_64",
+    "architecture": "64bit",
+    "processor": "",
+    "hostname": "kali",
+    "python_version": "3.13.11",
+    "python_implementation": "CPython",
+    "python_executable": "/home/kali/penhackit_2/penhackit/venv/bin/python"
+  },
+  "curated_tools": {
+    "basic_network": {
+      "ping": {
+        "available": true,
+        "path": "/usr/bin/ping"
+      },
+      "arp": {
+        "available": true,
+        "path": "/usr/sbin/arp"
+      },
+      "ipconfig": {
+        "available": false,
+        "path": null
+      },
+      "netstat": {
+        "available": true,
+        "path": "/usr/bin/netstat"
+      },
+      "ip": {
+        "available": true,
+        "path": "/usr/sbin/ip"
+      },
+      "ss": {
+        "available": true,
+        "path": "/usr/bin/ss"
+      },
+      "route": {
+        "available": true,
+        "path": "/usr/sbin/route"
+      },
+      "tracert": {
+        "available": false,
+        "path": null
+      },
+      "traceroute": {
+        "available": true,
+        "path": "/usr/sbin/traceroute"
+      }
+    },
+    "host_discovery": {
+      "nmap": {
+        "available": true,
+        "path": "/usr/bin/nmap"
+      },
+      "masscan": {
+        "available": true,
+        "path": "/usr/bin/masscan"
+      },
+      "fping": {
+        "available": true,
+        "path": "/usr/bin/fping"
+      }
+    },
+    "service_enumeration": {
+      "nmap": {
+        "available": true,
+        "path": "/usr/bin/nmap"
+      },
+      "nc": {
+        "available": true,
+        "path": "/usr/bin/nc"
+      },
+      "telnet": {
+        "available": true,
+        "path": "/usr/bin/telnet"
+      },
+      "whatweb": {
+        "available": true,
+        "path": "/usr/bin/whatweb"
+      }
+    },
+    "web_enumeration": {
+      "curl": {
+        "available": true,
+        "path": "/usr/bin/curl"
+      },
+      "wget": {
+        "available": true,
+        "path": "/usr/bin/wget"
+      },
+      "nikto": {
+        "available": true,
+        "path": "/usr/bin/nikto"
+      },
+      "gobuster": {
+        "available": true,
+        "path": "/usr/bin/gobuster"
+      },
+      "dirb": {
+        "available": true,
+        "path": "/usr/bin/dirb"
+      },
+      "ffuf": {
+        "available": true,
+        "path": "/usr/bin/ffuf"
+      }
+    },
+    "vulnerability_analysis": {
+      "nuclei": {
+        "available": false,
+        "path": null
+      },
+      "sqlmap": {
+        "available": true,
+        "path": "/usr/bin/sqlmap"
+      },
+      "wpscan": {
+        "available": true,
+        "path": "/usr/bin/wpscan"
+      }
+    },
+    "exploitation": {
+      "msfconsole": {
+        "available": true,
+        "path": "/usr/bin/msfconsole"
+      },
+      "searchsploit": {
+        "available": true,
+        "path": "/usr/bin/searchsploit"
+      }
+    },
+    "wireless": {
+      "aircrack-ng": {
+        "available": true,
+        "path": "/usr/bin/aircrack-ng"
+      },
+      "airodump-ng": {
+        "available": true,
+        "path": "/usr/sbin/airodump-ng"
+      }
+    }
+  },
+  "all_tools": [
+    "1password2john",
+    "2to3-2.7",
+    "411toppm",
+    "7z",
+    "7z2john",
+    "7za",
+    "7zr",
+    "DPAPImk2john",
+    "FileCheck-18",
+    "FileCheck-19",
+    "FileCheck-21",
+    "GET",
+    "GenPat",
+    "HEAD",
+    "JxrDecApp",
+    "JxrEncApp",
+    "ModemManager",
+    "NetworkManager",
+    "POST",
+    "SIPdump"
+  ],
+  "capabilities": {
+    "can_do_basic_network_checks": true,
+    "can_do_host_discovery": true,
+    "can_do_service_enumeration": true,
+    "can_do_web_enumeration": true,
+    "can_do_vulnerability_analysis": true,
+    "can_do_exploitation": true
+  },
+  "goal_support": {
+    "recon": true,
+    "enumeration": true,
+    "vulnerability_discovery": true,
+    "exploitation": true
+  }
+}

@@ -1,0 +1,77 @@
+version: "3.9"
+
+services:
+  meta_full_net1:
+    build:
+      context: ../../images/meta_full
+      dockerfile: Dockerfile
+    container_name: s03_meta_full_net1
+    hostname: s03-meta-full-net1
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet1:
+        ipv4_address: 10.6.6.10
+
+  meta_smb_net1:
+    build:
+      context: ../../images/meta_smb
+      dockerfile: Dockerfile
+    container_name: s03_meta_smb_net1
+    hostname: s03-meta-smb-net1
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet1:
+        ipv4_address: 10.6.6.20
+
+  meta_distcc_net2:
+    build:
+      context: ../../images/meta_distcc
+      dockerfile: Dockerfile
+    container_name: s03_meta_distcc_net2
+    hostname: s03-meta-distcc-net2
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet2:
+        ipv4_address: 10.7.7.10
+
+  meta_web_net2:
+    build:
+      context: ../../images/meta_web
+      dockerfile: Dockerfile
+    container_name: s03_meta_web_net2
+    hostname: s03-meta-web-net2
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet2:
+        ipv4_address: 10.7.7.20
+
+  meta_creds_net2:
+    build:
+      context: ../../images/meta_creds
+      dockerfile: Dockerfile
+    container_name: s03_meta_creds_net2
+    hostname: s03-meta-creds-net2
+    restart: unless-stopped
+    command: /bin/bash -lc "/bin/services.sh || true; tail -f /dev/null"
+    networks:
+      labnet2:
+        ipv4_address: 10.7.7.30
+
+networks:
+  labnet1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.6.0/24
+          gateway: 10.6.6.1
+
+  labnet2:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.7.7.0/24
+          gateway: 10.7.7.1
