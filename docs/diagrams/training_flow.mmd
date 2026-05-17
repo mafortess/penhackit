@@ -1,0 +1,8 @@
+flowchart LR
+    Sessions[Recorded Sessions] --> DatasetBuilder[Dataset Builder]
+    DatasetBuilder --> Dataset[State-Action Dataset JSONL]
+    Dataset --> Vectorizer[Feature Vectorization]
+    Vectorizer --> Train[Train Models]
+    Train --> Models[Decision Tree / RF / MLP / CatBoost]
+    Models --> Evaluation[Evaluation]
+    Evaluation --> Metrics[Accuracy / Confusion Matrix / Process Metrics]

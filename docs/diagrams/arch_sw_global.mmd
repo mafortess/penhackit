@@ -1,0 +1,40 @@
+flowchart TB
+    User[Usuario] --> CLI[CLI / Menús]
+
+    CLI --> Session[Session Module]
+    CLI --> Training[Training Module]
+    CLI --> Reports[Report Module]
+    CLI --> Settings[Settings Module]
+
+    Session --> Wizard[Session Wizard]
+    Session --> SessionLogic[Session Logic / Orchestrator]
+
+    SessionLogic --> KB[Knowledge Base]
+    SessionLogic --> StateBuilder[State Builder]
+    SessionLogic --> Policy[Decision Policy]
+    SessionLogic --> CommandBuilder[Command Builder]
+    SessionLogic --> Executor[Command Executor]
+    SessionLogic --> Parser[Parser / Event Builder]
+    SessionLogic --> KBUpdater[KB Updater]
+    SessionLogic --> Logger[Session Logger]
+
+    StateBuilder --> KB
+    Policy --> Model[Trained Model]
+    CommandBuilder --> ActionCatalog[Action Catalog]
+    CommandBuilder --> CommandProfiles[Command Profiles]
+    Executor --> Tools[Kali Tools: nmap, gobuster, hydra, metasploit...]
+    Parser --> Events[Normalized Events]
+    Events --> KBUpdater
+    KBUpdater --> KB
+
+    Logger --> Dataset[(Dataset JSONL)]
+    Training --> Dataset
+    Training --> Model
+
+    Reports --> KB
+    Reports --> ReportFiles[Markdown / PDF Report]
+
+    Settings --> Config[(Configuration)]
+    SessionLogic --> Config
+    Training --> Config
+    Reports --> Config

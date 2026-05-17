@@ -1,0 +1,8 @@
+flowchart TB
+    RawOutput[Raw Tool Output] --> Parser[Parser]
+    Parser --> Facts[Parsed Facts]
+    Facts --> Events[Normalized Events]
+    Events --> KBUpdater[KB Update Rules]
+    KBUpdater --> KB[Knowledge Base]
+    KB --> StateBuilder[State Builder]
+    StateBuilder --> State[Decision State]

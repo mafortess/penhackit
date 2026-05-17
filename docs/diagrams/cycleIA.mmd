@@ -1,0 +1,14 @@
+flowchart LR
+    KB[Knowledge Base] --> StateBuilder[Build State]
+    StateBuilder --> State[Fixed-size State Vector]
+    State --> Model[Decision Model / Policy]
+    Model --> Action[Semantic Action ID]
+    Action --> Validator[Orchestrator / Preconditions]
+    Validator --> CmdBuilder[Command Builder]
+    CmdBuilder --> Command[Concrete Command]
+    Command --> Executor[Executor]
+    Executor --> Output[stdout / stderr / rc]
+    Output --> Parser[Parser Family]
+    Parser --> Events[Normalized Events]
+    Events --> KBUpdater[KB Updater]
+    KBUpdater --> KB

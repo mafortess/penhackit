@@ -1,0 +1,11 @@
+flowchart LR
+    SessionDir[Session Directory] --> KB[Final KB]
+    KB --> ReportGenerator[Report Generator]
+    ReportGenerator --> Backend{Backend}
+    Backend --> Baseline[Baseline Template]
+    Backend --> Ollama[Local Ollama]
+    Backend --> Transformers[Local Transformers]
+    Baseline --> Report[Markdown Report]
+    Ollama --> Report
+    Transformers --> Report
+    Report --> PDF[Optional PDF Export]

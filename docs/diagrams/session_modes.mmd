@@ -1,0 +1,24 @@
+flowchart TB
+    Mode[Session Mode] --> Autonomous[Autonomous Mode]
+    Mode --> Observation[Observation Mode]
+    Mode --> Suggestion[Suggestion Mode]
+
+    Autonomous --> A1[Build State]
+    A1 --> A2[Model selects action]
+    A2 --> A3[System executes command]
+    A3 --> A4[Parse output]
+    A4 --> A5[Update KB]
+
+    Observation --> O1[Build State]
+    O1 --> O2[Human executes command]
+    O2 --> O3[Extract / label action]
+    O3 --> O4[Log state-action pair]
+    O4 --> O5[Parse output]
+    O5 --> O6[Update KB]
+
+    Suggestion --> S1[Build State]
+    S1 --> S2[Model suggests action]
+    S2 --> S3[Human accepts or overrides]
+    S3 --> S4[Execute chosen action]
+    S4 --> S5[Log suggestion and final action]
+    S5 --> S6[Update KB]
