@@ -1,6 +1,18 @@
 import subprocess
 
 
+def get_timeout_for_action(action_id: int) -> int:
+    if action_id in [211, 220, 230, 401]:
+        return 180
+
+    if action_id in [330, 331, 332, 413]:
+        return 45
+
+    if 600 <= action_id <= 699:
+        return 180
+
+    return 60
+
 def execute_command(cmd):
     stdout_chunks = []
     stderr_chunks = []

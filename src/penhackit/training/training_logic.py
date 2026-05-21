@@ -7,6 +7,8 @@ from prompt_toolkit.completion import WordCompleter # autcompletado para menus y
 
 import numpy as np
 
+from penhackit.training.vectorization import vectorize_bc_rows
+
 # from sklearn.tree import DecisionTreeClassifier
 # from sklearn.ensemble import RandomForestClassifier
 # from sklearn.linear_model import LogisticRegression
@@ -28,10 +30,17 @@ from penhackit.common.paths import Paths
 # }
 
 MODEL_CHOICES = {
-    "logreg": ("logreg", "Logistic Regression (multinomial)"),
+    # Modelos baseline:
     "decision_tree": ("decision_tree", "Decision Tree"),
     "random_forest": ("random_forest", "Random Forest"),
-    "mlp": ("mlp", "MLP (2 hidden layers)"),
+    
+    # Modelos modernos de boosting para datos tabulares
+    "catboost": ("catboost", "CatBoost Classifier"),
+    "lightgbm": ("lightgbm", "LightGBM Classifier"),
+    "xgboost": ("xgboost", "XGBoost Classifier"),
+
+    # "mlp": ("mlp", "MLP (2 hidden layers)"),
+    # "logreg": ("logreg", "Logistic Regression (multinomial)"),
 }
 
 
@@ -161,11 +170,63 @@ def training_model(training_settings: dict, dataset_path: Path, model_key: str, 
 def get_model_factory(model_key: str):
     if model_key == "decision_tree":
         from sklearn.tree import DecisionTreeClassifier
-        return lambda: DecisionTreeClassifier(random_state=42)
+        return lambda: DecisionTreeClassifier(
+            random_state=42)
 
     elif model_key == "random_forest":
         from sklearn.ensemble import RandomForestClassifier
-        return lambda: RandomForestClassifier(n_estimators=200, random_state=42)
+        return lambda: RandomForestClassifier(
+            n_estimators=200, 
+            random_state=42)
+
+    if model_key == "catboost":
+        try:
+            from catboost import CatBoostClassifier
+        except ImportError as e:
+            raise ImportError(
+                "CatBoost is not installed. Install it with: pip install catboost"
+            ) from e
+
+        return lambda: CatBoostClassifier(
+            iterations=300,
+            depth=6,
+            learning_rate=0.05,
+            loss_function="MultiClass",
+            random_seed=42,
+            verbose=False,
+        )
+
+    if model_key == "lightgbm":
+        try:
+            from lightgbm import LGBMClassifier
+        except ImportError as e:
+            raise ImportError(
+                "LightGBM is not installed. Install it with: pip install lightgbm"
+            ) from e
+
+        return lambda: LGBMClassifier(
+            n_estimators=300,
+            learning_rate=0.05,
+            random_state=42,
+            class_weight="balanced",
+        )
+
+    if model_key == "xgboost":
+        try:
+            from xgboost import XGBClassifier
+        except ImportError as e:
+            raise ImportError(
+                "XGBoost is not installed. Install it with: pip install xgboost"
+            ) from e
+
+        return lambda: XGBClassifier(
+            n_estimators=300,
+            max_depth=6,
+            learning_rate=0.05,
+            objective="multi:softprob",
+            eval_metric="mlogloss",
+            random_state=42,
+        )
 
     elif model_key == "logreg":
         from sklearn.linear_model import LogisticRegression
@@ -178,23 +239,6 @@ def get_model_factory(model_key: str):
     else:
         raise ValueError(f"Unknown model_key: {model_key}")
     
-def vectorize_dataset(rows: list[dict]):
-    all_keys = set()
-    for r in rows:
-        x = r.get("x") or {}
-        all_keys.update(x.keys())
-    feature_names = sorted(all_keys)
-
-    X = np.zeros((len(rows), len(feature_names)), dtype=np.float32)
-    y = np.zeros((len(rows),), dtype=np.int64)
-
-    for i, r in enumerate(rows):
-        x = r.get("x") or {}
-        for j, k in enumerate(feature_names):
-            X[i, j] = float(x.get(k, 0.0))
-        y[i] = int(r.get("y"))
-
-    return X, y, feature_names
 
 def load_dataset_jsonl(dataset_path: Path | str) -> list[dict]:
        
@@ -254,36 +298,6 @@ def load_dataset_jsonl_dir(dataset_dir: Path) -> list[dict]:
         raise RuntimeError("Dataset is empty.")
     return rows
 
-def vectorize_bc_rows(rows: list[dict]):
-    # Collect all keys from "state"
-    keys = set()
-    for r in rows:
-        s = r.get("state") or {}
-        if not isinstance(s, dict):
-            raise TypeError("Each row must contain a dict field 'state'.")
-        keys.update(s.keys())
-
-    feature_names = sorted(keys)
-    X = np.zeros((len(rows), len(feature_names)), dtype=np.float32)
-    y = np.zeros((len(rows),), dtype=np.int64)
-
-    for i, r in enumerate(rows):
-        s = r.get("state") or {}
-        for j, k in enumerate(feature_names):
-            v = s.get(k, 0)
-            if isinstance(v, bool):
-                v = 1 if v else 0
-            if v is None:
-                v = 0
-            if not isinstance(v, (int, float)):
-                raise TypeError(f"Non-numeric feature in state: key={k} value={v!r}")
-            X[i, j] = float(v)
-
-        if "action_id" not in r:
-            raise KeyError("Missing 'action_id' in dataset row.")
-        y[i] = int(r["action_id"])
-
-    return X, y, feature_names
 
 
 # =========================
@@ -305,6 +319,11 @@ def next_available_path(dirpath: Path, base_name: str, ext: str) -> Path:
         if not pi.exists():
             return pi
         i += 1
+
+
+
+# ========================================================================
+# ========================================================================
 
 # DEPRECATED VERSION
 def train_models_from_dataset(dataset_dir: Path, models_dir: Path) -> Path:
@@ -358,3 +377,54 @@ def train_models_from_dataset(dataset_dir: Path, models_dir: Path) -> Path:
     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nSaved models to: {out_dir}")
     return out_dir
+
+
+def vectorize_dataset(rows: list[dict]):
+    all_keys = set()
+    for r in rows:
+        x = r.get("x") or {}
+        all_keys.update(x.keys())
+    feature_names = sorted(all_keys)
+
+    X = np.zeros((len(rows), len(feature_names)), dtype=np.float32)
+    y = np.zeros((len(rows),), dtype=np.int64)
+
+    for i, r in enumerate(rows):
+        x = r.get("x") or {}
+        for j, k in enumerate(feature_names):
+            X[i, j] = float(x.get(k, 0.0))
+        y[i] = int(r.get("y"))
+
+    return X, y, feature_names
+
+
+# def vectorize_bc_rows(rows: list[dict]):
+#     # Collect all keys from "state"
+#     keys = set()
+#     for r in rows:
+#         s = r.get("state") or {}
+#         if not isinstance(s, dict):
+#             raise TypeError("Each row must contain a dict field 'state'.")
+#         keys.update(s.keys())
+
+#     feature_names = sorted(keys)
+#     X = np.zeros((len(rows), len(feature_names)), dtype=np.float32)
+#     y = np.zeros((len(rows),), dtype=np.int64)
+
+#     for i, r in enumerate(rows):
+#         s = r.get("state") or {}
+#         for j, k in enumerate(feature_names):
+#             v = s.get(k, 0)
+#             if isinstance(v, bool):
+#                 v = 1 if v else 0
+#             if v is None:
+#                 v = 0
+#             if not isinstance(v, (int, float)):
+#                 raise TypeError(f"Non-numeric feature in state: key={k} value={v!r}")
+#             X[i, j] = float(v)
+
+#         if "action_id" not in r:
+#             raise KeyError("Missing 'action_id' in dataset row.")
+#         y[i] = int(r["action_id"])
+
+#     return X, y, feature_names

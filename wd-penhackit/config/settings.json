@@ -10,11 +10,15 @@
     "workspace_dir": "wd-penhackit"
   },
   "session": {
-    "default_name": "mvp",
+    "default_name": "mvp_session",
     "default_mode": "autonomous",
-    "default_goal_type": "recon",
-    "default_target": "10.7.7.0",
+    "default_goal_type": "obtain_session",
+    "default_target_type": "host",
+    "default_host_target": "10.6.6.10",
+    "default_network_target": "10.6.6.0/24",
     "default_max_steps": 50,
+    "default_decider": "scripted",
+    "default_model_id": "decision_tree",
     "launch_kb_monitor": false
   },
   "training": {

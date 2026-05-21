@@ -20,9 +20,10 @@ def run_session_service(app_context: dict) -> None:
     # launch_kb_monitor = session_settings["launch_kb_monitor"]
 
     # Wizard for new session creation
-    wizard_data = new_session_wizard(default_session_settings)
+    wizard_data = new_session_wizard(default_session_settings, paths)
     if wizard_data is None:
         print("Session creation cancelled.")
+        print("===========================\n")
         return
     
     session_settings = build_session_settings(default_session_settings, wizard_data)

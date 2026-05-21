@@ -1,0 +1,7 @@
+{
+  "id": "20260521_015734_mvp_session",
+  "mode": "autonomous",
+  "goal_type": "obtain_session",
+  "target": "10.6.6.10",
+  "max_steps": 50
+}

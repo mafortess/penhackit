@@ -1,0 +1,2051 @@
+{
+  "session_id": "20260520_232011_mvp_session",
+  "name_enterprise": "ITIS",
+  "scope": {
+    "target": "10.6.6.10"
+  },
+  "goal": {
+    "type": "obtain_session"
+  },
+  "networks": [],
+  "hosts": {},
+  "services": [],
+  "net": {
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  },
+  "findings": [],
+  "notes": [
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r",
+    "ip r"
+  ],
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "step_idx": 41,
+  "last_action_id": 102,
+  "last_action_name": "INSPECT_IP_R",
+  "last_rc": 0,
+  "last_event_type": "ROUTE_TABLE"
+}

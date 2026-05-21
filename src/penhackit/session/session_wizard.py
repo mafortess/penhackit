@@ -3,7 +3,12 @@ import time
 from prompt_toolkit import prompt # input mejorada (historial, autocompletado, multilinea, etc)
 from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
 
-def new_session_wizard(session_settings: dict) -> dict | None:
+from pathlib import Path
+from penhackit.common.paths import Paths
+
+from penhackit.models.model_loader import list_available_models
+
+def new_session_wizard(session_settings: dict, path: Paths) -> dict | None:
     print("Starting session wizard...")
 
     mode = choose_session_mode(session_settings)
@@ -14,7 +19,15 @@ def new_session_wizard(session_settings: dict) -> dict | None:
     if goal_type is None:
         return None
 
-    target = choose_target(session_settings)
+    # target = choose_target(session_settings)
+    # if target is None:
+    #     return None
+
+    target_type = choose_target_type(session_settings)
+    if target_type is None:
+        return None
+
+    target = choose_target(session_settings, target_type)
     if target is None:
         return None
 
@@ -32,6 +45,12 @@ def new_session_wizard(session_settings: dict) -> dict | None:
         if decider is None:
             return None
 
+    model_id = None
+    if decider == "model":
+        model_id = choose_model(session_settings, path)
+        if model_id is None:
+            return None
+
     launch_kb_monitor = choose_launch_kb_monitor(session_settings)
     if launch_kb_monitor is None:
         return None
@@ -39,6 +58,7 @@ def new_session_wizard(session_settings: dict) -> dict | None:
     confirmed = confirm_session_creation(
         mode=mode,
         goal_type=goal_type,
+        target_type=target_type,
         target=target,
         name=name,
         max_steps=max_steps,
@@ -51,10 +71,12 @@ def new_session_wizard(session_settings: dict) -> dict | None:
     return {
         "mode": mode,
         "goal_type": goal_type,
+        "target_type": target_type,
         "target": target,
         "name": name,
         "max_steps": max_steps,
         "decider": decider,
+        "model_id": model_id,
         "launch_kb_monitor": launch_kb_monitor,
     }
 
@@ -97,9 +119,10 @@ def choose_goal_type(session_settings: dict) -> str | None:
     print("3) enumeration")
     print("4) vulnerability_discovery")
     print("5) exploitation")
+    print("6) obtain session")
     print("0) Cancel")
 
-    completer = WordCompleter(["1", "2", "3", "4", "5", "0"], ignore_case=True)
+    completer = WordCompleter(["1", "2", "3", "4", "5", "6", "0"], ignore_case=True)
 
     while True:
         raw = prompt("> ", completer=completer).strip()
@@ -115,23 +138,53 @@ def choose_goal_type(session_settings: dict) -> str | None:
             return "vulnerability_discovery"
         if raw == "5":
             return "exploitation"
+        if raw == "6":
+            return "obtain_session"
+        print("Invalid option.")
+
+def choose_target_type(session_settings: dict) -> str | None:
+    default_target_type = session_settings.get("default_target_type", "host")
+
+    print("\n--- Select target type ---")
+    print(f"Default target type: {default_target_type}")
+    print("1) Use default")
+    print("2) network")
+    print("3) host")
+    print("0) Cancel")
+
+    completer = WordCompleter(["1", "2", "3", "0"], ignore_case=True)
+
+    while True:
+        raw = prompt("> ", completer=completer).strip()
+        if raw == "0":
+            return None
+        if raw == "1" or raw == "":
+            return default_target_type
+        if raw == "2":
+            return "network"
+        if raw == "3":
+            return "host"
         print("Invalid option.")
 
 
-def choose_target(session_settings: dict) -> str | None:
-    default_target = session_settings["default_target"]
-    detected_networks = detect_networks()
+def choose_target(session_settings: dict, target_type: str) -> str | None:
+    if target_type == "network":
+        default_target = session_settings["default_network_target"]
+        detected_targets = detect_networks()
+    else:
+        default_target = session_settings["default_host_target"]
+        detected_targets = []
 
     target_options = [default_target]
 
-    for net in detected_networks:
-        if net not in target_options:
-            target_options.append(net)
+    for target in detected_targets:
+        if target not in target_options:
+            target_options.append(target)
 
     completer = WordCompleter(target_options + ["0"], ignore_case=True)
 
-    print("\n--- Select target ---")
-    print(f"Default target: {default_target}")
+    print(f"\n--- Select {target_type} target ---")
+    print(f"Default {target_type} target: {default_target}")
 
     if target_options:
         print("Available targets:")
@@ -192,7 +245,7 @@ def choose_decider(session_settings: dict) -> str | None:
     print("4) model")
     print("0) Cancel")
 
-    completer = WordCompleter(["0", "1", "2", "3", "4"], ignore_case=True)
+    completer = WordCompleter(["1", "2", "3", "4", "0"], ignore_case=True)
 
     while True:
         raw = prompt("> ", completer=completer).strip()
@@ -206,6 +259,55 @@ def choose_decider(session_settings: dict) -> str | None:
             return "rules"
         if raw == "4":
             return "model"
+        print("Invalid option.")
+
+def choose_model(session_settings: dict, paths: Paths) -> str | None:
+    default_model_id = session_settings.get("default_model_id")
+    available_models = list_available_models(paths.models_dir)
+
+    print("\n--- Select model ---")
+
+    if not available_models:
+        print("No trained models found.")
+        print("Train a model before running a session with decider_type='model'.\n")
+        return None
+
+    options = []
+
+    if default_model_id is not None and default_model_id in available_models:
+        options.append(default_model_id)
+
+    for model_id in available_models:
+        if model_id != default_model_id:
+            options.append(model_id)
+
+    for idx, model_id in enumerate(options, start=1):
+        if model_id == default_model_id:
+            print(f"{idx}) Use default: {model_id}")
+        else:
+            print(f"{idx}) {model_id}")
+
+    print("0) Cancel")
+
+    completer = WordCompleter(
+        [str(i) for i in range(1, len(options) + 1)] + ["0"],
+        ignore_case=True,
+    )
+
+    while True:
+        raw = prompt("> ", completer=completer).strip()
+
+        if raw == "0":
+            return None
+
+        if raw == "" and default_model_id in options:
+            return default_model_id
+
+        if raw.isdigit():
+            selected_idx = int(raw)
+            if 1 <= selected_idx <= len(options):
+                return options[selected_idx - 1]
+
         print("Invalid option.")
 
 
@@ -237,6 +339,7 @@ def choose_launch_kb_monitor(session_settings: dict) -> bool | None:
 def confirm_session_creation(
     mode: str,
     goal_type: str,
+    target_type: str,
     target: str,
     name: str,
     max_steps: int,
@@ -246,6 +349,7 @@ def confirm_session_creation(
     print("\n--- Confirm session creation ---")
     print(f"Mode: {mode}")
     print(f"Goal type: {goal_type}")
+    print(f"Target type: {target_type}")
     print(f"Target: {target}")
     print(f"Name: {name}")
     print(f"Max steps: {max_steps}")

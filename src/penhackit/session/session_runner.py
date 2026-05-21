@@ -162,7 +162,7 @@ def decide_autonomous_action(session_settings: dict, state: dict, step: int, mod
     decider = session_settings["decider"]
     if decider == "scripted":
         print("Using scripted policy to decide action...")
-        action_id = scripted_policy_decide_action(state, step)
+        action_id = scripted_policy_decide_action(state, step, sequence_name="vsftpd")
     elif decider == "model":
         print("Using model-based policy to decide action...")
         action_id = model_policy_decide_action(state, model, feature_names)

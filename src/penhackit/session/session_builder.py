@@ -5,7 +5,7 @@ from pathlib import Path
 from penhackit.common.paths import Paths
 from penhackit.session.kb.kb_updater import  build_initial_kb
 
-from penhackit.session.decision.model_loader import load_decision_model
+from penhackit.models.model_loader import load_decision_model
 from penhackit.session.kb.kb_updater import launch_kb_monitor_window_windows
 
 

