@@ -1,0 +1,94 @@
+flowchart TB
+    CLI[CLI / Menus]
+
+    subgraph AppLayer[Application Layer]
+        Startup[app.startup]
+        AppContext[App Context]
+    end
+
+    subgraph Services[Service Layer]
+        SessionService[session.flows]
+        TrainingService[training.flows]
+        ReportService[report.flows]
+        SettingsService[settings.flows]
+    end
+
+    subgraph DomainLogic[Domain Logic Layer]
+        SessionLogic[session.logic]
+        TrainingLogic[training.logic]
+        ReportLogic[report.logic]
+        SettingsLogic[settings.logic]
+    end
+
+    subgraph AgentCore[Agent Core]
+        StateBuilder[State Builder]
+        Policy[Decision Policy]
+        ActionCatalog[Action Catalog]
+        CommandBuilder[Command Builder]
+        Executor[Command Executor]
+        Parser[Parser / Event Builder]
+        KBUpdater[KB Updater]
+        GoalChecker[Goal Checker]
+    end
+
+    subgraph Persistence[Persistence Layer]
+        SessionStorage[session.storage]
+        TrainingStorage[training.storage]
+        ReportStorage[report.storage]
+        SettingsStorage[settings.storage]
+    end
+
+    subgraph Workspace[Workspace]
+        Config[(config/settings.json)]
+        Env[(data/env/environment_profile.json)]
+        Sessions[(data/sessions)]
+        Datasets[(data/datasets)]
+        Models[(models)]
+        Logs[(logs)]
+    end
+
+    subgraph ExternalTools[External Tools]
+        KaliTools[Kali tools]
+        Metasploit[Metasploit]
+        Ollama[Ollama / Local LLM]
+    end
+
+    CLI --> Startup
+    Startup --> AppContext
+
+    CLI --> SessionService
+    CLI --> TrainingService
+    CLI --> ReportService
+    CLI --> SettingsService
+
+    SessionService --> SessionLogic
+    TrainingService --> TrainingLogic
+    ReportService --> ReportLogic
+    SettingsService --> SettingsLogic
+
+    SessionLogic --> StateBuilder
+    SessionLogic --> Policy
+    SessionLogic --> CommandBuilder
+    SessionLogic --> Executor
+    SessionLogic --> Parser
+    SessionLogic --> KBUpdater
+    SessionLogic --> GoalChecker
+
+    Policy --> ActionCatalog
+    CommandBuilder --> ActionCatalog
+    Executor --> KaliTools
+    Executor --> Metasploit
+    ReportLogic --> Ollama
+
+    SessionLogic --> SessionStorage
+    TrainingLogic --> TrainingStorage
+    ReportLogic --> ReportStorage
+    SettingsLogic --> SettingsStorage
+
+    SessionStorage --> Sessions
+    TrainingStorage --> Datasets
+    TrainingStorage --> Models
+    ReportStorage --> Sessions
+    SettingsStorage --> Config
+    Startup --> Env
+    Startup --> Config

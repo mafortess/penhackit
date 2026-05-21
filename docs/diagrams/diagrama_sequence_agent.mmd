@@ -1,0 +1,39 @@
+sequenceDiagram
+    participant Runtime as Session Runtime
+    participant KB as Knowledge Base
+    participant StateBuilder as State Builder
+    participant Policy as Decision Policy
+    participant Catalog as Action Catalog
+    participant CmdBuilder as Command Builder
+    participant Executor as Command Executor
+    participant Tool as External Tool
+    participant Parser as Parser / Event Builder
+    participant Updater as KB Updater
+    participant Logger as Session Logger
+
+    Runtime->>KB: Load current KB
+    Runtime->>StateBuilder: build_state(KB)
+    StateBuilder-->>Runtime: state_t
+
+    Runtime->>Policy: decide_action(state_t)
+    Policy-->>Runtime: action_id
+
+    Runtime->>Catalog: get_action(action_id)
+    Catalog-->>Runtime: action metadata
+
+    Runtime->>CmdBuilder: build_command(action_id, KB, context)
+    CmdBuilder-->>Runtime: resolved command
+
+    Runtime->>Executor: execute(command)
+    Executor->>Tool: run external tool
+    Tool-->>Executor: stdout, stderr, returncode
+    Executor-->>Runtime: command_result
+
+    Runtime->>Parser: parse(action_id, command_result)
+    Parser-->>Runtime: normalized events
+
+    Runtime->>Updater: update_kb(KB, events)
+    Updater-->>Runtime: KB_t+1
+
+    Runtime->>Logger: log state, action, command, result, events
+    Runtime->>Runtime: check goal / stop condition

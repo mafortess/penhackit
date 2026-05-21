@@ -1,0 +1,22 @@
+flowchart LR
+    Attacker[Attacker / Kali / Host]
+
+    subgraph Net1[labnet1 10.6.6.0/24]
+        MetaFull1[meta_full<br/>10.6.6.10]
+        MetaSMB1[meta_smb<br/>10.6.6.20]
+    end
+
+    subgraph Net2[labnet2 10.7.7.0/24]
+        MetaDistcc2[meta_distcc<br/>10.7.7.10]
+        MetaWeb2[meta_web<br/>10.7.7.20]
+        MetaCreds2[meta_creds<br/>10.7.7.30]
+    end
+
+    Attacker -->|direct access| Net1
+    Attacker -->|direct access| Net2
+
+    Attacker -->|attack selected target| MetaFull1
+    Attacker -->|attack selected target| MetaSMB1
+    Attacker -->|attack selected target| MetaDistcc2
+    Attacker -->|attack selected target| MetaWeb2
+    Attacker -->|attack selected target| MetaCreds2

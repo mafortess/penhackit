@@ -1,0 +1,14 @@
+flowchart TB
+    Base[tleemcjr/metasploitable2]
+
+    Base --> Full[meta_full<br/>original services.sh]
+    Base --> SMB[meta_smb<br/>SMB/Samba profile]
+    Base --> Distcc[meta_distcc<br/>distcc profile]
+    Base --> Web[meta_web<br/>Apache/Tomcat/DB profile]
+    Base --> Creds[meta_creds<br/>remote login profile]
+
+    Full --> FullUse[General vulnerable host]
+    SMB --> SMBUse[SMB enumeration / exploitation]
+    Distcc --> DistccUse[distcc detection / exploitation]
+    Web --> WebUse[HTTP/Tomcat/DB enumeration]
+    Creds --> CredsUse[SSH/FTP credential access]

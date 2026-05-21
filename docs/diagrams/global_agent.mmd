@@ -1,0 +1,78 @@
+flowchart TB
+    User[User] --> CLI[CLI / Menus]
+
+    CLI --> SessionService[Session Service]
+    CLI --> TrainingService[Training Service]
+    CLI --> ReportService[Report Service]
+    CLI --> SettingsService[Settings Service]
+
+    Bootstrap[Bootstrap] --> AppContext[App Context: paths, settings, environment]
+    AppContext --> SessionService
+    AppContext --> TrainingService
+    AppContext --> ReportService
+    AppContext --> SettingsService
+
+    SessionService --> Wizard[Session Wizard]
+    Wizard --> SessionConfig[Session Configuration]
+    SessionConfig --> Runtime[Session Runtime]
+    Runtime --> Workspace[(Session Workspace)]
+
+    Workspace --> KB[(Knowledge Base)]
+    Workspace --> Logs[(Logs and Outputs)]
+    Workspace --> Evidence[(Evidence and Reports)]
+
+    Runtime --> Loop[Agent Loop]
+
+    KB --> StateBuilder[State Builder]
+    StateBuilder --> State[Compact State]
+
+    State --> Policy[Decision Policy]
+    Policy --> Scripted[Scripted]
+    Policy --> Rules[Rules]
+    Policy --> Model[Model-based]
+    Model --> TrainedModel[(Trained Model)]
+
+    Scripted --> Action[action_id]
+    Rules --> Action
+    Model --> Action
+
+    Action --> Catalog[Action Catalog]
+    Catalog --> CmdBuilder[Command Builder]
+    KB --> CmdBuilder
+    SessionConfig --> CmdBuilder
+
+    CmdBuilder --> Command[Resolved Command]
+    Command --> Executor[Command Executor]
+    Executor --> Tools[Kali / Metasploit Tools]
+    Tools --> Output[Command Output]
+
+    Output --> Parser[Parser / Event Builder]
+    Parser --> Events[Normalized Events]
+    Events --> KBUpdater[KB Updater]
+    KBUpdater --> KB
+
+    State --> Logger[Session Logger]
+    Action --> Logger
+    Command --> Logger
+    Output --> Logger
+    Events --> Logger
+    Logger --> Logs
+    Logger --> DatasetSamples[(state-action samples)]
+
+    TrainingService --> DatasetBuilder[Dataset Builder]
+    Logs --> DatasetBuilder
+    DatasetSamples --> DatasetBuilder
+    DatasetBuilder --> Dataset[(Dataset JSONL)]
+    Dataset --> Trainer[Training / Evaluation]
+    Trainer --> TrainedModel
+    Trainer --> Metrics[(Metrics)]
+
+    ReportService --> ReportGenerator[Report Generator]
+    KB --> ReportGenerator
+    Logs --> ReportGenerator
+    Evidence --> ReportGenerator
+    Metrics --> ReportGenerator
+    ReportGenerator --> FinalReport[Markdown / PDF Report]
+
+    SettingsService --> Config[(Configuration)]
+    Config --> AppContext

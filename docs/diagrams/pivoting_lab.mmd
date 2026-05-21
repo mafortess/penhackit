@@ -1,0 +1,23 @@
+flowchart LR
+    Kali[kali_attacker<br/>172.19.0.5]
+
+    subgraph PublicNet[public_net 172.19.0.0/24]
+        PivotPub[m2_pivot<br/>public IP: 172.19.0.10]
+    end
+
+    subgraph InternalNet[internal_net 172.18.0.0/24]
+        PivotInt[m2_pivot<br/>internal IP: 172.18.0.2]
+        InternalSMB[meta_smb<br/>172.18.0.20]
+        InternalDistcc[meta_distcc<br/>172.18.0.30]
+        InternalWeb[meta_web<br/>172.18.0.40]
+    end
+
+    Kali -->|scan / exploit pivot| PivotPub
+    PivotPub --- PivotInt
+    PivotInt -->|pivot path| InternalSMB
+    PivotInt -->|pivot path| InternalDistcc
+    PivotInt -->|pivot path| InternalWeb
+
+    Kali -.->|no direct access| InternalSMB
+    Kali -.->|no direct access| InternalDistcc
+    Kali -.->|no direct access| InternalWeb
