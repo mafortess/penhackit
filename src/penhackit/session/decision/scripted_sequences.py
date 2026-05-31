@@ -14,19 +14,36 @@ The scripted policy simply replays:
     t -> action_id
 """
 
-SCRIPTED_SEQUENCE = [
+SCRIPTED_SEQUENCE_STD = [
     # 1,
     # 2,
     # 3,
     # 4,
-    200,  # DISCOVER_HOSTS
-    201,  # DISCOVER_HOSTS_ARP_LOCALNET
-    210,  # SCAN_TOP_TCP_PORTS
-    220,  # DETECT_SERVICES
-    300,  # ENUM_HTTP_HEADERS
-    310,  # ENUM_HTTP_DIRS
-    320,  # ENUM_SMB_SHARES
-    400,  # CHECK_SERVICE_VERSION_VULNS
+    # 200,  # DISCOVER_HOSTS
+    # 201,  # DISCOVER_HOSTS_ARP_LOCALNET
+    # 210,  # SCAN_TOP_TCP_PORTS
+    # 220,  # DETECT_SERVICES
+    # 330,  # ENUM_FTP_BANNER
+    # 331,  # ENUM_FTP_ANONYMOUS
+    # 332,  # ENUM_FTP_NMAP_SCRIPTS: ftp-anon,ftp-syst only
+    # 413,  # CHECK_FTP_VULNS: ftp-vsftpd-backdoor
+    601,  # MSF_EXPLOIT_VSFTPD_234_BACKDOOR
+    602, # MSF_EXPLOIT_DISTCC_EXEC  
+    604, # MSF_EXPLOIT_POSTGRES_PAYLOAD
+    605,
+    606,
+    520,
+    521,
+    611,
+    612,
+    613,
+    614,
+
+
+    # 300,  # ENUM_HTTP_HEADERS
+    # 310,  # ENUM_HTTP_DIRS
+    # 320,  # ENUM_SMB_SHARES
+    # 400,  # CHECK_SERVICE_VERSION_VULNS
     0,    # STOP
 ]
 
@@ -59,31 +76,22 @@ SEQ_COMMON_HOST_RECON = [
 # Secuencia FTP: vsftpd 2.3.4 -> sesión
 SEQ_NETWORK_TO_VSFTPD_SESSION = [
     100, 101, 102, 103,
-    200,
-    210,
-    211,
-    # 401,
+    # 200, 210, 211, 401,
     330,  # ENUM_FTP_BANNER
     331,  # ENUM_FTP_ANONYMOUS
     332,  # ENUM_FTP_NMAP_SCRIPTS: ftp-anon,ftp-syst only
     413,  # CHECK_FTP_VULNS: ftp-vsftpd-backdoor
     601,  # MSF_EXPLOIT_VSFTPD_234_BACKDOOR
-    # 700,
-    # 702,
-    # 703,
-    # 701,
-    # 704,
+
+    # ya se ejecutan dentro de 601 mediante: sessions -c "whoami && id && hostname && uname -a" -i 1
+    # 700, 702, 703, 701, 704,
     0,
 ]
 
 # Secuencia SMB: Samba usermap_script -> sesión
 SEQ_NETWORK_TO_SAMBA_SESSION = [
     100, 101, 102, 103,
-    200,
-    210,
-    211,
-    401,
-    320,
+    200, 210, 211, 401, 320,
     321,
     322,
     323,
@@ -474,6 +482,8 @@ SEQ_POST_EXPLOIT_AND_PIVOT = [
 # ============================================================
 
 SCRIPTED_SEQUENCES = {
+    "standard": SCRIPTED_SEQUENCE_STD,
+
     "network_recon": SEQ_COMMON_NETWORK_RECON,
     "host_recon": SEQ_COMMON_HOST_RECON,
 

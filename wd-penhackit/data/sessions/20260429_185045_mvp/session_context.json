@@ -1,7 +1,0 @@
-{
-  "id": "20260429_185045_mvp",
-  "mode": "autonomous",
-  "goal_type": "recon",
-  "target": "10.7.7.0/24",
-  "max_steps": 15
-}

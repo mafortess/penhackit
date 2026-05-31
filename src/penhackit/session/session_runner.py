@@ -3,10 +3,11 @@ import time
 from penhackit.common.paths import Paths
 
 from penhackit.session.command.command_builder import command_builder
-from penhackit.session.event.event_builder import parse_command_result
+from penhackit.session.parser.parser_mapping import parse_command_result
 from penhackit.session.kb.kb_updater import update_kb, compute_kb_progress_simple, save_kb
 from penhackit.session.state.state_builder import build_state
-from penhackit.session.action.action_ids import ACTIONS, extract_action_id_from_cmd
+from penhackit.session.action.command_mapping import extract_action_id_from_cmd
+from penhackit.session.action.action_catalog import ACTIONS
 
 from penhackit.session.decision.policies import  scripted_policy_decide_action, model_policy_decide_action, rules_policy_decide_action
 
@@ -162,7 +163,7 @@ def decide_autonomous_action(session_settings: dict, state: dict, step: int, mod
     decider = session_settings["decider"]
     if decider == "scripted":
         print("Using scripted policy to decide action...")
-        action_id = scripted_policy_decide_action(state, step, sequence_name="vsftpd")
+        action_id = scripted_policy_decide_action(state, step, sequence_name=session_settings.get("scripted_sequence"))
     elif decider == "model":
         print("Using model-based policy to decide action...")
         action_id = model_policy_decide_action(state, model, feature_names)

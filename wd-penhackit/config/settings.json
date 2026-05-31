@@ -19,6 +19,7 @@
     "default_max_steps": 50,
     "default_decider": "scripted",
     "default_model_id": "decision_tree",
+    "default_scripted_sequence": "standard",
     "launch_kb_monitor": false
   },
   "training": {

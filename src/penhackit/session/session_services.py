@@ -57,13 +57,16 @@ def run_session_service(app_context: dict) -> None:
 def build_session_settings(default_session_settings: dict, wizard_data: dict) -> dict:
 
     return {
-        "name": wizard_data["name"] if "name" in wizard_data else settings.session["default_name"],
-        "mode": wizard_data["mode"] if "mode" in wizard_data else settings.session["default_mode"],
-        "decider": wizard_data["decider"] if "decider" in wizard_data else settings.session["default_decider"],
-        "goal_type": wizard_data["goal_type"] if "goal_type" in wizard_data else settings.session["default_goal_type"],
-        "target": wizard_data["target"] if "target" in wizard_data else settings.session["default_target"],
-        "max_steps": wizard_data["max_steps"] if "max_steps" in wizard_data else settings.session["default_max_steps"],
-        "launch_kb_monitor": wizard_data["launch_kb_monitor"] if "launch_kb_monitor" in wizard_data else settings.session["default_launch_kb_monitor"]
+        "name": wizard_data["name"] if "name" in wizard_data else default_session_settings["default_name"],
+        "mode": wizard_data["mode"] if "mode" in wizard_data else default_session_settings["default_mode"],
+        "goal_type": wizard_data["goal_type"] if "goal_type" in wizard_data else default_session_settings["default_goal_type"],
+        "target_type": wizard_data["target_type"] if "target_type" in wizard_data else default_session_settings["default_target_type"],
+        "target": wizard_data["target"] if "target" in wizard_data else default_session_settings["default_target"],
+        "max_steps": wizard_data["max_steps"] if "max_steps" in wizard_data else default_session_settings["default_max_steps"],
+        "decider": wizard_data["decider"] if "decider" in wizard_data else default_session_settings["default_decider"],
+        "model_id": wizard_data["model_id"] if "model_id" in wizard_data else default_session_settings["default_model_id"],
+        "scripted_sequence": default_session_settings["default_scripted_sequence"],
+        "launch_kb_monitor": wizard_data["launch_kb_monitor"] if "launch_kb_monitor" in wizard_data else default_session_settings["default_launch_kb_monitor"]
     }
 
 def run_view_session_service(app_context: dict) -> None:
