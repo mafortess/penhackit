@@ -1,0 +1,38 @@
+@startuml cap2-decision-secuencial
+
+title Decisión secuencial aplicada a una sesión técnica
+
+left to right direction
+
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam linetype polyline
+skinparam rectangle {
+    BorderColor Black
+    BackgroundColor White
+    RoundCorner 12
+}
+
+rectangle "Estado actual\ns_t\n\nInformación disponible\nen el instante t" as STATE
+
+rectangle "Política de decisión\n\nRegla, secuencia o\nmodelo entrenado" as POLICY
+
+rectangle "Acción seleccionada\na_t\n\nSiguiente actuación\nsobre el entorno" as ACTION
+
+rectangle "Ejecución\n\nComando, herramienta\no comprobación técnica" as EXEC
+
+rectangle "Resultado observado\no_t\n\nSalida, error,\nevidencia o hallazgo" as OBS
+
+rectangle "Actualización\n\nNueva información\nincorporada al contexto" as UPDATE
+
+rectangle "Nuevo estado\ns_{t+1}\n\nContexto actualizado\npara el siguiente paso" as NEXT
+
+STATE --> POLICY : resume contexto
+POLICY --> ACTION : selecciona
+ACTION --> EXEC : se materializa
+EXEC --> OBS : produce
+OBS --> UPDATE : se interpreta
+UPDATE --> NEXT : modifica el contexto
+NEXT --> POLICY : siguiente decisión
+
+@enduml

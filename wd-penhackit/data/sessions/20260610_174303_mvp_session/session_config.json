@@ -1,0 +1,8 @@
+{
+  "id": "20260610_174303_mvp_session",
+  "created_at": "2026-06-10 17:43:03",
+  "name": "mvp_session",
+  "decider": "scripted",
+  "mode": "autonomous",
+  "max_steps": 50
+}

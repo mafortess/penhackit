@@ -1,0 +1,79 @@
+```puml
+@startuml cap5-casos-uso-sesiones
+
+title Casos de uso: sesiones, modos de operación y configuración
+
+left to right direction
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+skinparam rectangle {
+    BorderColor Black
+}
+
+actor "Pentester /\nusuario técnico" as User
+actor "Herramientas externas\n(nmap, msfconsole,\nftp, comandos SO)" as Tools
+
+rectangle "PenHackIt" {
+
+    package "Gestión de sesiones" as P_Sessions {
+        usecase "Crear y configurar\nsesión" as UC_CreateSession
+        usecase "Ejecutar sesión" as UC_RunSession
+        usecase "Consultar sesiones" as UC_ListSessions
+        usecase "Ver detalle\nde sesión" as UC_ViewSession
+        usecase "Eliminar sesión" as UC_DeleteSession
+    }
+
+    package "Modos de operación" as P_Modes {
+        usecase "Modo\nobservación" as UC_Observation
+        usecase "Modo\nsugerencia" as UC_Suggestion
+        usecase "Modo\nautónomo" as UC_Autonomous
+    }
+
+    package "Procesamiento de sesión" as P_Process {
+        usecase "Registrar acciones,\ncomandos y resultados" as UC_Register
+        usecase "Procesar resultados\ny eventos" as UC_Process
+        usecase "Actualizar información\nde sesión" as UC_Update
+    }
+
+    package "Configuración" as P_Config {
+        usecase "Consultar\nconfiguración" as UC_ShowConfig
+        usecase "Actualizar\nconfiguración" as UC_UpdateConfig
+        usecase "Restaurar valores\npor defecto" as UC_ResetConfig
+    }
+}
+
+User --> UC_CreateSession
+User --> UC_RunSession
+User --> UC_ListSessions
+User --> UC_ViewSession
+User --> UC_DeleteSession
+
+User --> UC_ShowConfig
+User --> UC_UpdateConfig
+User --> UC_ResetConfig
+
+UC_RunSession .> UC_Observation : <<extend>>
+UC_RunSession .> UC_Suggestion : <<extend>>
+UC_RunSession .> UC_Autonomous : <<extend>>
+
+UC_RunSession .> UC_Register : <<include>>
+UC_RunSession .> UC_Process : <<include>>
+UC_RunSession .> UC_Update : <<include>>
+
+UC_Observation --> Tools : observa resultados
+UC_Suggestion --> Tools : sugiere acciones
+UC_Autonomous --> Tools : ejecuta comandos
+
+P_Sessions -[hidden]right- P_Modes
+P_Modes -[hidden]right- P_Process
+P_Process -[hidden]right- P_Config
+
+@enduml
+```

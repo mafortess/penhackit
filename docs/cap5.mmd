@@ -1,0 +1,19 @@
+
+flowchart TB
+    User[Usuario] --> CLI[CLI / Menús]
+
+    CLI --> Session[Ejecutar sesión]
+    CLI --> Training[Construir dataset y entrenar modelos]
+    CLI --> Reports[Generar reportes]
+    CLI --> Settings[Configurar sistema]
+
+    Session --> SessionArtifacts[Artefactos de sesión]
+    SessionArtifacts --> KB[Knowledge Base]
+    SessionArtifacts --> Logs[Logs y trazas]
+    SessionArtifacts --> Outputs[Resultados y evidencias]
+
+    Training --> Models[Modelos entrenados]
+    Training --> Metrics[Métricas de evaluación]
+
+    Reports --> FinalReport[Informe final<br/>Markdown / PDF]
+

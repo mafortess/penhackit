@@ -1,0 +1,75 @@
+@startuml cap6-componentes-uml-minimal
+
+title Diagrama UML de componentes de PenHackIt
+
+top to bottom direction
+
+skinparam componentStyle uml2
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+
+[CLI / Menús] as CLI
+
+package "Servicios de aplicación" {
+    [Sesiones] as SessionService
+    [Entrenamiento] as TrainingService
+    [Reportes] as ReportService
+    [Configuración] as SettingsService
+}
+
+package "Núcleo de sesión" {
+    [Runtime de sesión] as Runtime
+    [Memoria y estado] as MemoryState
+    [Decisión y acciones] as DecisionActions
+    [Comandos y ejecución] as Execution
+    [Parsing y eventos] as Parsing
+    [Trazabilidad] as Logging
+}
+
+package "Aprendizaje automático" {
+    [Construcción de dataset] as Dataset
+    [Modelos] as Models
+}
+
+package "Generación de reportes" {
+    [Generación de reportes] as Reports
+}
+
+package "Persistencia" {
+    [Artefactos de sesión] as SessionArtifacts
+    [Artefactos de entrenamiento] as TrainingArtifacts
+    [Artefactos de reporte] as ReportArtifacts
+}
+
+package "Herramientas externas" {
+    [Herramientas de pentesting] as Tools
+}
+
+CLI --> SessionService
+CLI --> TrainingService
+CLI --> ReportService
+CLI --> SettingsService
+
+SessionService --> Runtime
+Runtime --> MemoryState
+Runtime --> DecisionActions
+Runtime --> Execution
+Runtime --> Parsing
+Runtime --> Logging
+
+Execution --> Tools
+Logging --> SessionArtifacts
+MemoryState --> SessionArtifacts
+
+TrainingService --> Dataset
+TrainingService --> Models
+Dataset --> SessionArtifacts
+Dataset --> TrainingArtifacts
+Models --> TrainingArtifacts
+
+ReportService --> Reports
+Reports --> SessionArtifacts
+Reports --> ReportArtifacts
+
+@enduml

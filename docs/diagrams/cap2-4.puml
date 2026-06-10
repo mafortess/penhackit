@@ -1,0 +1,43 @@
+@startuml cap2-evaluacion-decision-secuencial
+
+title Evaluación de un sistema de decisión secuencial
+
+left to right direction
+
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam linetype polyline
+skinparam rectangle {
+    BorderColor Black
+    BackgroundColor White
+    RoundCorner 12
+}
+
+rectangle "Dataset de evaluación\n\nEstados registrados\ny acciones observadas" as DATASET
+
+rectangle "Modelo de decisión\n\nPredice una acción\na partir del estado" as MODEL
+
+rectangle "Predicciones\nindividuales\n\nAcción real frente\na acción predicha" as PRED
+
+rectangle "Evaluación\npredictiva\n\n- Accuracy\n- Precision\n- Recall\n- F1-score\n- Matriz de confusión" as PRED_METRICS
+
+rectangle "Ejecución o simulación\nde la secuencia\n\nSe analiza el efecto\nde las acciones" as SEQUENCE
+
+rectangle "Evaluación\noperacional\n\nMétricas orientadas\nal comportamiento" as OP_METRICS
+
+rectangle "Comportamiento\nacumulado\n\n- Progreso\n- Pasos hasta objetivo\n- Repetición\n- Estancamiento\n- Validez de acciones\n- Cobertura" as BEHAVIOR
+
+rectangle "Interpretación\nfinal\n\nCapacidad de imitación\n+\nutilidad operativa" as FINAL
+
+DATASET --> MODEL : entrada
+MODEL --> PRED : genera
+PRED --> PRED_METRICS : compara con etiquetas
+
+PRED --> SEQUENCE : acciones aplicadas
+SEQUENCE --> OP_METRICS : analiza evolución
+OP_METRICS --> BEHAVIOR : mide comportamiento
+
+PRED_METRICS --> FINAL : rendimiento predictivo
+BEHAVIOR --> FINAL : comportamiento secuencial
+
+@enduml

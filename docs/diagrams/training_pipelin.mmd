@@ -1,0 +1,11 @@
+flowchart LR
+    A[Sesiones registradas] --> B[Extracción de muestras estado-acción]
+    B --> C[Dataset JSONL]
+    C --> D[Validación y limpieza]
+    D --> E[Vectorización del estado]
+    E --> F[Conjunto X, y]
+    F --> G[Entrenamiento de modelos]
+    G --> H[Evaluación]
+    H --> I[Modelos entrenados]
+    H --> J[Métricas]
+    E --> K[Feature names / esquema]

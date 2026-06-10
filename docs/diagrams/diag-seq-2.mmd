@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant Runtime as Session Runtime
+    participant Executor as Command Executor
+    participant Tool as External Tool
+    participant Parser as Parser / Event Builder
+    participant Updater as KB Updater
+    participant KB as Knowledge Base
+    participant Logger as Session Logger
+
+    Runtime->>Executor: execute(command)
+    Executor->>Tool: run external tool
+    Tool-->>Executor: stdout, stderr, returncode
+    Executor-->>Runtime: command_result
+
+    Runtime->>Parser: parse(action_id, command_result)
+    Parser-->>Runtime: normalized events
+
+    Runtime->>Updater: update_kb(KB_t, events)
+    Updater-->>Runtime: KB_t+1
+
+    Runtime->>Logger: log state, focus, action, command, result, events
+    Runtime->>Runtime: check goal / stop condition
+    Runtime->>Runtime: prepare next iteration / update focus

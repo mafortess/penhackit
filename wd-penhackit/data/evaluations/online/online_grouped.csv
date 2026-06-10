@@ -1,0 +1,2 @@
+policy_name,scenario_id,goal_type,runs,successes,success_rate,avg_steps_total,avg_steps_to_goal,avg_progress_rate,avg_repeated_action_rate,avg_tool_error_rate,avg_timeout_rate,avg_active_time_seconds,avg_wall_time_seconds
+scripted,unknown,obtain_session,4,4,1.0,1.25,1.25,0.875,0.0,0.0,0.0,34.35327790975043,34.60410618449987

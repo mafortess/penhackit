@@ -1,0 +1,318 @@
+{
+  "schema": "penhackit.offline_evaluation.v1",
+  "trained_at_utc": "2026-06-10T12:07:32Z",
+  "dataset_path": "wd-penhackit/data/datasets/dataset_7.jsonl",
+  "dataset_name": "dataset_7.jsonl",
+  "model_type": "decision_tree",
+  "n_samples": 11,
+  "n_train_samples": 8,
+  "n_test_samples": 3,
+  "n_features": 17,
+  "n_classes": 11,
+  "labels": [
+    0,
+    101,
+    102,
+    200,
+    210,
+    220,
+    230,
+    360,
+    361,
+    400,
+    401
+  ],
+  "feature_names": [
+    "goal_type",
+    "focus_level",
+    "has_focus_host",
+    "has_focus_service",
+    "net_ipv4_count",
+    "net_gw_count",
+    "net_if_count",
+    "net_arp_count",
+    "net_routes_count",
+    "hosts_count",
+    "services_count",
+    "findings_count",
+    "last_action_id",
+    "last_action_name",
+    "last_rc",
+    "last_event_type",
+    "step_idx"
+  ],
+  "class_distribution": {
+    "0": 1,
+    "101": 1,
+    "102": 1,
+    "200": 1,
+    "210": 1,
+    "220": 1,
+    "230": 1,
+    "360": 1,
+    "361": 1,
+    "400": 1,
+    "401": 1
+  },
+  "train_class_distribution": {
+    "0": 1,
+    "102": 1,
+    "200": 1,
+    "210": 1,
+    "220": 1,
+    "230": 1,
+    "360": 1,
+    "400": 1
+  },
+  "test_class_distribution": {
+    "101": 1,
+    "361": 1,
+    "401": 1
+  },
+  "accuracy": 0.0,
+  "precision_macro": 0.0,
+  "recall_macro": 0.0,
+  "macro_f1": 0.0,
+  "weighted_f1": 0.0,
+  "training_time_seconds": 0.0016075560015451629,
+  "inference_time_seconds": 0.00024019100055738818,
+  "avg_inference_time_seconds": 8.006366685246273e-05,
+  "confusion_matrix": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "101": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "102": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "200": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "210": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "220": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "230": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "360": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "361": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "400": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "401": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "accuracy": 0.0,
+    "macro avg": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "weighted avg": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    }
+  },
+  "y_test": [
+    361,
+    101,
+    401
+  ],
+  "y_pred": [
+    220,
+    102,
+    220
+  ],
+  "model_path": "wd-penhackit/models/decision_tree/20260610_140732/model.joblib",
+  "output_dir": "wd-penhackit/models/decision_tree/20260610_140732"
+}

@@ -1,0 +1,46 @@
+
+flowchart TB
+    Bootstrap[Bootstrap / Startup] --> AppContext[App Context<br/>paths, settings, environment]
+
+
+    User[Usuario] --> CLI[CLI / Menús]
+
+    CLI --> SessionService[Session Service]
+    CLI --> TrainingService[Training Service]
+    CLI --> ReportService[Report Service]
+    CLI --> SettingsService[Settings Service]
+
+    AppContext --> SessionService
+    AppContext --> TrainingService
+    AppContext --> ReportService
+    AppContext --> SettingsService
+
+    SessionService --> SessionWizard[Session Wizard]
+    SessionService --> SessionRunner[Session Runner]
+    SessionService --> SessionStorage[Session Storage]
+
+    SessionRunner --> ActionModule[action]
+    SessionRunner --> CommandModule[command]
+    SessionRunner --> DecisionModule[decision]
+    SessionRunner --> ExecutionModule[execution]
+    SessionRunner --> ParserModule[parser]
+    SessionRunner --> KBModule[kb]
+    SessionRunner --> StateModule[state]
+    SessionRunner --> LoggingModule[logging]
+
+    TrainingService --> TrainingLogic[Training Logic]
+    TrainingLogic --> Vectorization[Vectorization]
+    TrainingLogic --> ModelLoader[Models / Model Loader]
+
+    ReportService --> ReportLogic[Report Logic]
+    ReportLogic --> ReportGenerator[Report Generator]
+    ReportLogic --> ReportLLM[LLM Writer]
+    ReportLogic --> ReportStorage[Report Storage]
+
+    SettingsService --> SettingsLogic[Settings Logic]
+
+    SessionStorage --> Workspace[(Workspace)]
+    TrainingLogic --> Workspace
+    ReportStorage --> Workspace
+    SettingsLogic --> Workspace
+

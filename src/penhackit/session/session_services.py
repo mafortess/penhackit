@@ -2,7 +2,7 @@ from penhackit import settings
 from penhackit.session.session_wizard import new_session_wizard
 from penhackit.session.session_builder import create_session_runtime 
 from penhackit.session.session_runner import run_session_loop
-from penhackit.session.session_views import run_view_sessions_view
+from penhackit.session.session_views import run_view_sessions_view, run_view_online_results_view
 
 
 def run_session_service(app_context: dict) -> None:
@@ -65,6 +65,7 @@ def build_session_settings(default_session_settings: dict, wizard_data: dict) ->
         "max_steps": wizard_data["max_steps"] if "max_steps" in wizard_data else default_session_settings["default_max_steps"],
         "decider": wizard_data["decider"] if "decider" in wizard_data else default_session_settings["default_decider"],
         "model_id": wizard_data["model_id"] if "model_id" in wizard_data else default_session_settings["default_model_id"],
+        "scenario_id": wizard_data["scenario_id"] if "scenario_id" in wizard_data else default_session_settings.get("default_scenario_id", "unknown"),
         "scripted_sequence": default_session_settings["default_scripted_sequence"],
         "launch_kb_monitor": wizard_data["launch_kb_monitor"] if "launch_kb_monitor" in wizard_data else default_session_settings["default_launch_kb_monitor"]
     }
@@ -72,3 +73,7 @@ def build_session_settings(default_session_settings: dict, wizard_data: dict) ->
 def run_view_session_service(app_context: dict) -> None:
     print("View sessions service...")
     run_view_sessions_view(app_context["paths"])
+
+def run_view_online_results_service(app_context: dict) -> None:
+    print("View online evaluation results service...")
+    run_view_online_results_view(app_context["paths"])

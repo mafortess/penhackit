@@ -1,0 +1,150 @@
+@startuml cap6-componentes-uml
+
+title Diagrama UML de componentes de PenHackIt
+
+!pragma layout smetana
+
+left to right direction
+
+skinparam componentStyle uml2
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+
+package "Interfaz de usuario" {
+    [CLI] as CLI
+    [Menus] as Menus
+}
+
+package "Inicialización y utilidades" {
+    [Startup] as Startup
+    [Paths] as Paths
+    [Environment] as Environment
+}
+
+package "Gestión de configuración" {
+    [Settings] as Settings
+}
+
+package "Gestión de sesiones" {
+    [Session Wizard] as SessionWizard
+    [Session Builder] as SessionBuilder
+    [Session Config] as SessionConfig
+    [Session Services] as SessionServices
+    [Session Runner] as SessionRunner
+    [Session Storage] as SessionStorage
+    [Session Views] as SessionViews
+}
+
+package "Núcleo operativo de sesión" {
+    [Action Catalog] as ActionCatalog
+    [Decision Policy] as DecisionPolicy
+    [Command Builder] as CommandBuilder
+    [Command Executor] as CommandExecutor
+    [Execution Layer] as ExecutionLayer
+    [Parser Catalog] as ParserCatalog
+    [Event Builder] as EventBuilder
+    [Knowledge Base] as KB
+    [KB Updater] as KBUpdater
+    [State Builder] as StateBuilder
+    [State Vectorizer] as StateVectorizer
+    [Session Logger] as SessionLogger
+}
+
+package "Entrenamiento" {
+    [Training Wizard] as TrainingWizard
+    [Training Services] as TrainingServices
+    [Training Logic] as TrainingLogic
+    [Training Storage] as TrainingStorage
+    [Training Vectorization] as TrainingVectorization
+}
+
+package "Modelos" {
+    [Model Loader] as ModelLoader
+}
+
+package "Generación de reportes" {
+    [Report Wizard] as ReportWizard
+    [Report Services] as ReportServices
+    [Report Logic] as ReportLogic
+    [Report Schema] as ReportSchema
+    [Report Generator] as ReportGenerator
+    [Report LLM Writer] as ReportLLMWriter
+    [Report Storage] as ReportStorage
+}
+
+package "Persistencia y artefactos" {
+    [Session Artifacts] as SessionArtifacts
+    [Dataset Artifacts] as DatasetArtifacts
+    [Model Artifacts] as ModelArtifacts
+    [Report Artifacts] as ReportArtifacts
+}
+
+package "Herramientas externas" {
+    [External Tools] as ExternalTools
+}
+
+CLI --> Menus
+CLI --> Startup
+Startup --> Paths
+Startup --> Environment
+
+Menus --> SessionWizard
+Menus --> TrainingWizard
+Menus --> ReportWizard
+Menus --> Settings
+
+SessionWizard --> SessionBuilder
+SessionBuilder --> SessionConfig
+SessionWizard --> SessionServices
+SessionServices --> SessionRunner
+SessionRunner --> SessionStorage
+SessionServices --> SessionViews
+
+SessionRunner --> StateBuilder
+SessionRunner --> DecisionPolicy
+SessionRunner --> ActionCatalog
+SessionRunner --> CommandBuilder
+SessionRunner --> CommandExecutor
+SessionRunner --> EventBuilder
+SessionRunner --> KBUpdater
+SessionRunner --> SessionLogger
+
+StateBuilder --> KB
+StateBuilder --> SessionConfig
+DecisionPolicy --> ActionCatalog
+DecisionPolicy --> ModelLoader
+CommandBuilder --> ActionCatalog
+CommandBuilder --> KB
+CommandExecutor --> ExecutionLayer
+ExecutionLayer --> ExternalTools
+EventBuilder --> ParserCatalog
+EventBuilder --> ActionCatalog
+KBUpdater --> KB
+SessionLogger --> SessionArtifacts
+SessionStorage --> SessionArtifacts
+
+TrainingWizard --> TrainingServices
+TrainingServices --> TrainingLogic
+TrainingLogic --> TrainingVectorization
+TrainingLogic --> TrainingStorage
+TrainingLogic --> ModelLoader
+TrainingStorage --> DatasetArtifacts
+TrainingStorage --> ModelArtifacts
+TrainingVectorization --> DatasetArtifacts
+StateVectorizer --> TrainingVectorization
+
+ModelLoader --> ModelArtifacts
+
+ReportWizard --> ReportServices
+ReportServices --> ReportLogic
+ReportLogic --> ReportSchema
+ReportLogic --> ReportGenerator
+ReportGenerator --> ReportLLMWriter
+ReportGenerator --> ReportStorage
+ReportLogic --> SessionArtifacts
+ReportStorage --> ReportArtifacts
+
+Settings --> Paths
+
+@enduml

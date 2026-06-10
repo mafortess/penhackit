@@ -1,0 +1,6 @@
+{
+  "id": "20260608_181700_mvp_session",
+  "goal_type": "obtain_session",
+  "target_type": "host",
+  "target": "10.6.6.10"
+}

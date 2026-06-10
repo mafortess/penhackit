@@ -1,0 +1,4 @@
+sample_index,y_true,y_pred,correct
+0,361,220,0
+1,101,102,0
+2,401,220,0

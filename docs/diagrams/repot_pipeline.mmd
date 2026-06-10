@@ -1,0 +1,16 @@
+flowchart LR
+    A[KB final de la sesión] --> B[KB compacta por sección]
+    B --> C[Plantilla de reporte]
+    C --> D[Prompt de sección]
+
+    D --> E1[Baseline]
+    D --> E2[Ollama local]
+    D --> E3[Transformers local]
+
+    E1 --> F[Texto de sección]
+    E2 --> F
+    E3 --> F
+
+    F --> G[Ensamblado del reporte]
+    G --> H[Reporte Markdown]
+    H --> I[Exportación a PDF]

@@ -1,6 +1,6 @@
 from zipfile import Path
 
-from penhackit.training.training_logic import MODEL_CHOICES, training_model
+from penhackit.training.training_logic import MODEL_CHOICES, training_model, evaluate_saved_models
 
 from penhackit.common.paths import Paths
 from penhackit.training.training_wizard import train_model_wizard
@@ -39,11 +39,14 @@ def run_train_model_service(app_context: dict) -> None:
     print(f"random_state: {random_state}")
     print(f"dataset_path: {dataset_path}")
 
+
     # Asegurarse de que las carpetas de datasets y modelos existen
     datasets_dir = paths.datasets_dir
-    print(f"Looking for datasets in: {datasets_dir}")
     models_dir = paths.models_dir
+    
+    print(f"Looking for datasets in: {datasets_dir}")
     print(f"Saving trained models to: {models_dir}")
+    
     datasets_dir.mkdir(parents=True, exist_ok=True)
     models_dir.mkdir(parents=True, exist_ok=True)
 
@@ -54,6 +57,7 @@ def run_train_model_service(app_context: dict) -> None:
         print(f"  {k}: {name} - {desc}")
 
     try:
+        model_key = normalize_model_key(model_type)
         training_model(training_settings, dataset_path, model_type[0], paths)
     except Exception as e:
         print(f"Error during training: {e}")
@@ -62,19 +66,13 @@ def run_train_model_service(app_context: dict) -> None:
 def run_evaluate_model_service(app_context: dict) -> None:
     # Aquí iría la lógica para evaluar el modelo, como cargar un conjunto de prueba, calcular métricas, etc.
     print(f"Running model evaluation service...") # with context: {app_context}")
-    # wizard_data = evaluate_model_wizard(settings)
-    # if wizard_data is None:
-    #     print("Evaluation cancelled.")
-    #     return
+    paths = app_context["paths"]
 
-    # try:
-    #     evaluate_model(
-    #         model_path=wizard_data["model_path"],
-    #         dataset_path=wizard_data["dataset_path"],
-    #         settings=settings,
-    #     )
-    # except Exception as exc:
-    #     print(f"Error evaluating model: {exc}")
+    try:
+        evaluate_saved_models(paths)
+    except Exception as e:
+        print(f"Error during model evaluation: {e}")
+        
 
 def list_datasets_and_models(app_context: dict) -> None:
     print("Listing datasets and models...")
@@ -84,3 +82,20 @@ def rebuild_dataset_from_sessions(app_context: dict) -> None:
     print("Rebuilding dataset from sessions...")
     # Aquí iría la lógica para reconstruir un dataset a partir de las sesiones, probablemente pidiendo criterios o filtros.
     # Por ahora, solo es un placeholder.
+
+
+def normalize_model_key(model_type) -> str:
+    """
+    Normalizes the model selected by the wizard.
+
+    The wizard may return either:
+      - a plain string: "random_forest"
+      - a tuple/list: ("random_forest", "Random Forest")
+    """
+    if isinstance(model_type, str):
+        return model_type
+
+    if isinstance(model_type, (tuple, list)) and len(model_type) > 0:
+        return str(model_type[0])
+
+    raise ValueError(f"Invalid model_type returned by wizard: {model_type!r}")

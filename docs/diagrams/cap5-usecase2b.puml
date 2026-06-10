@@ -1,0 +1,100 @@
+@startuml cap5-casos-uso-modelos-reportes
+
+title Casos de uso: datasets, modelos y reportes
+
+top to bottom direction
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam nodesep 25
+skinparam ranksep 30
+skinparam ArrowFontSize 8
+
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+    FontSize 10
+}
+
+skinparam rectangle {
+    BorderColor Black
+}
+
+actor "Pentester /\nusuario técnico" as User
+
+rectangle "PenHackIt" {
+
+    package "Interacción principal" as P_Main {
+        usecase "Gestionar\nsesiones previas" as UC_ManageSessions
+        usecase "Gestionar datasets\ny modelos" as UC_ManageTraining
+        usecase "Gestionar\nreportes" as UC_ManageReports
+
+        UC_ManageSessions -[hidden]down- UC_ManageTraining
+        UC_ManageTraining -[hidden]down- UC_ManageReports
+    }
+
+    package "Sesiones previas" as P_Sessions {
+        usecase "Consultar\nsesiones" as UC_ListSessions
+        usecase "Seleccionar\nsesión" as UC_SelectSession
+        usecase "Ver detalle\nde sesión" as UC_ViewSession
+
+        UC_ListSessions -[hidden]down- UC_SelectSession
+        UC_SelectSession -[hidden]down- UC_ViewSession
+    }
+
+    package "Datasets y entrenamiento" as P_Training {
+        usecase "Construir dataset\ndesde sesiones" as UC_BuildDataset
+        usecase "Seleccionar\ndataset" as UC_SelectDataset
+        usecase "Entrenar\nmodelo" as UC_TrainModel
+        usecase "Evaluar\nmodelo" as UC_EvaluateModel
+        usecase "Listar datasets\ny modelos" as UC_ListModels
+
+        UC_BuildDataset -[hidden]down- UC_SelectDataset
+        UC_SelectDataset -[hidden]down- UC_TrainModel
+        UC_TrainModel -[hidden]down- UC_EvaluateModel
+        UC_EvaluateModel -[hidden]down- UC_ListModels
+    }
+
+    package "Reportes" as P_Reports {
+        usecase "Generar\nreporte" as UC_GenerateReport
+        usecase "Seleccionar backend\nde reporte" as UC_SelectBackend
+        usecase "Exportar reporte\nMarkdown/PDF" as UC_ExportReport
+        usecase "Consultar\nreportes" as UC_ListReports
+
+        UC_GenerateReport -[hidden]down- UC_SelectBackend
+        UC_SelectBackend -[hidden]down- UC_ExportReport
+        UC_ExportReport -[hidden]down- UC_ListReports
+    }
+
+    P_Main -[hidden]down- P_Sessions
+    P_Sessions -[hidden]down- P_Training
+    P_Training -[hidden]down- P_Reports
+}
+
+User -down-> UC_ManageSessions
+User -down-> UC_ManageTraining
+User -down-> UC_ManageReports
+
+UC_ManageSessions .down.> UC_ListSessions : <<include>>
+UC_ManageSessions .down.> UC_SelectSession : <<include>>
+UC_ManageSessions .down.> UC_ViewSession : <<include>>
+
+UC_ManageTraining .down.> UC_BuildDataset : <<include>>
+UC_ManageTraining .down.> UC_SelectDataset : <<include>>
+UC_ManageTraining .down.> UC_TrainModel : <<include>>
+UC_ManageTraining .down.> UC_EvaluateModel : <<include>>
+UC_ManageTraining .down.> UC_ListModels : <<include>>
+
+UC_ManageReports .down.> UC_GenerateReport : <<include>>
+UC_ManageReports .down.> UC_SelectBackend : <<include>>
+UC_ManageReports .down.> UC_ExportReport : <<include>>
+UC_ManageReports .down.> UC_ListReports : <<include>>
+
+UC_BuildDataset .down.> UC_SelectSession : <<include>>
+UC_TrainModel .down.> UC_SelectDataset : <<include>>
+UC_EvaluateModel .down.> UC_SelectDataset : <<include>>
+UC_GenerateReport .down.> UC_SelectSession : <<include>>
+
+@enduml

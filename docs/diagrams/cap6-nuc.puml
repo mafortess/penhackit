@@ -1,0 +1,109 @@
+@startuml cap6-nucleo-sesion-uml
+
+title Detalle del núcleo operativo de sesión
+
+left to right direction
+
+skinparam componentStyle uml2
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+skinparam linetype ortho
+
+skinparam DefaultFontSize 13
+skinparam TitleFontSize 14
+skinparam PackageFontSize 11
+skinparam ComponentFontSize 13
+skinparam ArrowFontSize 11
+skinparam nodesep 25
+skinparam ranksep 30
+
+package "Gestión de sesión" {
+    [Session Wizard] as Wizard
+    [Session Builder] as Builder
+    [Session Config] as Config
+    [Session Services] as Services
+    [Session Runner] as Runner
+    [Session Storage] as Storage
+    [Session Views] as Views
+}
+
+package "Acciones y decisión" {
+    [Action Catalog] as ActionCatalog
+    [Action Definitions] as ActionDefinitions
+    [Command Mapping] as CommandMapping
+    [Decision Policies] as Policies
+    [Scripted Sequences] as Scripted
+}
+
+package "Comandos y ejecución" {
+    [Command Builder] as CmdBuilder
+    [Command Schema] as CmdSchema
+    [Command Executor] as CmdExecutor
+    [Execution Layer] as Execution
+    [External Tools] as Tools
+}
+
+package "Parsing y eventos" {
+    [Parser Catalog] as ParserCatalog
+    [Parser Mapping] as ParserMapping
+    [Parser Families] as ParserFamilies
+    [Event Builder] as EventBuilder
+}
+
+package "Memoria y estado" {
+    [Knowledge Base] as KB
+    [Knowledge Base Schema] as KBSchema
+    [KB Updater] as KBUpdater
+    [State Builder] as StateBuilder
+    [State Schema] as StateSchema
+}
+
+package "Trazabilidad" {
+    [Session Logger] as Logger
+    [Session Artifacts] as Artifacts
+}
+
+Wizard --> Builder
+Builder --> Config
+Wizard --> Services
+Services --> Runner
+Services --> Views
+
+Runner --> StateBuilder
+Runner --> Policies
+Runner --> ActionCatalog
+Runner --> CmdBuilder
+Runner --> CmdExecutor
+Runner --> EventBuilder
+Runner --> KBUpdater
+Runner --> Logger
+Runner --> Storage
+
+ActionCatalog --> ActionDefinitions
+ActionCatalog --> CommandMapping
+Policies --> Scripted
+Policies --> ActionCatalog
+
+CmdBuilder --> ActionCatalog
+CmdBuilder --> CmdSchema
+CmdBuilder --> KB
+
+CmdExecutor --> Execution
+Execution --> Tools
+
+EventBuilder --> ParserCatalog
+EventBuilder --> ActionCatalog
+ParserCatalog --> ParserMapping
+ParserCatalog --> ParserFamilies
+
+StateBuilder --> KB
+StateBuilder --> StateSchema
+
+KBUpdater --> KB
+KB --> KBSchema
+
+Logger --> Artifacts
+Storage --> Artifacts
+
+@enduml

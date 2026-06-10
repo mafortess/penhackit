@@ -1,0 +1,122 @@
+```plantuml
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+title Arquitectura software de PenHackIt
+
+package "src/penhackit" {
+
+  package "app" as app {
+    [startup.py\nInicialización]
+  }
+
+  package "cli" as cli {
+    [main.py\nCLI]
+    [menus/\nMenús]
+  }
+
+  package "common" as common {
+    [paths.py\nRutas]
+    [environment.py\nEntorno]
+  }
+
+  package "settings" as settings {
+    [flows.py]
+    [logic.py]
+  }
+
+  package "session" as session {
+    [session_wizard.py\nConfiguración de sesión]
+    [session_services.py\nServicios de sesión]
+    [session_runner.py\nCiclo de sesión]
+    [session_storage.py\nPersistencia de sesión]
+
+    package "action" as action {
+      [Catálogo de acciones]
+    }
+
+    package "command" as command {
+      [Construcción de comandos]
+    }
+
+    package "decision" as decision {
+      [Política / modelo decisor]
+    }
+
+    package "execution" as execution {
+      [Ejecución de comandos]
+    }
+
+    package "parser" as parser {
+      [Parsers]
+    }
+
+    package "kb" as kb {
+      [Knowledge Base]
+    }
+
+    package "state" as state {
+      [Construcción del estado]
+    }
+
+    package "logging" as logging {
+      [Trazas y transiciones]
+    }
+  }
+
+  package "training" as training {
+    [training_wizard.py]
+    [training_services.py]
+    [training_logic.py\nEntrenamiento]
+    [vectorization.py\nVectorización]
+    [training_storage.py]
+  }
+
+  package "models" as models {
+    [model_loader.py\nCarga de modelos]
+  }
+
+  package "report" as report {
+    [report_wizard.py]
+    [report_services.py]
+    [report_logic.py]
+    [report_generator.py\nGeneración de reportes]
+    [report_llm_writer.py\nBackends LLM]
+    [report_schema.py\nEstructura del reporte]
+    [report_storage.py]
+  }
+}
+
+database "workspace/\nconfig, data, models, logs" as workspace
+
+app --> cli : arranca
+cli --> session : ejecutar sesión
+cli --> training : entrenar / evaluar
+cli --> report : generar reporte
+cli --> settings : configuración
+
+session --> action
+session --> command
+session --> decision
+session --> execution
+session --> parser
+session --> kb
+session --> state
+session --> logging
+
+decision --> models : carga modelo
+training --> models : guarda modelos
+training --> workspace : datasets / métricas
+session --> workspace : sesiones / KB / trazas
+report --> workspace : reportes
+settings --> workspace : configuración
+common --> workspace : rutas / entorno
+
+report --> session : lee KB final
+training --> session : lee transiciones
+
+@enduml
+```

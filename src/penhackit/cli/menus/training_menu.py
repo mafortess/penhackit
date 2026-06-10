@@ -22,7 +22,7 @@ def run_training_menu(app_context: dict) -> None:
 def show_training_menu() -> None:
     print("\n--- Training ---")
     print("1) Train model")
-    print("2) Evaluate model")
+    print("2) Evaluated saved models")
     print("3) List datasets/models")
     print("4) Rebuild dataset from sessions")
     print("0) Back")

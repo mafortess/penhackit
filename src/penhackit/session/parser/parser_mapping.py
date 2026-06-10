@@ -2,6 +2,7 @@
 
 from penhackit.session.parser.parser_catalog import ACTION_PARSERS
 
+
 def parse_command_result(action: dict, result: dict) -> list[dict]:
     """
     Entry point for converting a command execution result into normalized events.
@@ -44,14 +45,39 @@ def parse_command_result(action: dict, result: dict) -> list[dict]:
     target_domain = result.get("target_domain")
 
     if rc is not None and int(rc) != 0:
-        return [{"type": "COMMAND_ERROR", "action": action_name, "rc": rc, "stderr": (result.get("stderr", "") or "")[:500]}]
+        return [{"type": "COMMAND_ERROR", 
+                 "action": action_name, 
+                 "rc": rc, 
+                 "stderr": (result.get("stderr", "") or "")[:500],
+                }]
 
+    print(f"Parsing result for action: {action_name} with rc={rc}...")
     parser = ACTION_PARSERS.get(action_name)
 
-    if parser is None:
-        return [{
-            "type": "NO_EVENT",
-            "action": action_name,
-        }]
+    try:
+        if parser is None:
+            return [{
+                "type": "NO_EVENT",
+                "action": action_name,
+                "reason": "No parser found for this action",
+            }]
 
-    return parser(stdout, stderr, target_ip, target_port)
+        try:
+            return parser(stdout, stderr, target_ip, target_port)
+
+        except Exception as e:
+            print(f"Error occurred while parsing result for action: {action_name}")
+            print(f"Error: {e}")
+            return [{
+                "type": "PARSING_ERROR",
+                "action": action_name,
+                "reason": str(e),
+            }]
+    except Exception as e:
+        print(f"Unexpected error in parse_command_result for action: {action_name}")
+        print(f"Error: {e}")
+        return [{
+            "type": "PARSING_ERROR",
+            "action": action_name,
+            "reason": f"Unexpected error: {str(e)}",
+        }]

@@ -1,0 +1,79 @@
+@startuml cap6-training-reportes-uml
+
+title Componentes de entrenamiento, modelos, reportes y persistencia
+
+top to bottom direction
+
+skinparam componentStyle uml2
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+skinparam linetype ortho
+
+skinparam DefaultFontSize 14
+skinparam TitleFontSize 12
+skinparam PackageFontSize 10
+skinparam ComponentFontSize 13
+skinparam ArrowFontSize 12
+skinparam nodesep 25
+skinparam ranksep 30
+
+package "Persistencia de entrada" {
+    [Session Artifacts] as SessionArtifacts
+}
+
+package "Entrenamiento" {
+    [Training Wizard] as TrainingWizard
+    [Training Services] as TrainingServices
+    [Training Logic] as TrainingLogic
+    [Training Vectorization] as TrainingVectorization
+    [Training Storage] as TrainingStorage
+}
+
+package "Modelos" {
+    [Model Loader] as ModelLoader
+    [Model Artifacts] as ModelArtifacts
+}
+
+package "Artefactos de entrenamiento" {
+    [Dataset Artifacts] as DatasetArtifacts
+}
+
+package "Generación de reportes" {
+    [Report Wizard] as ReportWizard
+    [Report Services] as ReportServices
+    [Report Logic] as ReportLogic
+    [Report Schema] as ReportSchema
+    [Report Generator] as ReportGenerator
+    [Report LLM Writer] as ReportLLMWriter
+    [Report Storage] as ReportStorage
+}
+
+package "Artefactos de reporte" {
+    [Report Artifacts] as ReportArtifacts
+}
+
+TrainingWizard --> TrainingServices
+TrainingServices --> TrainingLogic
+
+TrainingLogic --> SessionArtifacts : lee sesiones
+TrainingLogic --> TrainingVectorization : vectoriza estados
+TrainingLogic --> TrainingStorage : guarda datasets y métricas
+TrainingLogic --> ModelLoader : carga modelos si procede
+
+TrainingVectorization --> DatasetArtifacts : genera datasets vectorizados
+TrainingStorage --> DatasetArtifacts : almacena datasets
+TrainingStorage --> ModelArtifacts : almacena modelos y métricas
+ModelLoader --> ModelArtifacts : carga modelos entrenados
+
+ReportWizard --> ReportServices
+ReportServices --> ReportLogic
+
+ReportLogic --> SessionArtifacts : lee KB, eventos y logs
+ReportLogic --> ReportSchema : estructura secciones
+ReportLogic --> ReportGenerator : genera contenido
+ReportGenerator --> ReportLLMWriter : redacción asistida
+ReportGenerator --> ReportStorage : entrega resultado
+ReportStorage --> ReportArtifacts : guarda Markdown/PDF
+
+@enduml

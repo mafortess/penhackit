@@ -1,0 +1,70 @@
+
+@startuml cap5-casos-uso-modelos-reportes
+
+title Casos de uso: datasets, modelos y reportes
+
+left to right direction
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam linetype ortho
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+skinparam rectangle {
+    BorderColor Black
+}
+
+actor "Pentester /\nusuario técnico" as User
+
+rectangle "PenHackIt" {
+
+    package "Sesiones previas" as P_Sessions {
+        usecase "Consultar sesiones" as UC_ListSessions
+        usecase "Seleccionar sesión" as UC_SelectSession
+        usecase "Ver detalle\nde sesión" as UC_ViewSession
+    }
+
+    package "Datasets y entrenamiento" as P_Training {
+        usecase "Construir dataset\ndesde sesiones" as UC_BuildDataset
+        usecase "Seleccionar dataset" as UC_SelectDataset
+        usecase "Entrenar modelo" as UC_TrainModel
+        usecase "Evaluar modelo" as UC_EvaluateModel
+        usecase "Listar datasets\ny modelos" as UC_ListModels
+    }
+
+    package "Reportes" as P_Reports {
+        usecase "Generar reporte" as UC_GenerateReport
+        usecase "Seleccionar backend\nde reporte" as UC_SelectBackend
+        usecase "Exportar reporte\nMarkdown/PDF" as UC_ExportReport
+        usecase "Consultar reportes" as UC_ListReports
+    }
+}
+
+User --> UC_ListSessions
+User --> UC_ViewSession
+
+User --> UC_BuildDataset
+User --> UC_TrainModel
+User --> UC_EvaluateModel
+User --> UC_ListModels
+
+User --> UC_GenerateReport
+User --> UC_ListReports
+
+UC_BuildDataset .> UC_SelectSession : <<include>>
+UC_BuildDataset .> UC_ListSessions : <<include>>
+
+UC_TrainModel .> UC_SelectDataset : <<include>>
+UC_EvaluateModel .> UC_SelectDataset : <<include>>
+
+UC_GenerateReport .> UC_SelectSession : <<include>>
+UC_GenerateReport .> UC_SelectBackend : <<include>>
+UC_GenerateReport .> UC_ExportReport : <<include>>
+
+P_Sessions -[hidden]right- P_Training
+P_Training -[hidden]right- P_Reports
+
+@enduml

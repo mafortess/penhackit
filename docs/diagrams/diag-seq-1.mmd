@@ -1,0 +1,25 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '18px'}}}%
+sequenceDiagram
+    participant Runtime as Session Runtime
+    participant KB as Knowledge Base
+    participant Focus as Focus Selector
+    participant StateBuilder as State Builder
+    participant Policy as Decision Policy
+    participant Catalog as Action Catalog
+    participant CmdBuilder as Command Builder
+
+    Runtime->>KB: Load current KB
+    Runtime->>Focus: select_focus(KB, context)
+    Focus-->>Runtime: focus_t
+
+    Runtime->>StateBuilder: build_state(KB, focus_t, context)
+    StateBuilder-->>Runtime: state_t
+
+    Runtime->>Policy: decide_action(state_t)
+    Policy-->>Runtime: action_id
+
+    Runtime->>Catalog: get_action(action_id)
+    Catalog-->>Runtime: action metadata
+
+    Runtime->>CmdBuilder: build_command(action_id, KB, focus_t, context)
+    CmdBuilder-->>Runtime: resolved command

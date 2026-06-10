@@ -1,0 +1,96 @@
+@startuml cap6-nucleo-sesion-uml
+
+title Detalle del núcleo operativo de sesión
+
+left to right direction
+
+skinparam componentStyle uml2
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+
+package "Gestión de sesión" {
+    [Session Wizard] as Wizard
+    [Session Builder] as Builder
+    [Session Config] as Config
+    [Session Services] as Services
+    [Session Runner] as Runner
+    [Session Storage] as Storage
+    [Session Views] as Views
+}
+
+package "Acciones y decisión" {
+    [Action Catalog] as ActionCatalog
+    [Action IDs] as ActionIDs
+    [Command Mapping] as CommandMapping
+    [Decision Policies] as Policies
+    [Scripted Sequences] as Scripted
+}
+
+package "Comandos y ejecución" {
+    [Command Builder] as CmdBuilder
+    [Command Schema] as CmdSchema
+    [Command Executor] as CmdExecutor
+    [Execution Layer] as Execution
+    [External Tools] as Tools
+}
+
+package "Parsing y eventos" {
+    [Parser Catalog] as ParserCatalog
+    [Parser Mapping] as ParserMapping
+    [Event Builder] as EventBuilder
+    [Parser Families] as ParserFamilies
+}
+
+package "Memoria y estado" {
+    [Knowledge Base Schema] as KBSchema
+    [KB Updater] as KBUpdater
+    [State Builder] as StateBuilder
+    [State Schema] as StateSchema
+    [State Vectorizer] as StateVectorizer
+}
+
+package "Trazabilidad" {
+    [Session Logger] as Logger
+    [Session Artifacts] as Artifacts
+}
+
+Wizard --> Builder
+Builder --> Config
+Wizard --> Services
+Services --> Runner
+Runner --> Storage
+Services --> Views
+
+Runner --> StateBuilder
+Runner --> Policies
+Runner --> ActionCatalog
+Runner --> CmdBuilder
+Runner --> CmdExecutor
+Runner --> EventBuilder
+Runner --> KBUpdater
+Runner --> Logger
+
+ActionCatalog --> ActionIDs
+ActionCatalog --> CommandMapping
+Policies --> Scripted
+Policies --> ActionCatalog
+
+CmdBuilder --> ActionCatalog
+CmdBuilder --> CmdSchema
+CmdExecutor --> Execution
+Execution --> Tools
+
+EventBuilder --> ParserCatalog
+ParserCatalog --> ParserMapping
+ParserCatalog --> ParserFamilies
+
+StateBuilder --> KBSchema
+StateBuilder --> StateSchema
+KBUpdater --> KBSchema
+StateVectorizer --> StateSchema
+
+Logger --> Artifacts
+Storage --> Artifacts
+
+@enduml

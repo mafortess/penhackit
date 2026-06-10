@@ -1,286 +1,147 @@
 @startuml
 skinparam packageStyle rectangle
-skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
 
-'========================
-' CLI
-'========================
-package "cli" as cli {
-  class CliApp {
-    + run()
+title Arquitectura software de PenHackIt
+
+package "src/penhackit" {
+
+  package "app" {
+    [startup.py]
   }
 
-  class SessionMenu {
-    + run_menu()
-    + cmd_run_session()
-    + cmd_generate_report()
+  package "cli" {
+    [main.py]
+    package "menus" {
+      [main_menu.py]
+      [session_menu.py]
+      [training_menu.py]
+      [report_menu.py]
+      [settings_menu.py]
+    }
   }
 
-  class TrainingMenu {
-    + run_menu()
-    + cmd_build_dataset()
-    + cmd_train_model()
-    + cmd_eval_model()
-  }
-}
-
-'========================
-' SESSION (orchestration)
-'========================
-package "session" as session {
-  class SessionRunner {
-    - store: SessionStore
-    - state_extractor: StateExtractor
-    - policy: Policy
-    - command_builder: CommandBuilder
-    - executor: CommandExecutor
-    - event_builder: EventBuilder
-    - kb_updater: KBUpdater
-    + run(session_id, max_steps)
-    + step()
+  package "common" {
+    [paths.py]
+    [environment.py]
   }
 
-  class SessionStore {
-    + create_session(session_id)
-    + load_session_config(session_id)
-    + save_session_config(session_id, cfg)
-    + load_kb(session_id)
-    + save_kb(session_id, kb)
-    + append_commands(session_id, record)
-    + append_events(session_id, record)
-    + append_transitions(session_id, record)
-    + write_report(session_id, report)
+  package "session" {
+
+    [session_wizard.py]
+    [session_services.py]
+    [session_runner.py]
+    [session_storage.py]
+    [session_config.py]
+    [session_views.py]
+
+    package "action" {
+      [action_catalog.py]
+      [action_ids.py]
+      [command_mapping.py]
+      [recon.py]
+      [enumeration.py]
+      [vulnerability.py]
+      [exploitation.py]
+      [post_exploitation.py]
+      [credentials.py]
+      [local_context.py]
+      [control.py]
+    }
+
+    package "command" {
+      [command_builder.py]
+      [command_executor.py]
+      [command_schema.py]
+    }
+
+    package "decision" {
+      [policies.py]
+      [scripted_sequences.py]
+    }
+
+    package "execution" {
+      [execute.py]
+    }
+
+    package "kb" {
+      [kb_schema.py]
+      [kb_updater.py]
+    }
+
+    package "logging" {
+      [logger.py]
+    }
+
+    package "parser" {
+      [event_builder.py]
+      [parser_catalog.py]
+      [parser_mapping.py]
+      [recon_parser.py]
+      [enumeration_parser.py]
+      [vulnerability_parser.py]
+      [exploitation_parser.py]
+      [post_exploitation_parser.py]
+      [credential_parser.py]
+      [local_context_parser.py]
+      [control_parser.py]
+      [common.py]
+    }
+
+    package "state" {
+      [state_builder.py]
+      [state_schema.py]
+      [state_vectorizer.py]
+    }
   }
 
-  class SessionConfig {
-    + goal
-    + scope
-    + mode
-    + max_steps
-    + restrictions
-    + stop_policy
+  package "training" {
+    [training_wizard.py]
+    [training_services.py]
+    [training_logic.py]
+    [training_storage.py]
+    [vectorization.py]
   }
 
-  class SessionContext {
-    + step
-    + started_ts
-    + last_action_id
-    + stagnation_steps
-  }
-}
-
-'========================
-' MEMORY (KB)
-'========================
-package "memory" as memory {
-  class KBUpdater {
-    + apply(kb, events) : kb
+  package "models" {
+    [model_loader.py]
   }
 
-  class KBIO {
-    + load(path) : kb
-    + save(path, kb)
+  package "report" {
+    [report_wizard.py]
+    [report_services.py]
+    [report_logic.py]
+    [report_generator.py]
+    [report_llm_writer.py]
+    [report_schema.py]
+    [report_storage.py]
   }
 
-  class KBQueries {
-    + hosts_count(kb) : int
-    + open_ports_count(kb, host) : int
-    + has_service(kb, host, service) : bool
-  }
-}
-
-'========================
-' STATE
-'========================
-package "state" as state {
-  class StateExtractor {
-    + extract(kb, ctx, cfg) : State
-  }
-
-  class State {
-    + goal
-    + focus
-    + host
-    + service
-    + global
-    + temporal
-  }
-
-  class StateVectorizer {
-    + vectorize(state) : vector
-  }
-}
-
-'========================
-' POLICY
-'========================
-package "policy" as policy {
-  interface Policy {
-    + decide(state, ctx, cfg) : action_id
-  }
-
-  class RulesPolicy {
-    + decide(state, ctx, cfg) : action_id
-  }
-
-  class BCPolicy {
-    - model
-    + decide(state, ctx, cfg) : action_id
-  }
-
-  class PolicyModelIO {
-    + load(path) : model
-    + save(path, model)
-  }
-
-  Policy <|.. RulesPolicy
-  Policy <|.. BCPolicy
-}
-
-'========================
-' ACTIONS
-'========================
-package "actions" as actions {
-  class ActionRegistry {
-    + get_spec(action_id) : ActionSpec
-    + list_actions() : list
-  }
-
-  class ActionSpec {
-    + tool_family
-    + template
-    + required_slots
+  package "settings" {
+    [flows.py]
+    [logic.py]
   }
 }
 
-'========================
-' COMMAND (build + execute)
-'========================
-package "command" as command {
-  class CommandBuilder {
-    + build(action_id, kb, ctx, cfg) : Command
-  }
+database "workspace/\nconfig, data, models, logs" as workspace
 
-  class Command {
-    + tool_family
-    + argv
-    + timeout_s
-    + cwd
-  }
+app --> cli
+cli --> session : ejecutar sesiones
+cli --> training : datasets / modelos
+cli --> report : reportes
+cli --> settings : configuración
 
-  class CommandExecutor {
-    + run(cmd) : ExecResult
-  }
+session --> workspace : kb, trazas, eventos,\ntransiciones, reportes
+training --> workspace : datasets,\nmodelos, métricas
+report --> workspace : informes
+settings --> workspace : configuración
+common --> workspace : rutas y entorno
 
-  class ExecResult {
-    + ok
-    + returncode
-    + stdout
-    + stderr
-  }
-}
+session --> models : usar modelo entrenado
+training --> models : guardar modelo
+report --> session : leer KB final
+training --> session : leer transiciones
 
-'========================
-' EVENTS (parse)
-'========================
-package "events" as events {
-  class EventBuilder {
-    + build(cmd, exec_result) : events[]
-  }
-
-  class Event {
-    + type
-    + payload
-  }
-
-  class ParserRegistry {
-    + get_parser(tool_family)
-  }
-}
-
-'========================
-' REPORT
-'========================
-package "report" as report {
-  class ReportGenerator {
-    - schema: ReportSchema
-    - llm: LLMWriter
-    + generate(session_id) : Report
-  }
-
-  class ReportSchema {
-    + sections: list
-  }
-
-  class Report {
-    + meta
-    + sections: map
-  }
-
-  interface LLMWriter {
-    + write_section(section_id, kb) : text
-  }
-}
-
-'========================
-' TRAINING
-'========================
-package "training" as training {
-  class DatasetBuilder {
-    + build_from_sessions(session_ids) : dataset_path
-  }
-
-  class Trainer {
-    + train(dataset_path) : model_path
-  }
-
-  class Evaluator {
-    + evaluate(model_path, dataset_path) : metrics_path
-  }
-}
-
-'========================
-' ENVIRONMENT
-'========================
-package "environment" as environment {
-  class EnvironmentProfiler {
-    + refresh() : profile
-  }
-
-  class EnvironmentStore {
-    + load() : profile
-    + save(profile)
-  }
-}
-
-'========================
-' CALL / DEPENDENCY EDGES
-'========================
-cli --> session : run_session / generate_report
-cli --> training : build/train/eval
-cli --> environment : refresh_profile
-
-session.SessionRunner --> session.SessionStore
-session.SessionRunner --> state.StateExtractor
-session.SessionRunner --> policy.Policy
-session.SessionRunner --> actions.ActionRegistry
-session.SessionRunner --> command.CommandBuilder
-session.SessionRunner --> command.CommandExecutor
-session.SessionRunner --> events.EventBuilder
-session.SessionRunner --> memory.KBUpdater
-
-command.CommandBuilder --> actions.ActionRegistry
-events.EventBuilder --> events.ParserRegistry
-memory.KBUpdater --> events.Event
-
-report.ReportGenerator --> session.SessionStore : load kb
-report.ReportGenerator --> report.ReportSchema
-report.ReportGenerator --> report.LLMWriter
-
-training.DatasetBuilder --> session.SessionStore : read transitions
-training.Trainer --> state.StateVectorizer
-training.Trainer --> policy.PolicyModelIO
-training.Evaluator --> policy.PolicyModelIO
-
-environment.EnvironmentProfiler --> environment.EnvironmentStore
 @enduml

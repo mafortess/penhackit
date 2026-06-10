@@ -16,6 +16,7 @@
     "default_target_type": "host",
     "default_host_target": "10.6.6.10",
     "default_network_target": "10.6.6.0/24",
+    "default_scenario_id": "s01_single_host",
     "default_max_steps": 50,
     "default_decider": "scripted",
     "default_model_id": "decision_tree",
