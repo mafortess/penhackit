@@ -1,4 +1,5 @@
 from penhackit.session.action.control import CONTROL_ACTIONS
+from penhackit.session.action.local_context import LOCAL_CONTEXT_ACTIONS
 from penhackit.session.action.recon import RECON_ACTIONS
 from penhackit.session.action.enumeration import ENUMERATION_ACTIONS
 from penhackit.session.action.vulnerability import VULNERABILITY_ACTIONS
@@ -17,6 +18,7 @@ from penhackit.session.action.post_exploitation import POST_EXPLOIT_ACTIONS
 
 ACTIONS = {
     **CONTROL_ACTIONS,
+    **LOCAL_CONTEXT_ACTIONS,
     **RECON_ACTIONS,
     **ENUMERATION_ACTIONS,
     **VULNERABILITY_ACTIONS,

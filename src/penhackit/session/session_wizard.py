@@ -7,6 +7,7 @@ from pathlib import Path
 from penhackit.common.paths import Paths
 
 from penhackit.models.model_loader import list_available_models
+from penhackit.session.decision.scripted_sequences import SCRIPTED_SEQUENCES
 
 def new_session_wizard(session_settings: dict, path: Paths) -> dict | None:
     print("Starting session wizard...")
@@ -45,15 +46,29 @@ def new_session_wizard(session_settings: dict, path: Paths) -> dict | None:
         if decider is None:
             return None
 
+    attack_name = None
+    scripted_sequence = None
+
+    if decider == "scripted":
+        attack_name, scripted_sequence = choose_scripted_attack_sequence(
+            goal_type=goal_type,
+            target_type=target_type,
+            session_settings=session_settings,
+        )
+        if scripted_sequence is None:
+            return None
+
     model_id = None
     if decider == "model":
         model_id = choose_model(session_settings, path)
         if model_id is None:
             return None
+    
 
-    launch_kb_monitor = choose_launch_kb_monitor(session_settings)
-    if launch_kb_monitor is None:
-        return None
+
+    # launch_kb_monitor = choose_launch_kb_monitor(session_settings)
+    # if launch_kb_monitor is None:
+    #     return None
 
     confirmed = confirm_session_creation(
         mode=mode,
@@ -63,7 +78,9 @@ def new_session_wizard(session_settings: dict, path: Paths) -> dict | None:
         name=name,
         max_steps=max_steps,
         decider=decider,
-        launch_kb_monitor=launch_kb_monitor,
+        scripted_sequence=scripted_sequence,
+        attack_name=attack_name,
+        # launch_kb_monitor=launch_kb_monitor,
     )
     if not confirmed:
         return None
@@ -77,7 +94,9 @@ def new_session_wizard(session_settings: dict, path: Paths) -> dict | None:
         "max_steps": max_steps,
         "decider": decider,
         "model_id": model_id,
-        "launch_kb_monitor": launch_kb_monitor,
+        "attack_name": attack_name,
+        "scripted_sequence": scripted_sequence,
+        # "launch_kb_monitor": launch_kb_monitor,
     }
 
 
@@ -119,10 +138,11 @@ def choose_goal_type(session_settings: dict) -> str | None:
     print("3) enumeration")
     print("4) vulnerability_discovery")
     print("5) exploitation")
-    print("6) obtain session")
+    print("6) obtain_session")
+    print("7) full_exploit")
     print("0) Cancel")
 
-    completer = WordCompleter(["1", "2", "3", "4", "5", "6", "0"], ignore_case=True)
+    completer = WordCompleter(["1", "2", "3", "4", "5", "6", "7", "0"], ignore_case=True)
 
     while True:
         raw = prompt("> ", completer=completer).strip()
@@ -140,6 +160,8 @@ def choose_goal_type(session_settings: dict) -> str | None:
             return "exploitation"
         if raw == "6":
             return "obtain_session"
+        if raw == "7":
+            return "full_exploit"
         print("Invalid option.")
 
 def choose_target_type(session_settings: dict) -> str | None:
@@ -195,9 +217,9 @@ def choose_target(session_settings: dict, target_type: str) -> str | None:
 
     if raw == "0":
         return None
-    
+
     if raw == "":
-        return default_target    
+        return default_target
 
     return raw
 
@@ -241,11 +263,10 @@ def choose_decider(session_settings: dict) -> str | None:
     print(f"Default decider: {default_decider}")
     print("1) Use default")
     print("2) scripted")
-    print("3) rules")
-    print("4) model")
+    print("3) model")
     print("0) Cancel")
 
-    completer = WordCompleter(["1", "2", "3", "4", "0"], ignore_case=True)
+    completer = WordCompleter(["1", "2", "3", "0"], ignore_case=True)
 
     while True:
         raw = prompt("> ", completer=completer).strip()
@@ -256,10 +277,149 @@ def choose_decider(session_settings: dict) -> str | None:
         if raw == "2":
             return "scripted"
         if raw == "3":
-            return "rules"
-        if raw == "4":
             return "model"
         print("Invalid option.")
+
+
+
+ATTACK_OPTIONS = [
+    ("vsftpd_msf", "VSFTPD 2.3.4 backdoor - Metasploit - 601"),
+    ("vsftpd_manual", "VSFTPD 2.3.4 backdoor - manual - 610"),
+    ("samba_usermap_msf", "Samba usermap_script - Metasploit - 600"),
+    ("distcc_msf", "DistCC exec - Metasploit - 602"),
+    ("postgres_msf", "PostgreSQL payload - Metasploit - 604"),
+    ("unreal_ircd_msf", "UnrealIRCd backdoor - Metasploit - 605"),
+    ("ingreslock_bind_shell", "Ingreslock bind shell - manual - 606"),
+    ("ssh_weak_creds_manual", "SSH weak credentials - manual - 520"),
+    ("telnet_weak_creds_manual", "Telnet weak credentials - manual - 521"),
+    ("ssh_weak_creds_msf", "SSH weak credentials - Metasploit - 611"),
+    ("ftp_weak_creds_msf", "FTP weak credentials - Metasploit - 612"),
+    ("ftp_weak_creds_hydra", "FTP weak credentials - Hydra + manual validation - 613/614"),
+    ("exploit_smoke_test", "Exploit smoke test (all attacks)"),
+]
+
+
+def choose_scripted_attack_sequence(goal_type: str, target_type: str, session_settings: dict) -> tuple[str | None, str | None]:
+    default_attack_name = session_settings.get("default_attack_name", "vsftpd_msf")
+
+    attack_names = [name for name, _ in ATTACK_OPTIONS]
+
+    if default_attack_name not in attack_names:
+        default_attack_name = "vsftpd_msf"
+
+    print("\n--- Select scripted attack sequence ---")
+    print(f"Target type: {target_type}")
+    print(f"Goal type: {goal_type}")
+    print(f"Default attack: {default_attack_name}")
+    print("1) Use default")
+
+    for idx, (attack_name, description) in enumerate(ATTACK_OPTIONS, start=2):
+        print(f"{idx}) {description} [{attack_name}]")
+
+    print("0) Cancel")
+
+    valid_options = ["1"] + [
+        str(i)
+        for i in range(2, len(ATTACK_OPTIONS) + 2)
+    ] + ["0"]
+
+    completer = WordCompleter(valid_options, ignore_case=True)
+
+    while True:
+        raw = prompt("> ", completer=completer).strip()
+
+        if raw == "0":
+            return None, None
+
+        if raw == "1" or raw == "":
+            attack_name = default_attack_name
+        elif raw.isdigit():
+            selected_idx = int(raw)
+            attack_idx = selected_idx - 2
+
+            if 0 <= attack_idx < len(ATTACK_OPTIONS):
+                attack_name = ATTACK_OPTIONS[attack_idx][0]
+            else:
+                print("Invalid option.")
+                continue
+        else:
+            print("Invalid option.")
+            continue
+
+        sequence_name = resolve_scripted_sequence_name(
+            target_type=target_type,
+            goal_type=goal_type,
+            attack_name=attack_name,
+        )
+
+        if sequence_name is None:
+            print(
+                "No scripted sequence found for "
+                f"target_type={target_type}, goal_type={goal_type}, attack={attack_name}."
+            )
+            print("Available matching sequence names should follow one of these patterns:")
+            print(f"- {target_type}_{goal_type}_{attack_name}")
+            print(f"- attack_{attack_name}")
+            print(f"- network_attack_{attack_name}")
+            return None, None
+
+        print(f"Selected scripted sequence: {sequence_name}")
+
+        return attack_name, sequence_name
+
+
+def resolve_scripted_sequence_name(target_type: str, goal_type: str, attack_name: str) -> str | None:
+    """
+    Resuelve el nombre de secuencia scripted.
+
+    Prioridad:
+    1. Si attack_name ya es una secuencia directa, se usa tal cual.
+       Ejemplo: exploit_smoke_test
+
+    2. Para full_exploit, usar secuencia global:
+       host_full_exploit
+       network_full_exploit
+
+    3. Para obtain_session, usar secuencia específica por ataque:
+       host_obtain_session_vsftpd_msf
+       network_obtain_session_vsftpd_msf
+
+    4. Compatibilidad con nombres antiguos:
+       attack_vsftpd_msf
+       network_attack_vsftpd_msf
+    """
+
+    if attack_name in SCRIPTED_SEQUENCES:
+        return attack_name
+
+    if goal_type == "full_exploit":
+        sequence_name = f"{target_type}_full_exploit"
+
+        if sequence_name in SCRIPTED_SEQUENCES:
+            return sequence_name
+
+    if goal_type == "obtain_session":
+        candidates = [
+            f"{target_type}_{goal_type}_{attack_name}",
+        ]
+
+        if target_type == "host":
+            candidates.append(f"attack_{attack_name}")
+
+        if target_type == "network":
+            candidates.append(f"network_attack_{attack_name}")
+
+        for candidate in candidates:
+            if candidate in SCRIPTED_SEQUENCES:
+                return candidate
+
+    sequence_name = f"{target_type}_{goal_type}_{attack_name}"
+
+    if sequence_name in SCRIPTED_SEQUENCES:
+        return sequence_name
+
+    return None
+
 
 def choose_model(session_settings: dict, paths: Paths) -> str | None:
     default_model_id = session_settings.get("default_model_id")
@@ -344,7 +504,9 @@ def confirm_session_creation(
     name: str,
     max_steps: int,
     decider: str | None,
-    launch_kb_monitor: bool,
+    scripted_sequence: str | None,
+    attack_name: str | None,
+    # launch_kb_monitor: bool,
 ) -> bool:
     print("\n--- Confirm session creation ---")
     print(f"Mode: {mode}")
@@ -354,7 +516,9 @@ def confirm_session_creation(
     print(f"Name: {name}")
     print(f"Max steps: {max_steps}")
     print(f"Decider: {decider if decider is not None else '-'}")
-    print(f"Launch KB monitor: {launch_kb_monitor}")
+    print(f"Attack name: {attack_name if attack_name is not None else '-'}")
+    print(f"Scripted sequence: {scripted_sequence if scripted_sequence is not None else '-'}")
+    # print(f"Launch KB monitor: {launch_kb_monitor}")
 
     completer = WordCompleter(["yes", "no"], ignore_case=True)
 
@@ -382,7 +546,7 @@ def detect_networks():
     except Exception as e:
         print(f"Error detecting networks: {e}")
         return []
-    
+
     networks = []
 
     for line in result.stdout.splitlines():

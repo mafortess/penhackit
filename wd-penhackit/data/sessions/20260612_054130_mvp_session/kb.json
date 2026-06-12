@@ -1,0 +1,90 @@
+{
+  "schema_version": "2.0",
+  "session": {
+    "id": "20260612_054130_mvp_session",
+    "name": null,
+    "mode": null,
+    "created_at": null,
+    "status": "created"
+  },
+  "scope": {
+    "target_type": "host",
+    "target": "10.6.6.10",
+    "goal": "obtain_session",
+    "authorized": true,
+    "allow_exploitation": true,
+    "allow_pivoting": false,
+    "max_steps": null
+  },
+  "attacker": {
+    "hostname": null,
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": [],
+    "lhost": null
+  },
+  "target": {
+    "networks": {},
+    "hosts": {},
+    "ports": {},
+    "services": {}
+  },
+  "vulnerabilities": {},
+  "credentials": {},
+  "sessions": {},
+  "attempts": {},
+  "evidence": {},
+  "findings": {},
+  "coverage": {
+    "networks_discovered": [],
+    "networks_scanned": [],
+    "hosts_discovered": [],
+    "hosts_port_scanned": [],
+    "hosts_service_scanned": [],
+    "services_enumerated": [],
+    "services_checked_for_vulns": [],
+    "vulns_attempted": [],
+    "credentials_tested": [],
+    "exploits_attempted": [],
+    "sessions_validated": []
+  },
+  "history": [],
+  "steps": [],
+  "last": {
+    "step_idx": 0,
+    "action_id": null,
+    "action_name": null,
+    "rc": null,
+    "success": null,
+    "event_types": [],
+    "progress": null
+  },
+  "focus": {
+    "level": "global",
+    "network_id": null,
+    "host_id": null,
+    "port_id": null,
+    "service_id": null,
+    "vulnerability_id": null,
+    "credential_id": null,
+    "session_id": null
+  },
+  "stats": {
+    "steps": 0,
+    "commands": 0,
+    "networks": 0,
+    "hosts": 0,
+    "ports": 0,
+    "services": 0,
+    "vulns": 0,
+    "credentials": 0,
+    "sessions": 0,
+    "attempts": 0,
+    "evidence": 0,
+    "findings": 0,
+    "exploits_attempted": 0,
+    "exploits_failed": 0
+  }
+}

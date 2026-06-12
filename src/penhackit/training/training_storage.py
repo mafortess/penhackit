@@ -359,3 +359,97 @@ def _normalize_label_vector_for_storage(values):
         normalized.append(int(v))
 
     return np.asarray(normalized, dtype=np.int64)
+
+
+def merge_jsonl_files(input_paths: list[Path], output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with output_path.open("w", encoding="utf-8") as out:
+        for path in input_paths:
+            path = Path(path)
+
+            with path.open("r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+
+                    if not line:
+                        continue
+
+                    out.write(line + "\n")
+
+
+def merge_datasets_quick(paths: Path) -> None:
+    print("\nMerge datasets")
+    print("--------------")
+
+    dataset_files = sorted(
+        [p for p in paths.datasets_dir.rglob("*.jsonl") if p.is_file()],
+        key=lambda p: str(p).lower(),
+    )
+
+    if not dataset_files:
+        print(f"No .jsonl datasets found in: {paths.datasets_dir}")
+        return
+
+    dataset_names = []
+
+    for path in dataset_files:
+        try:
+            dataset_names.append(str(path.relative_to(paths.datasets_dir)))
+        except ValueError:
+            dataset_names.append(str(path))
+
+    completer = WordCompleter(dataset_names, ignore_case=True)
+
+    print("\nAvailable datasets:")
+    for name in dataset_names:
+        print(f"  - {name}")
+
+    print("\nSelect datasets one by one. Press ENTER without text to finish.\n")
+
+    input_paths = []
+
+    while True:
+        choice = prompt("Dataset to add > ", completer=completer).strip()
+
+        if not choice:
+            break
+
+        selected_path = paths.datasets_dir / choice
+
+        if not selected_path.exists():
+            print(f"Dataset not found: {selected_path}")
+            continue
+
+        if selected_path in input_paths:
+            print(f"Already selected: {choice}")
+            continue
+
+        input_paths.append(selected_path)
+        print(f"Added: {choice}")
+
+    if not input_paths:
+        print("No datasets selected.")
+        return
+
+    print("\nSelected datasets:")
+    for path in input_paths:
+        print(f"  - {path.relative_to(paths.datasets_dir)}")
+
+    output_name = prompt("\nOutput dataset name [merged_dataset.jsonl] > ").strip()
+
+    if not output_name:
+        output_name = "merged_dataset.jsonl"
+
+    if not output_name.endswith(".jsonl"):
+        output_name += ".jsonl"
+
+    output_path = paths.datasets_dir / output_name
+
+    try:
+        merge_jsonl_files(input_paths, output_path)
+    except Exception as e:
+        print(f"Error merging datasets: {e}")
+        return
+
+    print(f"\nMerged dataset created: {output_path}")

@@ -178,11 +178,12 @@ def update_kb(kb: dict, events: list[dict]) -> dict:
 
         elif et == "SESSION_OPENED":
             ip = ev.get("host")
+            port = ev.get("port")
             session_id = ev.get("session_id")
             exploit = ev.get("exploit")
             source = ev.get("source")
 
-            if not ip:
+            if not ip or port is None:
                 kb["history"].append(ev)
                 continue
 
@@ -200,12 +201,18 @@ def update_kb(kb: dict, events: list[dict]) -> dict:
                 "user": ev.get("user"),
                 "privilege": ev.get("privilege"),
                 "closed": False,
-                "evidence": {},
+                "hostname": ev.get("hostname"),
+                "system": ev.get("system"),
+                "evidence": ev.get("evidence", {}),
             }
 
             if session not in port_obj["sessions"]:
                 port_obj["sessions"].append(session)
             
+            for attempt in port_obj.get("attempts", []):
+                if attempt.get("type") == "exploit" and attempt.get("exploit") == exploit:
+                    attempt["success"] = True
+                    
             finding = {
                 "title": f"Session opened via {exploit}",
                 "severity": "critical",
@@ -237,83 +244,41 @@ def update_kb(kb: dict, events: list[dict]) -> dict:
 
             kb["history"].append(ev)
 
-
-        # elif et == "HTTP_HEADER_DETECTED":
-        #     ip = ev.get("host")
-        #     if not ip:
-        #         kb["notes"].append(ev)
-        #         continue
-            
-        #     cidr = ev.get("network") or infer_network_for_host(kb, ip)
-
-        #     host = ensure_host(kb, cidr, ip)
-        #     host.setdefault("http_headers", [])
-        #     host["http_headers"].append({
-        #         "port": ev.get("port"),
-        #         "header": ev.get("header"),
-        #         "value": ev.get("value"),
-        #     })
-
-        # elif et == "WEB_PATH_FOUND":
-        #     ip = ev.get("host")
-        #     if not ip:
-        #         kb["notes"].append(ev)
-        #         continue
-
-        #     cidr = ev.get("network") or infer_network_for_host(kb, ip)
-
-        #     host = ensure_host(kb, cidr, ip)
-        #     entry = {
-        #         "port": ev.get("port"),
-        #         "path": ev.get("path"),
-        #         "status": ev.get("status"),
-        #     }
-
-        #     if entry not in host["web_paths"]:
-        #         host["web_paths"].append(entry)
-
-        # elif et == "SMB_SHARE_FOUND":
-        #     ip = ev.get("host")
-        #     if not ip:
-        #         kb["notes"].append(ev)
-        #         continue
-
-        #     cidr = ev.get("network") or infer_network_for_host(kb, ip)
-
-        #     host = ensure_host(kb, cidr, ip)
-        #     entry = {
-        #         "share": ev.get("share"),
-        #         "share_type": ev.get("share_type"),
-        #     }
-
-        #     if entry not in host["smb_shares"]:
-        #         host["smb_shares"].append(entry)
-
-
         elif et == "NET_INFO":
-            for ip in ev.get("ipv4", []):
-                if ip and ip not in kb["net"]["ipv4"]:
-                    kb["attacker"]["ipv4"].append(ip)
+            attacker = kb["attacker"]
 
-            for gw in ev.get("default_gw", []):
-                if gw and gw not in kb["net"]["default_gw"]:
-                    kb["attacker"]["default_gw"].append(gw)
+            hostname = ev.get("hostname")
+            if hostname:
+                attacker["hostname"] = hostname
 
             for iface in ev.get("interfaces", []):
                 if iface not in kb["net"]["interfaces"]:
-                    kb["attacker"]["interfaces"].append(iface)
+                    attacker["interfaces"].append(iface)
 
+            for ip in ev.get("ipv4", []):
+                if ip and ip not in kb["net"]["ipv4"]:
+                    attacker["ipv4"].append(ip)
+
+            for gw in ev.get("default_gw", []):
+                if gw and gw not in kb["net"]["default_gw"]:
+                    attacker["default_gw"].append(gw)
+
+            
         elif et == "ROUTE_TABLE":
+            attacker = kb["attacker"]
+
             for route in ev.get("routes", []):
                 if route not in kb["attacker"]["routes"]:
-                    kb["attacker"]["routes"].append(route)
+                    attacker["routes"].append(route)
 
             kb["history"].append(ev)
         
         elif et == "ARP_TABLE":
+            attacker = kb["attacker"]
+
             for n in ev.get("arp_neighbors", []):
                 if n not in kb["net"]["arp_neighbors"]:
-                    kb["attacker"]["arp_neighbors"].append(n)
+                    attacker["arp_neighbors"].append(n)
 
             kb["history"].append(ev)
 
@@ -540,82 +505,6 @@ def _findings_set(kb: dict) -> set[str]:
     )
 
 
-# def update_kb(kb: dict, events: list[dict]) -> dict:
-#     print("Updating KB with new event...")
-
-#     # Estructura mínima esperada
-#     kb.setdefault("hosts", [])
-#     kb.setdefault("services", [])
-#     kb.setdefault("findings", [])
-#     kb.setdefault("notes", [])
-#     kb.setdefault("focus", {"level": "global", "host": "", "service": ""})
-#     kb.setdefault("commands", [])
-#     kb.setdefault("net", {
-#         "interfaces": [],
-#         "ipv4": [],
-#         "default_gw": [],
-#         "arp_neighbors": [],
-#         "routes": [],
-#     })
-
-#     for ev in events:
-#         et = ev.get("type")
-
-#         if et == "NET_INFO":
-#             # ipv4 / default_gw (listas planas)
-#             for ip in ev.get("ipv4", []):
-#                 if ip and ip not in kb["net"]["ipv4"]:
-#                     kb["net"]["ipv4"].append(ip)
-
-#             for gw in ev.get("default_gw", []):
-#                 if gw and gw not in kb["net"]["default_gw"]:
-#                     kb["net"]["default_gw"].append(gw)
-
-#             # interfaces (lista de dicts)
-#             existing_if = {(i.get("name"), i.get("ipv4")) for i in kb["net"]["interfaces"] if isinstance(i, dict)}
-#             for iface in ev.get("interfaces", []):
-#                 if not isinstance(iface, dict):
-#                     continue
-#                 key = (iface.get("name"), iface.get("ipv4"))
-#                 if key not in existing_if:
-#                     kb["net"]["interfaces"].append(iface)
-#                     existing_if.add(key)
-
-#         elif et == "ARP_TABLE":
-#             # OJO: tu parser devuelve "arp_neighbors", no "neighbors"
-#             existing_arp = {n.get("ip") for n in kb["net"]["arp_neighbors"] if isinstance(n, dict)}
-#             for n in ev.get("arp_neighbors", []):
-#                 if not isinstance(n, dict):
-#                     continue
-#                 ip = n.get("ip")
-#                 if ip and ip not in existing_arp:
-#                     kb["net"]["arp_neighbors"].append(n)
-#                     existing_arp.add(ip)
-
-#             # (Opcional) también refleja vecinos ARP como "hosts"
-#             existing_hosts = {h.get("ip") for h in kb["hosts"] if isinstance(h, dict)}
-#             for n in ev.get("arp_neighbors", []):
-#                 if not isinstance(n, dict):
-#                     continue
-#                 ip = n.get("ip")
-#                 if ip and ip not in existing_hosts:
-#                     kb["hosts"].append({"ip": ip, "source": "arp"})
-#                     existing_hosts.add(ip)
-
-#         elif et == "COMMAND_ERROR":
-#             kb["notes"].append(ev)
-
-#         elif et == "NO_EVENT":
-#             # Puedes ignorarlo o guardarlo; MVP: ignorar
-#             pass
-
-#         else:
-#             kb["notes"].append(ev)
-
-#     return kb
-
-
-
 def launch_kb_monitor_window_windows(session_dir: Path, cols: int = 60, rows: int = 14) -> None:
     """
     Opens a separate small PowerShell window that continuously shows kb.json.
@@ -667,71 +556,3 @@ def launch_kb_monitor_window_windows(session_dir: Path, cols: int = 60, rows: in
     #     stdin=subprocess.DEVNULL,
     #     creationflags=subprocess.CREATE_NEW_CONSOLE,
     # )
-
-
-# def compute_kb_progress_simple(prev_kb: Dict[str, Any], new_kb: Dict[str, Any]) -> Dict[str, Any]:
-#     """
-#     Very simple progress detector. Assumes a simple KB shape:
-
-#       kb["hosts"] -> iterable of host strings (or dicts with "ip")
-#       kb["open_ports"] -> iterable of {"host": "...", "port": 80}
-#       kb["services"] -> iterable of {"host": "...", "port": 80, "name": "http"}
-#       kb["findings"] -> iterable of strings
-
-#     Returns counts + has_progress.
-#     """
-
-    
-#     prev_hosts: Set[str] = set(_host(h) for h in prev_kb.get("hosts", []) if _host(h))
-#     new_hosts: Set[str] = set(_host(h) for h in new_kb.get("hosts", []) if _host(h))
-
-#     prev_ports: Set[Tuple[str, int]] = set(
-#         (_host(p.get("host") or p.get("ip")), int(p.get("port")))
-#         for p in prev_kb.get("open_ports", [])
-#         if isinstance(p, dict) and _host(p.get("host") or p.get("ip")) and str(p.get("port", "")).isdigit()
-#     )
-#     new_ports: Set[Tuple[str, int]] = set(
-#         (_host(p.get("host") or p.get("ip")), int(p.get("port")))
-#         for p in new_kb.get("open_ports", [])
-#         if isinstance(p, dict) and _host(p.get("host") or p.get("ip")) and str(p.get("port", "")).isdigit()
-#     )
-
-#     prev_services: Set[Tuple[str, int, str]] = set(
-#         (_host(s.get("host") or s.get("ip")), int(s.get("port")), str(s.get("name", "")).strip().lower())
-#         for s in prev_kb.get("services", [])
-#         if isinstance(s, dict)
-#         and _host(s.get("host") or s.get("ip"))
-#         and str(s.get("port", "")).isdigit()
-#         and str(s.get("name", "")).strip()
-#     )
-#     new_services: Set[Tuple[str, int, str]] = set(
-#         (_host(s.get("host") or s.get("ip")), int(s.get("port")), str(s.get("name", "")).strip().lower())
-#         for s in new_kb.get("services", [])
-#         if isinstance(s, dict)
-#         and _host(s.get("host") or s.get("ip"))
-#         and str(s.get("port", "")).isdigit()
-#         and str(s.get("name", "")).strip()
-#     )
-
-#     prev_findings: Set[str] = set(str(f).strip() for f in prev_kb.get("findings", []) if str(f).strip())
-#     new_findings: Set[str] = set(str(f).strip() for f in new_kb.get("findings", []) if str(f).strip())
-
-#     added_hosts = new_hosts - prev_hosts
-#     added_ports = new_ports - prev_ports
-#     added_services = new_services - prev_services
-#     added_findings = new_findings - prev_findings
-
-#     return {
-#         "has_progress": bool(added_hosts or added_ports or added_services or added_findings),
-#         "new_hosts_count": len(added_hosts),
-#         "new_ports_count": len(added_ports),
-#         "new_services_count": len(added_services),
-#         "new_findings_count": len(added_findings),
-#     }
-
-# def _host(x: Any) -> str:
-#         if isinstance(x, str):
-#             return x.strip()
-#         if isinstance(x, dict):
-#             return str(x.get("ip") or x.get("host") or "").strip()
-#         return str(x).strip()

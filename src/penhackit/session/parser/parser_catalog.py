@@ -1,3 +1,4 @@
+# parser_catalog.py
 from penhackit.session.parser.control_parser import CONTROL_PARSERS
 from penhackit.session.parser.recon_parser import RECON_PARSERS
 from penhackit.session.parser.local_context_parser import LOCAL_CONTEXT_PARSERS

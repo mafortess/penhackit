@@ -1,3 +1,4 @@
+# common.py
 import re
 
 # Helper por extract info de sesión de salida de Metasploit

@@ -3,7 +3,8 @@
 # ============================================================
 
 RECON_ACTIONS = { 
-   # Desactiva el escaneo de puertos. Realiza únicamente un descubrimiento de hosts
+    # SCAN HOSTS
+    # Desactiva el escaneo de puertos. Realiza únicamente un descubrimiento de hosts
     200: {
         "name": "DISCOVER_HOSTS",
         "category": "recon",
@@ -77,7 +78,8 @@ RECON_ACTIONS = {
         "risk_level": "safe",
         "description": "Discover alive hosts using fping sweep.",
     },
-
+    # ==============
+    # SCAN PORTS
     210: {
         "name": "SCAN_TOP_TCP_PORTS",
         "category": "recon",
@@ -141,27 +143,24 @@ RECON_ACTIONS = {
         "description": "Scan common UDP ports on the focused host.",
     },
 
-    
     220: {
         "name": "DETECT_SERVICES",
         "category": "recon",
         "phase": "service_detection",
         "tool": "nmap",
-        "command_template": "nmap -sV -sC -O -T3 -p {known_open_ports_csv} {target_ip}",
+        "command_template": "timeout 60 nmap -sV --version-light --max-retries 2 --host-timeout 75s -T3 -p {known_open_ports_csv} {target_ip}",
         "placeholders": ["known_open_ports_csv", "target_ip"],
         "parser_family": "nmap_service_detection",
         "expected_events": [
             "SERVICE_DETECTED",
             "SERVICE_VERSION_DETECTED",
-            "OS_GUESS_DETECTED",
-            "SCRIPT_RESULT",
         ],
         "preconditions": {
             "requires_target_ip": True,
             "requires_known_open_ports": True,
         },
         "risk_level": "low",
-        "description": "Detect service names, versions, default script output and OS hints.",
+        "description": "Detect service names and versions on known open ports.",
     },
 
     221: {
@@ -186,7 +185,7 @@ RECON_ACTIONS = {
         "category": "recon",
         "phase": "service_detection",
         "tool": "nmap",
-        "command_template": "nmap -A -T3 -p {known_open_ports_csv} {target_ip}",
+        "command_template": "timeout 150 nmap -A --max-retries 2 --host-timeout 160s -T3 -p {known_open_ports_csv} {target_ip}",
         "placeholders": ["known_open_ports_csv", "target_ip"],
         "parser_family": "nmap_service_detection",
         "expected_events": [
@@ -208,7 +207,7 @@ RECON_ACTIONS = {
         "category": "enumeration",
         "phase": "general_enum",
         "tool": "nmap",
-        "command_template": "nmap -sC -p {known_open_ports_csv} {target_ip}",
+        "command_template": "timeout 90 nmap -sC --max-retries 2 --host-timeout 100s -p {known_open_ports_csv} {target_ip}",
         "placeholders": ["known_open_ports_csv", "target_ip"],
         "parser_family": "nmap_scripts",
         "expected_events": ["SCRIPT_RESULT"],

@@ -50,25 +50,27 @@ def load_decision_model_bundle(models_dir: Path, model_id: str) -> dict:
         "feature_names": feature_names,
     }
 
-
 def list_available_models(models_dir: Path) -> list[str]:
     if not models_dir.exists():
         return []
 
     available_models = []
 
-    for item in models_dir.iterdir():
-        if not item.is_dir():
+    for model_type_dir in models_dir.iterdir():
+        if not model_type_dir.is_dir():
             continue
 
-        model_file = item / "model.joblib"
-        metrics_file = item / "metrics.json"
+        for run_dir in model_type_dir.iterdir():
+            if not run_dir.is_dir():
+                continue
 
-        if model_file.exists() and metrics_file.exists():
-            available_models.append(item.name)
+            model_file = run_dir / "model.joblib"
+            metrics_file = run_dir / "metrics.json"
+
+            if model_file.exists() and metrics_file.exists():
+                available_models.append(f"{model_type_dir.name}/{run_dir.name}")
 
     return sorted(available_models)
-
 
 def model_exists(models_dir: Path, model_id: str) -> bool:
     model_dir = models_dir / model_id

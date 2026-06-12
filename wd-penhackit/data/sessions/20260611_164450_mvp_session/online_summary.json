@@ -1,0 +1,32 @@
+{
+  "schema": "penhackit.online_summary.v1",
+  "session_id": "20260611_164450_mvp_session",
+  "scenario_id": "unknown",
+  "policy_name": "scripted",
+  "goal_type": "obtain_session",
+  "model_path": null,
+  "started_at_utc": "2026-06-11T14:44:50Z",
+  "finished_at_utc": "2026-06-11T14:45:02Z",
+  "success": false,
+  "stop_reason": "policy_stop",
+  "steps_total": 10,
+  "steps_to_goal": null,
+  "progress_steps": 3,
+  "repeated_actions": 0,
+  "tool_errors": 0,
+  "timeouts": 0,
+  "active_time_seconds": 2.7130717690051824,
+  "event_type_counts": {
+    "LOCAL_HOSTNAME_DETECTED": 1,
+    "NET_INFO": 1,
+    "ROUTE_TABLE": 1,
+    "ARP_TABLE": 1,
+    "HOST_DISCOVERED": 1,
+    "PORT_OPEN": 40
+  },
+  "wall_time_seconds": 11.723208842999156,
+  "progress_rate": 0.3,
+  "repeated_action_rate": 0.0,
+  "tool_error_rate": 0.0,
+  "timeout_rate": 0.0
+}

@@ -270,8 +270,8 @@ def run_view_online_results_view(paths) -> None:
     print(
         f"{'Session':<24} "
         f"{'Policy':<16} "
-        f"{'Scenario':<16} "
-        f"{'Success':>8} "
+        f"{'Model/Seq':<24} "
+        f"{'Success':>8} ",
         f"{'Steps':>6} "
         f"{'ProgRate':>9} "
         f"{'RepRate':>8} "
@@ -280,10 +280,11 @@ def run_view_online_results_view(paths) -> None:
     )
 
     for row in summaries:
+        run_type = get_run_type_label(row)
         print(
             f"{shorten(row.get('_session_id', '-'), 24):<24} "
             f"{shorten(row.get('policy_name', '-'), 16):<16} "
-            f"{shorten(row.get('scenario_id', '-'), 16):<16} "
+             f"{shorten(run_type, 24):<24} "
             f"{format_bool_or_dash(row.get('success', '-')):>8} "
             f"{str(row.get('steps_total', '-')):>6} "
             f"{format_float(row.get('progress_rate', '-')):>9} "
@@ -295,7 +296,7 @@ def run_view_online_results_view(paths) -> None:
     print("\n--- Grouped comparison ---")
     print(
         f"{'Policy':<16} "
-        f"{'Scenario':<16} "
+        f"{'Model/Seq':<24} "
         f"{'Goal':<16} "
         f"{'Runs':>5} "
         f"{'Succ':>5} "
@@ -310,7 +311,7 @@ def run_view_online_results_view(paths) -> None:
     for row in grouped_rows:
         print(
             f"{shorten(row.get('policy_name', '-'), 16):<16} "
-            f"{shorten(row.get('scenario_id', '-'), 16):<16} "
+            f"{shorten(run_type, 24):<24} "
             f"{shorten(row.get('goal_type', '-'), 16):<16} "
             f"{str(row.get('runs', '-')):>5} "
             f"{str(row.get('successes', '-')):>5} "
@@ -321,3 +322,68 @@ def run_view_online_results_view(paths) -> None:
             f"{format_float(row.get('avg_tool_error_rate', '-')):>8} "
             f"{format_float(row.get('avg_active_time_seconds', '-')):>9}"
         )
+
+def get_run_type_label(row: dict) -> str:
+    policy_name = str(row.get("policy_name", "unknown")).lower()
+
+    raw_run_type = row.get("run_type")
+    if raw_run_type:
+        raw_run_type = str(raw_run_type)
+
+        # Si ya viene bien construido, lo usamos.
+        if raw_run_type not in ("model", "scripted"):
+            return raw_run_type
+
+    if policy_name == "scripted":
+        sequence_type = (
+            row.get("sequence_type")
+            or row.get("sequence_name")
+            or row.get("scripted_sequence")
+            or "unknown_sequence"
+        )
+        return f"scripted:{sequence_type}"
+
+    if policy_name == "model":
+        model_type = (
+            row.get("model_type")
+            or infer_model_type(row.get("model_path"))
+            or "unknown_model"
+        )
+        return f"model:{model_type}"
+
+    model_type = (
+        row.get("model_type")
+        or infer_model_type(row.get("model_path"))
+    )
+
+    if model_type:
+        return f"model:{model_type}"
+
+    return str(row.get("policy_name", "unknown"))
+
+
+def infer_model_type(model_path) -> str | None:
+    if not model_path:
+        return None
+
+    text = str(model_path).lower()
+
+    if "catboost" in text:
+        return "catboost"
+
+    if "random_forest" in text or "randomforest" in text:
+        return "random_forest"
+
+    if "decision_tree" in text or "decisiontree" in text:
+        return "decision_tree"
+
+    if "xgboost" in text:
+        return "xgboost"
+
+    if "lightgbm" in text:
+        return "lightgbm"
+
+    if "mlp" in text:
+        return "mlp"
+
+    return "unknown_model"

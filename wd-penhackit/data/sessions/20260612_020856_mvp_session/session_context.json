@@ -1,0 +1,6 @@
+{
+  "id": "20260612_020856_mvp_session",
+  "goal_type": "full_exploit",
+  "target_type": "network",
+  "target": "10.6.6.0/24"
+}

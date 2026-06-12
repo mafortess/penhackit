@@ -7,7 +7,7 @@ from time import perf_counter
 import numpy as np
 
 from penhackit.training.vectorization import vectorize_bc_rows
-from penhackit.training.training_storage import load_dataset_jsonl,create_model_output_dir, write_offline_comparison_csv, save_json, save_confusion_matrix_csv, save_confusion_matrix_png, save_predictions_csv, append_offline_comparison_row
+from penhackit.training.training_storage import load_dataset_jsonl,create_model_output_dir, write_offline_comparison_csv, save_json, save_confusion_matrix_csv, save_confusion_matrix_png, save_predictions_csv, append_offline_comparison_row, merge_jsonl_files
 
 import joblib
 from collections import Counter
@@ -552,7 +552,6 @@ def normalize_label_vector(values) -> np.ndarray:
         normalized.append(int(v))
 
     return np.asarray(normalized, dtype=np.int64)
-
 
 # def vectorize_dataset(rows: list[dict]):
 #     all_keys = set()

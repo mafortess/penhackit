@@ -66,8 +66,10 @@ def build_session_settings(default_session_settings: dict, wizard_data: dict) ->
         "decider": wizard_data["decider"] if "decider" in wizard_data else default_session_settings["default_decider"],
         "model_id": wizard_data["model_id"] if "model_id" in wizard_data else default_session_settings["default_model_id"],
         "scenario_id": wizard_data["scenario_id"] if "scenario_id" in wizard_data else default_session_settings.get("default_scenario_id", "unknown"),
-        "scripted_sequence": default_session_settings["default_scripted_sequence"],
-        "launch_kb_monitor": wizard_data["launch_kb_monitor"] if "launch_kb_monitor" in wizard_data else default_session_settings["default_launch_kb_monitor"]
+        "scripted_sequence": wizard_data["scripted_sequence"] if "scripted_sequence" in wizard_data else  default_session_settings["default_scripted_sequence"],
+        "attack_name": wizard_data["attack_name"] if "attack_name" in wizard_data else default_session_settings.get("default_attack_name", "vsftpd_msf"),
+        
+        # "launch_kb_monitor": wizard_data["launch_kb_monitor"] if "launch_kb_monitor" in wizard_data else default_session_settings["default_launch_kb_monitor"]
     }
 
 def run_view_session_service(app_context: dict) -> None:

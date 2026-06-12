@@ -1,0 +1,6 @@
+{
+  "id": "20260611_232958_obtain_session_host_samba",
+  "goal_type": "obtain_session",
+  "target_type": "host",
+  "target": "10.6.6.10"
+}

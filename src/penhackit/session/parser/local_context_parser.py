@@ -1,3 +1,4 @@
+# local_context_parser.py
 import re
 
 # ============================================================
@@ -201,6 +202,9 @@ def parse_trace_route_to_host(stdout: str, target_ip: str | None) -> list[dict]:
     return events
 
 LOCAL_CONTEXT_PARSERS = {
+    # ============================================================
+    # By action name lower()
+    # ============================================================
     "inspect_local_hostname": parse_inspect_local_hostname,
     "inspect_ip_a": parse_inspect_ip_a,
     "inspect_ip_r": parse_inspect_ip_r,
@@ -208,4 +212,15 @@ LOCAL_CONTEXT_PARSERS = {
     "inspect_ss_listeners": parse_inspect_ss_listeners,
     "ping_focus_host": parse_ping_focus_host,
     "trace_route_to_host": parse_trace_route_to_host,
+
+    # ============================================================
+    # By parser_family
+    # ============================================================
+    "generic_text": parse_inspect_local_hostname,
+    "linux_ip_addr": parse_inspect_ip_a,
+    "linux_ip_route": parse_inspect_ip_r,
+    "linux_ip_neigh": parse_inspect_ip_neigh,
+    "linux_ss": parse_inspect_ss_listeners,
+    "generic_ping": parse_ping_focus_host,
+    "traceroute": parse_trace_route_to_host,
 }

@@ -1,6 +1,6 @@
 {
   "schema_id": "environment_profile.v1",
-  "detected_at_utc": "2026-06-10T16:04:48Z",
+  "detected_at_utc": "2026-06-12T03:42:01Z",
   "system": {
     "os": "Linux",
     "os_release": "6.18.9+kali-amd64",

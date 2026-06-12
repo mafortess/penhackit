@@ -1,0 +1,8 @@
+{
+  "id": "20260611_205912_20260611_203336_obtain_session_host_vstftpd_msf_model_dt",
+  "created_at": "2026-06-11 20:59:12",
+  "name": "20260611_203336_obtain_session_host_vstftpd_msf_model_dt",
+  "decider": "model",
+  "mode": "autonomous",
+  "max_steps": 50
+}

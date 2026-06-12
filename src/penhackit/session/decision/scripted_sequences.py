@@ -1,480 +1,316 @@
 """
 Predefined scripted action sequences for deterministic execution.
 
-These sequences are useful for:
-- end-to-end pipeline testing
-- dataset generation
-- observation-mode baseline sessions
-- comparing scripted/rules/model policies
+This module generates scripted sequences for dataset generation.
 
-The model should eventually learn:
-    state_t -> action_id
+Supported matrix:
 
-The scripted policy simply replays:
-    t -> action_id
+    12 attacks x 2 target types x 2 goal types = 48 sequences
+
+Target types:
+    - host
+    - network
+
+Goal types:
+    - obtain_session
+    - full_exploit
+
+Important:
+    - full_exploit does not include post-exploitation.
+    - full_exploit means a more complete pre-exploitation path before launching the exploit.
+    - The sequence stops after exploit/login because opened sessions can block later commands.
 """
 
-SCRIPTED_SEQUENCE_STD = [
-    # 1,
-    # 2,
-    # 3,
-    # 4,
-    # 200,  # DISCOVER_HOSTS
-    # 201,  # DISCOVER_HOSTS_ARP_LOCALNET
-    # 210,  # SCAN_TOP_TCP_PORTS
-    # 220,  # DETECT_SERVICES
-    # 330,  # ENUM_FTP_BANNER
-    # 331,  # ENUM_FTP_ANONYMOUS
-    # 332,  # ENUM_FTP_NMAP_SCRIPTS: ftp-anon,ftp-syst only
-    # 413,  # CHECK_FTP_VULNS: ftp-vsftpd-backdoor
-    601,  # MSF_EXPLOIT_VSFTPD_234_BACKDOOR
-    602, # MSF_EXPLOIT_DISTCC_EXEC  
-    604, # MSF_EXPLOIT_POSTGRES_PAYLOAD
-    605,
-    606,
-    520,
-    521,
-    611,
-    612,
-    613,
-    614,
+from typing import Optional
 
 
-    # 300,  # ENUM_HTTP_HEADERS
-    # 310,  # ENUM_HTTP_DIRS
-    # 320,  # ENUM_SMB_SHARES
-    # 400,  # CHECK_SERVICE_VERSION_VULNS
-    0,    # STOP
-]
+# ============================================================
+# Common prefixes
+# ============================================================
 
-# Prefijo común si el target es una red
-SEQ_COMMON_NETWORK_RECON = [
+SEQ_LOCAL_CONTEXT = [
     100,  # INSPECT_LOCAL_HOSTNAME
     101,  # INSPECT_IP_A
     102,  # INSPECT_IP_R
     103,  # INSPECT_IP_NEIGH
-    200,  # DISCOVER_HOSTS
-    210,  # SCAN_TOP_TCP_PORTS
-    211,  # SCAN_FULL_TCP_PORTS
-    220,  # DETECT_SERVICES
-    401,  # CHECK_NMAP_VULN_SCRIPTS
 ]
 
-# Prefijo común si el target es un host
-SEQ_COMMON_HOST_RECON = [
-    100,  # INSPECT_LOCAL_HOSTNAME
-    101,  # INSPECT_IP_A
-    102,  # INSPECT_IP_R
-    103,  # INSPECT_IP_NEIGH
+
+SEQ_HOST_BASE_RECON = [
+    *SEQ_LOCAL_CONTEXT,
     105,  # PING_FOCUS_HOST
     210,  # SCAN_TOP_TCP_PORTS
     211,  # SCAN_FULL_TCP_PORTS
     220,  # DETECT_SERVICES
-    401,  # CHECK_NMAP_VULN_SCRIPTS
 ]
 
-# Secuencia FTP: vsftpd 2.3.4 -> sesión
-SEQ_NETWORK_TO_VSFTPD_SESSION = [
-    100, 101, 102, 103,
-    # 200, 210, 211, 401,
-    330,  # ENUM_FTP_BANNER
-    331,  # ENUM_FTP_ANONYMOUS
-    332,  # ENUM_FTP_NMAP_SCRIPTS: ftp-anon,ftp-syst only
-    413,  # CHECK_FTP_VULNS: ftp-vsftpd-backdoor
-    601,  # MSF_EXPLOIT_VSFTPD_234_BACKDOOR
 
-    # ya se ejecutan dentro de 601 mediante: sessions -c "whoami && id && hostname && uname -a" -i 1
-    # 700, 702, 703, 701, 704,
+SEQ_NETWORK_BASE_RECON = [
+    *SEQ_LOCAL_CONTEXT,
+    200,  # DISCOVER_HOSTS
+    210,  # SCAN_TOP_TCP_PORTS on focused host
+    211,  # SCAN_FULL_TCP_PORTS on focused host
+    220,  # DETECT_SERVICES
+]
+
+
+SEQ_HOST_RECON = [
+    *SEQ_HOST_BASE_RECON,
     0,
 ]
 
-# Secuencia SMB: Samba usermap_script -> sesión
-SEQ_NETWORK_TO_SAMBA_SESSION = [
-    100, 101, 102, 103,
-    200, 210, 211, 401, 320,
-    321,
+
+SEQ_NETWORK_RECON = [
+    *SEQ_NETWORK_BASE_RECON,
+    0,
+]
+
+NETWORK_SCRIPTED_PASSES = 4
+
+
+SEQ_FULL_EXPLOIT_BLOCK = [
+    # FTP / VSFTPD
+    330,
+    331,
+    332,
+    413,
+    400,
+    601,
+
+    # SMB / Samba
+    320,
     322,
     323,
     324,
     410,
     400,
     600,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
-]
 
-# Secuencia distcc -> sesión
-SEQ_NETWORK_TO_DISTCC_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
+    # DistCC
     401,
     400,
     602,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
-]
 
-# Secuencia PostgreSQL -> sesión
-SEQ_NETWORK_TO_POSTGRES_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
-    401,
+    # PostgreSQL
     371,
     523,
+    400,
     604,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
-]
 
-# Secuencia Tomcat Manager -> sesión
-SEQ_NETWORK_TO_TOMCAT_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
-    401,
-    300,
-    301,
-    313,
-    312,
-    411,
-    524,
-    603,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
-]
-
-# Secuencia UnrealIRCd -> sesión
-SEQ_NETWORK_TO_UNREAL_IRCD_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
+    # UnrealIRCd
     401,
     400,
     605,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
-]
 
-# Secuencia ingreslock bind shell -> sesión
-SEQ_NETWORK_TO_INGRESLOCK_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
-    401,
+    # Ingreslock bind shell
     606,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
-]
 
-# Secuencia SSH credenciales débiles -> sesión
-SEQ_NETWORK_TO_SSH_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
+    # SSH / Telnet / FTP credentials
+    340,
     341,
-    520,
-    700,
-    702,
-    703,
-    701,
-    704,
-    705,
-    0,
-]
-
-# Secuencia Telnet credenciales débiles -> sesión
-SEQ_NETWORK_TO_TELNET_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
+    611,
     521,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
+    613,
+    614,
 ]
 
-# Secuencia para sesión Java RMI
-SEQ_NETWORK_TO_JAVA_RMI_SESSION = [
-    100, 101, 102, 103,
-    200,
-    210,
-    211,
-    401,
-    400,
-    608,
-    700,
-    702,
-    703,
-    701,
-    704,
-    0,
-]
 
-# Secuencia multi-sesión completa
-SEQ_NETWORK_TO_MULTIPLE_SESSIONS = [
-    # Local attacker context
-    100,  # INSPECT_LOCAL_HOSTNAME
-    101,  # INSPECT_IP_A
-    102,  # INSPECT_IP_R
-    103,  # INSPECT_IP_NEIGH
-
-    # Initial recon
-    200,  # DISCOVER_HOSTS
-    210,  # SCAN_TOP_TCP_PORTS
-    211,  # SCAN_FULL_TCP_PORTS
-    220,  # DETECT_SERVICES
-    401,  # CHECK_NMAP_VULN_SCRIPTS
-
-    # FTP / vsftpd
-    330,  # ENUM_FTP_BANNER
-    331,  # ENUM_FTP_ANONYMOUS
-    332,  # ENUM_FTP_NMAP_SCRIPTS
-    413,  # CHECK_FTP_VULNS
-    400,  # CHECK_SERVICE_VERSION_VULNS
-    601,  # MSF_EXPLOIT_VSFTPD_234_BACKDOOR
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    701,  # POST_ENUM_UNAME
+SEQ_OBTAIN_SESSION_ALL_BLOCK = [
+    # FTP / VSFTPD
+    330,
+    413,
+    601,
 
     # SMB / Samba
-    320,  # ENUM_SMB_SHARES
-    321,  # ENUM_SMB_BASIC_ENUM4LINUX
-    322,  # ENUM_SMB_NULL_SESSION_USERS
-    323,  # ENUM_SMB_OS_DISCOVERY
-    324,  # ENUM_SMB_PROTOCOLS
-    410,  # CHECK_SMB_VULNS
-    600,  # MSF_EXPLOIT_SAMBA_USERMAP_SCRIPT
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    701,  # POST_ENUM_UNAME
+    320,
+    410,
+    600,
 
-    # distcc
-    400,  # CHECK_SERVICE_VERSION_VULNS
-    602,  # MSF_EXPLOIT_DISTCC_EXEC
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    701,  # POST_ENUM_UNAME
+    # DistCC
+    400,
+    602,
 
     # PostgreSQL
-    371,  # ENUM_POSTGRES_INFO
-    523,  # CHECK_POSTGRES_KNOWN_CREDS
-    604,  # MSF_EXPLOIT_POSTGRES_PAYLOAD
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    701,  # POST_ENUM_UNAME
-
-    # Tomcat
-    300,  # ENUM_HTTP_HEADERS
-    301,  # ENUM_HTTP_INDEX
-    313,  # ENUM_HTTP_TECHNOLOGIES
-    312,  # ENUM_HTTP_NIKTO
-    411,  # CHECK_HTTP_VULNS_NIKTO
-    524,  # CHECK_TOMCAT_MANAGER_CREDS
-    603,  # MSF_EXPLOIT_TOMCAT_MGR_UPLOAD
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    701,  # POST_ENUM_UNAME
+    371,
+    523,
+    604,
 
     # UnrealIRCd
-    400,  # CHECK_SERVICE_VERSION_VULNS
+    400,
+    605,
+
+    # Ingreslock bind shell
+    606,
+
+    # Credential based sessions
+    611,
+    521,
+    613,
+    614,
+]
+
+
+SEQ_HOST_FULL_EXPLOIT = [
+    *SEQ_HOST_BASE_RECON,
+    *SEQ_FULL_EXPLOIT_BLOCK,
+    0,
+]
+
+
+SEQ_NETWORK_OBTAIN_SESSION_ALL = [
+    *SEQ_LOCAL_CONTEXT,
+    200,
+]
+
+for _ in range(NETWORK_SCRIPTED_PASSES):
+    SEQ_NETWORK_OBTAIN_SESSION_ALL.extend([
+        210,
+        211,
+        220,
+        *SEQ_OBTAIN_SESSION_ALL_BLOCK,
+    ])
+
+SEQ_NETWORK_OBTAIN_SESSION_ALL.append(0)
+
+
+SEQ_NETWORK_FULL_EXPLOIT = [
+    *SEQ_LOCAL_CONTEXT,
+    200,
+]
+
+for _ in range(NETWORK_SCRIPTED_PASSES):
+    SEQ_NETWORK_FULL_EXPLOIT.extend([
+        210,
+        211,
+        220,
+        *SEQ_FULL_EXPLOIT_BLOCK,
+    ])
+
+SEQ_NETWORK_FULL_EXPLOIT.append(0)
+
+# ============================================================
+# Attack specs
+# ============================================================
+
+ATTACK_SPECS = {
+    "vsftpd_msf": {
+        "obtain_session": [330, 413, 601],
+        "full_exploit": [330, 331, 332, 413, 400, 601],
+    },
+    "vsftpd_manual": {
+        "obtain_session": [330, 413, 610],
+        "full_exploit": [330, 331, 332, 413, 400, 610],
+    },
+    "samba_usermap_msf": {
+        "obtain_session": [320, 410, 600],
+        "full_exploit": [320, 322, 323, 324, 410, 400, 600],
+    },
+    "distcc_msf": {
+        "obtain_session": [400, 602],
+        "full_exploit": [401, 400, 602],
+    },
+    "postgres_msf": {
+        "obtain_session": [371, 523, 604],
+        "full_exploit": [371, 523, 400, 604],
+    },
+    "unreal_ircd_msf": {
+        "obtain_session": [400, 605],
+        "full_exploit": [401, 400, 605],
+    },
+    "ingreslock_bind_shell": {
+        "obtain_session": [606],
+        "full_exploit": [400, 606],
+    },
+    "ssh_weak_creds_manual": {
+        "obtain_session": [520],
+        "full_exploit": [340, 341, 520],
+    },
+    "telnet_weak_creds_manual": {
+        "obtain_session": [521],
+        "full_exploit": [521],
+    },
+    "ssh_weak_creds_msf": {
+        "obtain_session": [611],
+        "full_exploit": [340, 341, 611],
+    },
+    "ftp_weak_creds_msf": {
+        "obtain_session": [330, 612],
+        "full_exploit": [330, 331, 332, 612],
+    },
+    "ftp_weak_creds_hydra": {
+        "obtain_session": [330, 613, 614],
+        "full_exploit": [330, 331, 332, 613, 614],
+    },
+}
+
+
+# ============================================================
+# Sequence builder
+# ============================================================
+
+def build_sequence(target_type: str, goal_type: str, attack_name: str) -> list[int]:
+    """
+    Build a scripted sequence from:
+        target_type + goal_type + attack_name
+
+    Rules:
+    - host + obtain_session: one selected attack path.
+    - network + obtain_session: broad sequence to obtain sessions across hosts.
+    - full_exploit: broad sequence, not attack-specific.
+    """
+    if goal_type == "full_exploit":
+        if target_type == "host":
+            return list(SEQ_HOST_FULL_EXPLOIT)
+
+        if target_type == "network":
+            return list(SEQ_NETWORK_FULL_EXPLOIT)
+
+        raise ValueError(f"Invalid target_type: {target_type}")
+
+    if goal_type == "obtain_session" and target_type == "network":
+        return list(SEQ_NETWORK_OBTAIN_SESSION_ALL)
+
+    if target_type == "host":
+        seq = list(SEQ_HOST_BASE_RECON)
+    elif target_type == "network":
+        seq = list(SEQ_NETWORK_BASE_RECON)
+    else:
+        raise ValueError(f"Invalid target_type: {target_type}")
+
+    if attack_name not in ATTACK_SPECS:
+        raise ValueError(f"Invalid attack_name: {attack_name}")
+
+    attack_spec = ATTACK_SPECS[attack_name]
+
+    if goal_type not in attack_spec:
+        raise ValueError(f"Invalid goal_type for attack {attack_name}: {goal_type}")
+
+    seq.extend(attack_spec[goal_type])
+    seq.append(0)
+
+    return seq
+
+
+# ============================================================
+# Smoke-test sequence
+# ============================================================
+
+SEQ_EXPLOIT_SMOKE_TEST = [
+    601,  # MSF_EXPLOIT_VSFTPD_234_BACKDOOR
+    610,  # MANUAL_EXPLOIT_VSFTPD_234_BACKDOOR
+    600,  # MSF_EXPLOIT_SAMBA_USERMAP_SCRIPT
+    602,  # MSF_EXPLOIT_DISTCC_EXEC
+    604,  # MSF_EXPLOIT_POSTGRES_PAYLOAD
     605,  # MSF_EXPLOIT_UNREAL_IRCD_BACKDOOR
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    701,  # POST_ENUM_UNAME
-
-    # ingreslock bind shell
     606,  # CONNECT_INGRESLOCK_BIND_SHELL
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    701,  # POST_ENUM_UNAME
-
-    # Final stop
-    0,    # STOP
+    520,  # CHECK_SSH_KNOWN_CREDS
+    521,  # CHECK_TELNET_KNOWN_CREDS
+    611,  # MSF_SSH_LOGIN
+    612,  # MSF_FTP_LOGIN
+    613,  # HYDRA_FTP_LOGIN
+    614,  # CHECK_FTP_KNOWN_CREDS_MANUAL
+    0,
 ]
-
-# Secuencia con post-explotación y pivoting
-SEQ_POST_EXPLOIT_AND_PIVOT = [
-    # Basic post-exploitation
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-    703,  # POST_ENUM_HOSTNAME
-    701,  # POST_ENUM_UNAME
-    704,  # POST_ENUM_IP_ADDR
-    705,  # POST_ENUM_IP_ROUTE
-    706,  # POST_ENUM_SS_LISTENERS
-    708,  # POST_ENUM_USERS_PASSWD
-    709,  # POST_ENUM_HOME_USERS
-    710,  # POST_ENUM_PROCESSES
-    711,  # POST_ENUM_ENV
-
-    # Privilege escalation discovery
-    712,  # POST_CHECK_SUDO_PRIVS
-    713,  # POST_CHECK_SUDOERS_PERMS
-    714,  # POST_FIND_SUID_BINARIES
-    733,  # MSF_LOCAL_EXPLOIT_SUGGESTER
-
-    # Privilege escalation attempt
-    715,  # POST_PRIVESC_NMAP_INTERACTIVE
-
-    # Root validation
-    700,  # POST_ENUM_WHOAMI
-    702,  # POST_ENUM_ID
-
-    # Sensitive evidence
-    717,  # POST_READ_SHADOW
-    718,  # POST_LIST_SSH_HOST_KEYS
-    719,  # POST_READ_CRONTAB
-
-    # Metasploit post modules
-    730,  # MSF_POST_ENUM_SYSTEM
-    731,  # MSF_POST_ENUM_CONFIGS
-    732,  # MSF_POST_ENUM_NETWORK
-
-    # Pivoting
-    760,  # MSF_AUTOROUTE_ADD_INTERNAL_NET
-    761,  # MSF_START_SOCKS_PROXY
-    762,  # PIVOT_SCAN_INTERNAL_NET_PROXYCHAINS
-    763,  # MSF_PORTFWD_ADD
-    764,  # PIVOT_MYSQL_LOGIN_LOCAL_PORTFWD
-
-    # Evidence / exfiltration
-    780,  # POST_SEARCH_WEB_PASSWORDS
-    781,  # POST_SEARCH_WEB_DB_CONFIGS
-    782,  # POST_READ_DVWA_CONFIG
-    783,  # POST_READ_PHPMYADMIN_CONFIG
-    784,  # POST_READ_TIKIWIKI_DB_CONFIG
-    790,  # POST_ARCHIVE_MYSQL_DATA_DIR
-    791,  # POST_ARCHIVE_POSTGRES_DATA_DIR
-
-    0,    # STOP
-]
-
-# SCRIPTED_SEQUENCE = [
-#     # ============================================================
-#     # LOCAL CONTEXT
-#     # ============================================================
-#     101,  # INSPECT_IP_A
-#     102,  # INSPECT_IP_R
-#     103,  # INSPECT_IP_NEIGH
-
-#     # ============================================================
-#     # HOST DISCOVERY
-#     # ============================================================
-#     200,  # DISCOVER_HOSTS / DISCOVER_HOSTS_NMAP_PING_SWEEP
-#     201,  # DISCOVER_HOSTS_ARP_LOCALNET
-
-#     # ============================================================
-#     # PORT SCANNING
-#     # ============================================================
-#     210,  # SCAN_TOP_TCP_PORTS
-#     211,  # SCAN_FULL_TCP_PORTS
-
-#     # ============================================================
-#     # SERVICE DETECTION
-#     # ============================================================
-#     220,  # DETECT_SERVICES
-#     230,  # ENUM_NMAP_DEFAULT_SCRIPTS
-
-#     # ============================================================
-#     # HTTP ENUMERATION
-#     # ============================================================
-#     300,  # ENUM_HTTP_HEADERS
-#     301,  # ENUM_HTTP_INDEX
-#     303,  # ENUM_HTTP_ROBOTS
-#     313,  # ENUM_HTTP_TECHNOLOGIES
-#     310,  # ENUM_HTTP_DIRS_GOBUSTER
-#     312,  # ENUM_HTTP_NIKTO
-
-#     # ============================================================
-#     # SMB ENUMERATION
-#     # ============================================================
-#     320,  # ENUM_SMB_SHARES
-#     323,  # ENUM_SMB_OS_DISCOVERY
-#     324,  # ENUM_SMB_PROTOCOLS
-#     321,  # ENUM_SMB_BASIC_ENUM4LINUX
-#     322,  # ENUM_SMB_NULL_SESSION_USERS
-
-#     # ============================================================
-#     # FTP ENUMERATION
-#     # ============================================================
-#     330,  # ENUM_FTP_BANNER
-#     331,  # ENUM_FTP_ANONYMOUS
-#     332,  # ENUM_FTP_NMAP_SCRIPTS
-
-#     # ============================================================
-#     # SSH ENUMERATION
-#     # ============================================================
-#     340,  # ENUM_SSH_BANNER
-#     341,  # ENUM_SSH_NMAP_SCRIPTS
-
-#     # ============================================================
-#     # DNS / RPC / NFS ENUMERATION
-#     # ============================================================
-#     350,  # ENUM_DNS_VERSION_BIND
-#     351,  # ENUM_DNS_ANY
-#     361,  # ENUM_RPCINFO
-#     360,  # ENUM_NFS_EXPORTS
-
-#     # ============================================================
-#     # DATABASE / REMOTE ACCESS ENUMERATION
-#     # ============================================================
-#     370,  # ENUM_MYSQL_INFO
-#     371,  # ENUM_POSTGRES_INFO
-#     380,  # ENUM_RDP_INFO
-#     381,  # ENUM_VNC_INFO
-
-#     # ============================================================
-#     # VULNERABILITY DISCOVERY
-#     # ============================================================
-#     400,  # CHECK_SERVICE_VERSION_VULNS
-#     401,  # CHECK_NMAP_VULN_SCRIPTS
-#     410,  # CHECK_SMB_VULNS
-#     411,  # CHECK_HTTP_VULNS_NIKTO
-#     412,  # CHECK_SSL_TLS_CIPHERS
-#     413,  # CHECK_FTP_VULNS
-
-#     # ============================================================
-#     # STOP
-#     # ============================================================
-#     0,    # STOP
-# ]
-
 
 
 # ============================================================
@@ -482,31 +318,101 @@ SEQ_POST_EXPLOIT_AND_PIVOT = [
 # ============================================================
 
 SCRIPTED_SEQUENCES = {
-    "standard": SCRIPTED_SEQUENCE_STD,
-
-    "network_recon": SEQ_COMMON_NETWORK_RECON,
-    "host_recon": SEQ_COMMON_HOST_RECON,
-
-    "vsftpd": SEQ_NETWORK_TO_VSFTPD_SESSION,
-    "samba": SEQ_NETWORK_TO_SAMBA_SESSION,
-    "distcc": SEQ_NETWORK_TO_DISTCC_SESSION,
-    "postgres": SEQ_NETWORK_TO_POSTGRES_SESSION,
-    "tomcat": SEQ_NETWORK_TO_TOMCAT_SESSION,
-    "unreal_ircd": SEQ_NETWORK_TO_UNREAL_IRCD_SESSION,
-    "ingreslock": SEQ_NETWORK_TO_INGRESLOCK_SESSION,
-    "ssh": SEQ_NETWORK_TO_SSH_SESSION,
-    "telnet": SEQ_NETWORK_TO_TELNET_SESSION,
-    "java_rmi": SEQ_NETWORK_TO_JAVA_RMI_SESSION,
-
-    "multi_session": SEQ_NETWORK_TO_MULTIPLE_SESSIONS,
-    "post_exploit_pivot": SEQ_POST_EXPLOIT_AND_PIVOT,
+    "host_recon": SEQ_HOST_RECON,
+    "network_recon": SEQ_NETWORK_RECON,
+    "exploit_smoke_test": SEQ_EXPLOIT_SMOKE_TEST,
+    
+    "host_full_exploit": SEQ_HOST_FULL_EXPLOIT,
+    "network_obtain_session_all": SEQ_NETWORK_OBTAIN_SESSION_ALL,
+    "network_full_exploit": SEQ_NETWORK_FULL_EXPLOIT,
 }
 
-DEFAULT_SCRIPTED_SEQUENCE_NAME = "vsftpd"
+
+for attack_name in ATTACK_SPECS:
+    SCRIPTED_SEQUENCES[f"host_obtain_session_{attack_name}"] = build_sequence(
+        target_type="host",
+        goal_type="obtain_session",
+        attack_name=attack_name,
+    )
+
+    SCRIPTED_SEQUENCES[f"network_obtain_session_{attack_name}"] = build_sequence(
+        target_type="network",
+        goal_type="obtain_session",
+        attack_name=attack_name,
+    )
+
+    SCRIPTED_SEQUENCES[f"host_full_exploit_{attack_name}"] = build_sequence(
+        target_type="host",
+        goal_type="full_exploit",
+        attack_name=attack_name,
+    )
+
+    SCRIPTED_SEQUENCES[f"network_full_exploit_{attack_name}"] = build_sequence(
+        target_type="network",
+        goal_type="full_exploit",
+        attack_name=attack_name,
+    )
+
+
+# ============================================================
+# Backward-compatible aliases
+# ============================================================
+
+SCRIPTED_SEQUENCES["attack_vsftpd_msf"] = SCRIPTED_SEQUENCES["host_obtain_session_vsftpd_msf"]
+SCRIPTED_SEQUENCES["attack_vsftpd_manual"] = SCRIPTED_SEQUENCES["host_obtain_session_vsftpd_manual"]
+SCRIPTED_SEQUENCES["attack_samba_usermap_msf"] = SCRIPTED_SEQUENCES["host_obtain_session_samba_usermap_msf"]
+SCRIPTED_SEQUENCES["attack_distcc_msf"] = SCRIPTED_SEQUENCES["host_obtain_session_distcc_msf"]
+SCRIPTED_SEQUENCES["attack_postgres_msf"] = SCRIPTED_SEQUENCES["host_obtain_session_postgres_msf"]
+SCRIPTED_SEQUENCES["attack_unreal_ircd_msf"] = SCRIPTED_SEQUENCES["host_obtain_session_unreal_ircd_msf"]
+SCRIPTED_SEQUENCES["attack_ingreslock_bind_shell"] = SCRIPTED_SEQUENCES["host_obtain_session_ingreslock_bind_shell"]
+SCRIPTED_SEQUENCES["attack_ssh_weak_creds_manual"] = SCRIPTED_SEQUENCES["host_obtain_session_ssh_weak_creds_manual"]
+SCRIPTED_SEQUENCES["attack_telnet_weak_creds_manual"] = SCRIPTED_SEQUENCES["host_obtain_session_telnet_weak_creds_manual"]
+SCRIPTED_SEQUENCES["attack_ssh_weak_creds_msf"] = SCRIPTED_SEQUENCES["host_obtain_session_ssh_weak_creds_msf"]
+SCRIPTED_SEQUENCES["attack_ftp_weak_creds_msf"] = SCRIPTED_SEQUENCES["host_obtain_session_ftp_weak_creds_msf"]
+SCRIPTED_SEQUENCES["attack_ftp_weak_creds_hydra"] = SCRIPTED_SEQUENCES["host_obtain_session_ftp_weak_creds_hydra"]
+
+SCRIPTED_SEQUENCES["network_attack_vsftpd_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_vsftpd_msf"]
+SCRIPTED_SEQUENCES["network_attack_vsftpd_manual"] = SCRIPTED_SEQUENCES["network_obtain_session_vsftpd_manual"]
+SCRIPTED_SEQUENCES["network_attack_samba_usermap_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_samba_usermap_msf"]
+SCRIPTED_SEQUENCES["network_attack_distcc_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_distcc_msf"]
+SCRIPTED_SEQUENCES["network_attack_postgres_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_postgres_msf"]
+SCRIPTED_SEQUENCES["network_attack_unreal_ircd_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_unreal_ircd_msf"]
+SCRIPTED_SEQUENCES["network_attack_ingreslock_bind_shell"] = SCRIPTED_SEQUENCES["network_obtain_session_ingreslock_bind_shell"]
+SCRIPTED_SEQUENCES["network_attack_ssh_weak_creds_manual"] = SCRIPTED_SEQUENCES["network_obtain_session_ssh_weak_creds_manual"]
+SCRIPTED_SEQUENCES["network_attack_telnet_weak_creds_manual"] = SCRIPTED_SEQUENCES["network_obtain_session_telnet_weak_creds_manual"]
+SCRIPTED_SEQUENCES["network_attack_ssh_weak_creds_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_ssh_weak_creds_msf"]
+SCRIPTED_SEQUENCES["network_attack_ftp_weak_creds_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_ftp_weak_creds_msf"]
+SCRIPTED_SEQUENCES["network_attack_ftp_weak_creds_hydra"] = SCRIPTED_SEQUENCES["network_obtain_session_ftp_weak_creds_hydra"]
+
+SCRIPTED_SEQUENCES["vsftpd"] = SCRIPTED_SEQUENCES["network_obtain_session_vsftpd_msf"]
+SCRIPTED_SEQUENCES["vsftpd_manual"] = SCRIPTED_SEQUENCES["network_obtain_session_vsftpd_manual"]
+SCRIPTED_SEQUENCES["samba"] = SCRIPTED_SEQUENCES["network_obtain_session_samba_usermap_msf"]
+SCRIPTED_SEQUENCES["distcc"] = SCRIPTED_SEQUENCES["network_obtain_session_distcc_msf"]
+SCRIPTED_SEQUENCES["postgres"] = SCRIPTED_SEQUENCES["network_obtain_session_postgres_msf"]
+SCRIPTED_SEQUENCES["unreal_ircd"] = SCRIPTED_SEQUENCES["network_obtain_session_unreal_ircd_msf"]
+SCRIPTED_SEQUENCES["ingreslock"] = SCRIPTED_SEQUENCES["network_obtain_session_ingreslock_bind_shell"]
+SCRIPTED_SEQUENCES["ssh"] = SCRIPTED_SEQUENCES["network_obtain_session_ssh_weak_creds_manual"]
+SCRIPTED_SEQUENCES["telnet"] = SCRIPTED_SEQUENCES["network_obtain_session_telnet_weak_creds_manual"]
+SCRIPTED_SEQUENCES["ssh_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_ssh_weak_creds_msf"]
+SCRIPTED_SEQUENCES["ftp_msf"] = SCRIPTED_SEQUENCES["network_obtain_session_ftp_weak_creds_msf"]
+SCRIPTED_SEQUENCES["ftp_hydra"] = SCRIPTED_SEQUENCES["network_obtain_session_ftp_weak_creds_hydra"]
+
+SCRIPTED_SEQUENCES["standard"] = SCRIPTED_SEQUENCES["host_obtain_session_vsftpd_msf"]
+
+
+# ============================================================
+# Defaults
+# ============================================================
+
+DEFAULT_SCRIPTED_SEQUENCE_NAME = "host_obtain_session_vsftpd_msf"
 DEFAULT_SCRIPTED_SEQUENCE = SCRIPTED_SEQUENCES[DEFAULT_SCRIPTED_SEQUENCE_NAME]
 
 
-def get_scripted_sequence(name: str | None = None) -> list[int]:
+# ============================================================
+# Public helpers
+# ============================================================
+
+def get_scripted_sequence(name: Optional[str] = None) -> list[int]:
     """
     Return a predefined scripted action sequence.
 
@@ -517,3 +423,23 @@ def get_scripted_sequence(name: str | None = None) -> list[int]:
 
     return SCRIPTED_SEQUENCES.get(name, DEFAULT_SCRIPTED_SEQUENCE)
 
+
+def list_scripted_sequences() -> list[str]:
+    """
+    Return the available scripted sequence names.
+    """
+    return sorted(SCRIPTED_SEQUENCES.keys())
+
+
+def get_default_scripted_sequence_name() -> str:
+    """
+    Return the default scripted sequence name.
+    """
+    return DEFAULT_SCRIPTED_SEQUENCE_NAME
+
+
+def list_attack_names() -> list[str]:
+    """
+    Return the available attack names.
+    """
+    return sorted(ATTACK_SPECS.keys())

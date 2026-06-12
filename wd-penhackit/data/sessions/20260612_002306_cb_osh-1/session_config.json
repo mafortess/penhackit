@@ -1,0 +1,8 @@
+{
+  "id": "20260612_002306_cb_osh-1",
+  "created_at": "2026-06-12 00:23:06",
+  "name": "cb_osh-1",
+  "decider": "model",
+  "mode": "autonomous",
+  "max_steps": 50
+}

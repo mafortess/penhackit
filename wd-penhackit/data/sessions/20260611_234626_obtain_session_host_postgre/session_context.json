@@ -1,0 +1,6 @@
+{
+  "id": "20260611_234626_obtain_session_host_postgre",
+  "goal_type": "obtain_session",
+  "target_type": "host",
+  "target": "10.6.6.10"
+}

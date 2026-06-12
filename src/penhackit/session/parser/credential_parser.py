@@ -1,3 +1,4 @@
+# credential_parser.py
 import re
 
 # CREDENTILAS ATTACKS
@@ -61,4 +62,11 @@ CREDENTIALS_PARSERS = {
     "bruteforce_ftp_lab": parse_bruteforce_ftp_lab,
     "bruteforce_http_login_lab": parse_bruteforce_http_login_lab,
     "check_ftp_anonymous_login": parse_check_ftp_anonymous_login,
+    "BRUTEFORCE_SSH": parse_bruteforce_ssh_lab,
+    "BRUTEFORCE_FTP": parse_bruteforce_ftp_lab,
+    "BRUTEFORCE_HTTP_LOGIN": parse_bruteforce_http_login_lab,
+
+    "hydra": parse_hydra_credentials,
+    "hydra_http": parse_bruteforce_http_login_lab,
+    "HYDRA_CHECK_FTP_KNOWN_CREDS": parse_bruteforce_ftp_lab,
 }

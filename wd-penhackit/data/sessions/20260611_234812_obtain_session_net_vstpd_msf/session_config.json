@@ -1,0 +1,8 @@
+{
+  "id": "20260611_234812_obtain_session_net_vstpd_msf",
+  "created_at": "2026-06-11 23:48:12",
+  "name": "obtain_session_net_vstpd_msf",
+  "decider": "scripted",
+  "mode": "autonomous",
+  "max_steps": 50
+}

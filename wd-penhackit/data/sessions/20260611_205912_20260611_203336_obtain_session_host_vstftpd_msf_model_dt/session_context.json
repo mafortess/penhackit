@@ -1,0 +1,6 @@
+{
+  "id": "20260611_205912_20260611_203336_obtain_session_host_vstftpd_msf_model_dt",
+  "goal_type": "obtain_session",
+  "target_type": "host",
+  "target": "10.6.6.10"
+}

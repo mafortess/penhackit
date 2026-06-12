@@ -1,0 +1,6 @@
+{
+  "id": "20260612_051025_obtain_session_host_telnet",
+  "goal_type": "full_exploit",
+  "target_type": "host",
+  "target": "10.6.6.10"
+}

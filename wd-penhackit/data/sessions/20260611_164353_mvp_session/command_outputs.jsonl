@@ -1,0 +1,10 @@
+{"type": "META", "session_id": "20260611_164353_mvp_session", "created_at": "2026-06-11T14:43:53Z"}
+{"type": "CMD", "ts": "2026-06-11T14:43:53Z", "t": 0, "action_id": 100, "action_name": "INSPECT_LOCAL_HOSTNAME", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:43:54Z", "t": 1, "action_id": 101, "action_name": "INSPECT_IP_A", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:43:55Z", "t": 2, "action_id": 102, "action_name": "INSPECT_IP_R", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:43:56Z", "t": 3, "action_id": 103, "action_name": "INSPECT_IP_NEIGH", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:43:57Z", "t": 4, "action_id": 200, "action_name": "DISCOVER_HOSTS", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:43:58Z", "t": 5, "action_id": 210, "action_name": "SCAN_TOP_TCP_PORTS", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:43:59Z", "t": 6, "action_id": 211, "action_name": "SCAN_FULL_TCP_PORTS", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:44:00Z", "t": 7, "action_id": 220, "action_name": "DETECT_SERVICES", "cmd": null, "rc": null, "stdout": "", "stderr": ""}
+{"type": "CMD", "ts": "2026-06-11T14:44:01Z", "t": 8, "action_id": 401, "action_name": "CHECK_NMAP_VULN_SCRIPTS", "cmd": null, "rc": null, "stdout": "", "stderr": ""}

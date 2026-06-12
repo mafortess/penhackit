@@ -1,0 +1,796 @@
+{
+  "schema_version": "2.0",
+  "session": {
+    "id": "20260612_053847_model_cb",
+    "name": null,
+    "mode": null,
+    "created_at": null,
+    "status": "created"
+  },
+  "scope": {
+    "target_type": "host",
+    "target": "10.6.6.10",
+    "goal": "obtain_session",
+    "authorized": true,
+    "allow_exploitation": true,
+    "allow_pivoting": false,
+    "max_steps": null
+  },
+  "attacker": {
+    "hostname": null,
+    "interfaces": [
+      {
+        "name": "lo",
+        "flags": [
+          "LOOPBACK",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "127.0.0.1",
+            "prefix": 8
+          }
+        ],
+        "ipv6": [
+          {
+            "ip": "::1",
+            "prefix": 128
+          }
+        ],
+        "mac": ""
+      },
+      {
+        "name": "eth0",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "10.0.2.15",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [
+          {
+            "ip": "fe80::a00:27ff:fe40:ac0e",
+            "prefix": 64
+          }
+        ],
+        "mac": "08:00:27:40:ac:0e"
+      },
+      {
+        "name": "br-146eb55e32e4",
+        "flags": [
+          "NO-CARRIER",
+          "BROADCAST",
+          "MULTICAST",
+          "UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "172.19.0.1",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [],
+        "mac": "46:2e:5e:ba:7f:1d"
+      },
+      {
+        "name": "br-2ff159ab31ba",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "10.6.6.1",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [
+          {
+            "ip": "fe80::74d2:f5ff:fe67:8912",
+            "prefix": 64
+          }
+        ],
+        "mac": "76:d2:f5:67:89:12"
+      },
+      {
+        "name": "docker0",
+        "flags": [
+          "NO-CARRIER",
+          "BROADCAST",
+          "MULTICAST",
+          "UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "172.17.0.1",
+            "prefix": 16
+          }
+        ],
+        "ipv6": [],
+        "mac": "1a:e3:a4:e5:3e:04"
+      },
+      {
+        "name": "br-ecf1f359f0b2",
+        "flags": [
+          "NO-CARRIER",
+          "BROADCAST",
+          "MULTICAST",
+          "UP"
+        ],
+        "ipv4": [
+          {
+            "ip": "172.18.0.1",
+            "prefix": 24
+          }
+        ],
+        "ipv6": [],
+        "mac": "b6:00:b7:14:5b:ad"
+      },
+      {
+        "name": "vethdfeb89a@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::30da:27ff:fe83:b92d",
+            "prefix": 64
+          }
+        ],
+        "mac": "32:da:27:83:b9:2d"
+      },
+      {
+        "name": "vethdddab3d@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::4c12:e9ff:fe9a:6137",
+            "prefix": 64
+          }
+        ],
+        "mac": "4e:12:e9:9a:61:37"
+      },
+      {
+        "name": "veth61b9a40@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::8ccf:7dff:fe1d:a220",
+            "prefix": 64
+          }
+        ],
+        "mac": "8e:cf:7d:1d:a2:20"
+      },
+      {
+        "name": "veth1ee4515@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::7c5e:8dff:fe41:4cf7",
+            "prefix": 64
+          }
+        ],
+        "mac": "7e:5e:8d:41:4c:f7"
+      },
+      {
+        "name": "veth0213bbe@if2",
+        "flags": [
+          "BROADCAST",
+          "MULTICAST",
+          "UP",
+          "LOWER_UP"
+        ],
+        "ipv4": [],
+        "ipv6": [
+          {
+            "ip": "fe80::78be:ccff:fe74:6bb0",
+            "prefix": 64
+          }
+        ],
+        "mac": "7a:be:cc:74:6b:b0"
+      }
+    ],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [
+      {
+        "ip": "10.0.2.2",
+        "dev": "eth0",
+        "mac": "52:54:00:12:35:02",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.30",
+        "dev": "br-2ff159ab31ba",
+        "mac": "ae:b6:4f:ba:64:a8",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.50",
+        "dev": "br-2ff159ab31ba",
+        "mac": "1a:d3:cf:88:4c:f7",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.40",
+        "dev": "br-2ff159ab31ba",
+        "mac": "4e:60:64:1a:ee:fe",
+        "state": "STALE"
+      },
+      {
+        "ip": "10.6.6.10",
+        "dev": "br-2ff159ab31ba",
+        "mac": "8e:34:4f:f2:e8:3e",
+        "state": "REACHABLE"
+      },
+      {
+        "ip": "10.6.6.20",
+        "dev": "br-2ff159ab31ba",
+        "mac": "16:16:7e:c9:05:a0",
+        "state": "STALE"
+      }
+    ],
+    "routes": [
+      {
+        "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+        "default": true,
+        "gateway": "10.0.2.2",
+        "dev": "eth0",
+        "src": "10.0.2.15"
+      },
+      {
+        "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+        "default": false,
+        "gateway": "",
+        "dev": "eth0",
+        "src": "10.0.2.15"
+      },
+      {
+        "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+        "default": false,
+        "gateway": "",
+        "dev": "br-2ff159ab31ba",
+        "src": "10.6.6.1"
+      },
+      {
+        "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+        "default": false,
+        "gateway": "",
+        "dev": "docker0",
+        "src": "172.17.0.1"
+      },
+      {
+        "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+        "default": false,
+        "gateway": "",
+        "dev": "br-ecf1f359f0b2",
+        "src": "172.18.0.1"
+      },
+      {
+        "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+        "default": false,
+        "gateway": "",
+        "dev": "br-146eb55e32e4",
+        "src": "172.19.0.1"
+      }
+    ],
+    "lhost": null
+  },
+  "target": {
+    "networks": {
+      "net:10.6.6.10/24": {
+        "id": "net:10.6.6.10/24",
+        "cidr": "10.6.6.10/24",
+        "in_scope": true,
+        "reachable": null,
+        "discovered": false,
+        "host_discovery_done": false,
+        "port_scan_done": false,
+        "host_ids": [
+          "host:10.6.6.10"
+        ],
+        "evidence_ids": []
+      }
+    },
+    "hosts": {
+      "host:10.6.6.10": {
+        "id": "host:10.6.6.10",
+        "ip": "10.6.6.10",
+        "network_id": "net:10.6.6.10/24",
+        "in_scope": true,
+        "alive": true,
+        "hostnames": [],
+        "os": null,
+        "port_ids": [],
+        "service_ids": [],
+        "credential_ids": [],
+        "vulnerability_ids": [],
+        "session_ids": [],
+        "finding_ids": [],
+        "evidence_ids": [],
+        "attempt_ids": [],
+        "mac": "8e:34:4f:f2:e8:3e",
+        "interface": "br-2ff159ab31ba",
+        "arp_state": "REACHABLE"
+      }
+    },
+    "ports": {},
+    "services": {}
+  },
+  "vulnerabilities": {},
+  "credentials": {},
+  "sessions": {},
+  "attempts": {},
+  "evidence": {},
+  "findings": {},
+  "coverage": {
+    "networks_discovered": [],
+    "networks_scanned": [],
+    "hosts_discovered": [
+      "host:10.6.6.10"
+    ],
+    "hosts_port_scanned": [],
+    "hosts_service_scanned": [],
+    "services_enumerated": [],
+    "services_checked_for_vulns": [],
+    "vulns_attempted": [],
+    "credentials_tested": [],
+    "exploits_attempted": [],
+    "sessions_validated": []
+  },
+  "history": [
+    {
+      "type": "LOCAL_HOSTNAME_DETECTED",
+      "hostname": "kali",
+      "step_idx": 1,
+      "t": 0,
+      "action_id": 100,
+      "action_name": "INSPECT_LOCAL_HOSTNAME",
+      "command": "hostname",
+      "rc": 0,
+      "target_id": null,
+      "host_id": "host:10.6.6.10",
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null,
+      "host": "10.6.6.10",
+      "port": null,
+      "service": null
+    },
+    {
+      "type": "NET_INFO",
+      "interfaces": [
+        {
+          "name": "lo",
+          "flags": [
+            "LOOPBACK",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [
+            {
+              "ip": "127.0.0.1",
+              "prefix": 8
+            }
+          ],
+          "ipv6": [
+            {
+              "ip": "::1",
+              "prefix": 128
+            }
+          ],
+          "mac": ""
+        },
+        {
+          "name": "eth0",
+          "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [
+            {
+              "ip": "10.0.2.15",
+              "prefix": 24
+            }
+          ],
+          "ipv6": [
+            {
+              "ip": "fe80::a00:27ff:fe40:ac0e",
+              "prefix": 64
+            }
+          ],
+          "mac": "08:00:27:40:ac:0e"
+        },
+        {
+          "name": "br-146eb55e32e4",
+          "flags": [
+            "NO-CARRIER",
+            "BROADCAST",
+            "MULTICAST",
+            "UP"
+          ],
+          "ipv4": [
+            {
+              "ip": "172.19.0.1",
+              "prefix": 24
+            }
+          ],
+          "ipv6": [],
+          "mac": "46:2e:5e:ba:7f:1d"
+        },
+        {
+          "name": "br-2ff159ab31ba",
+          "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [
+            {
+              "ip": "10.6.6.1",
+              "prefix": 24
+            }
+          ],
+          "ipv6": [
+            {
+              "ip": "fe80::74d2:f5ff:fe67:8912",
+              "prefix": 64
+            }
+          ],
+          "mac": "76:d2:f5:67:89:12"
+        },
+        {
+          "name": "docker0",
+          "flags": [
+            "NO-CARRIER",
+            "BROADCAST",
+            "MULTICAST",
+            "UP"
+          ],
+          "ipv4": [
+            {
+              "ip": "172.17.0.1",
+              "prefix": 16
+            }
+          ],
+          "ipv6": [],
+          "mac": "1a:e3:a4:e5:3e:04"
+        },
+        {
+          "name": "br-ecf1f359f0b2",
+          "flags": [
+            "NO-CARRIER",
+            "BROADCAST",
+            "MULTICAST",
+            "UP"
+          ],
+          "ipv4": [
+            {
+              "ip": "172.18.0.1",
+              "prefix": 24
+            }
+          ],
+          "ipv6": [],
+          "mac": "b6:00:b7:14:5b:ad"
+        },
+        {
+          "name": "vethdfeb89a@if2",
+          "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [],
+          "ipv6": [
+            {
+              "ip": "fe80::30da:27ff:fe83:b92d",
+              "prefix": 64
+            }
+          ],
+          "mac": "32:da:27:83:b9:2d"
+        },
+        {
+          "name": "vethdddab3d@if2",
+          "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [],
+          "ipv6": [
+            {
+              "ip": "fe80::4c12:e9ff:fe9a:6137",
+              "prefix": 64
+            }
+          ],
+          "mac": "4e:12:e9:9a:61:37"
+        },
+        {
+          "name": "veth61b9a40@if2",
+          "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [],
+          "ipv6": [
+            {
+              "ip": "fe80::8ccf:7dff:fe1d:a220",
+              "prefix": 64
+            }
+          ],
+          "mac": "8e:cf:7d:1d:a2:20"
+        },
+        {
+          "name": "veth1ee4515@if2",
+          "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [],
+          "ipv6": [
+            {
+              "ip": "fe80::7c5e:8dff:fe41:4cf7",
+              "prefix": 64
+            }
+          ],
+          "mac": "7e:5e:8d:41:4c:f7"
+        },
+        {
+          "name": "veth0213bbe@if2",
+          "flags": [
+            "BROADCAST",
+            "MULTICAST",
+            "UP",
+            "LOWER_UP"
+          ],
+          "ipv4": [],
+          "ipv6": [
+            {
+              "ip": "fe80::78be:ccff:fe74:6bb0",
+              "prefix": 64
+            }
+          ],
+          "mac": "7a:be:cc:74:6b:b0"
+        }
+      ],
+      "step_idx": 2,
+      "t": 1,
+      "action_id": 101,
+      "action_name": "INSPECT_IP_A",
+      "command": "ip a",
+      "rc": 0,
+      "target_id": null,
+      "host_id": "host:10.6.6.10",
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null,
+      "host": "10.6.6.10",
+      "port": null,
+      "service": null
+    },
+    {
+      "type": "ROUTE_TABLE",
+      "routes": [
+        {
+          "raw": "default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100",
+          "default": true,
+          "gateway": "10.0.2.2",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100",
+          "default": false,
+          "gateway": "",
+          "dev": "eth0",
+          "src": "10.0.2.15"
+        },
+        {
+          "raw": "10.6.6.0/24 dev br-2ff159ab31ba proto kernel scope link src 10.6.6.1",
+          "default": false,
+          "gateway": "",
+          "dev": "br-2ff159ab31ba",
+          "src": "10.6.6.1"
+        },
+        {
+          "raw": "172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "docker0",
+          "src": "172.17.0.1"
+        },
+        {
+          "raw": "172.18.0.0/24 dev br-ecf1f359f0b2 proto kernel scope link src 172.18.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-ecf1f359f0b2",
+          "src": "172.18.0.1"
+        },
+        {
+          "raw": "172.19.0.0/24 dev br-146eb55e32e4 proto kernel scope link src 172.19.0.1 linkdown",
+          "default": false,
+          "gateway": "",
+          "dev": "br-146eb55e32e4",
+          "src": "172.19.0.1"
+        }
+      ],
+      "step_idx": 3,
+      "t": 2,
+      "action_id": 102,
+      "action_name": "INSPECT_IP_R",
+      "command": "ip r",
+      "rc": 0,
+      "target_id": null,
+      "host_id": "host:10.6.6.10",
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null,
+      "host": "10.6.6.10",
+      "port": null,
+      "service": null
+    },
+    {
+      "type": "ARP_TABLE",
+      "arp_neighbors": [
+        {
+          "ip": "10.0.2.2",
+          "dev": "eth0",
+          "mac": "52:54:00:12:35:02",
+          "state": "STALE"
+        },
+        {
+          "ip": "10.6.6.30",
+          "dev": "br-2ff159ab31ba",
+          "mac": "ae:b6:4f:ba:64:a8",
+          "state": "STALE"
+        },
+        {
+          "ip": "10.6.6.50",
+          "dev": "br-2ff159ab31ba",
+          "mac": "1a:d3:cf:88:4c:f7",
+          "state": "STALE"
+        },
+        {
+          "ip": "10.6.6.40",
+          "dev": "br-2ff159ab31ba",
+          "mac": "4e:60:64:1a:ee:fe",
+          "state": "STALE"
+        },
+        {
+          "ip": "10.6.6.10",
+          "dev": "br-2ff159ab31ba",
+          "mac": "8e:34:4f:f2:e8:3e",
+          "state": "REACHABLE"
+        },
+        {
+          "ip": "10.6.6.20",
+          "dev": "br-2ff159ab31ba",
+          "mac": "16:16:7e:c9:05:a0",
+          "state": "STALE"
+        }
+      ],
+      "step_idx": 4,
+      "t": 3,
+      "action_id": 103,
+      "action_name": "INSPECT_IP_NEIGH",
+      "command": "ip neigh",
+      "rc": 0,
+      "target_id": null,
+      "host_id": "host:10.6.6.10",
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null,
+      "host": "10.6.6.10",
+      "port": null,
+      "service": null
+    },
+    {
+      "type": "PING_RESPONSE",
+      "host": "10.6.6.10",
+      "alive": true,
+      "raw": "PING 10.6.6.10 (10.6.6.10) 56(84) bytes of data.\n64 bytes from 10.6.6.10: icmp_seq=1 ttl=64 time=0.054 ms\n\n--- 10.6.6.10 ping statistics ---\n1 packets transmitted, 1 received, 0% packet loss, time 0ms\nrtt min/avg/max/mdev = 0.054/0.054/0.054/0.000 ms",
+      "step_idx": 5,
+      "t": 4,
+      "action_id": 105,
+      "action_name": "PING_FOCUS_HOST",
+      "command": "ping -c 1 -W 2 10.6.6.10",
+      "rc": 0,
+      "target_id": null,
+      "host_id": "host:10.6.6.10",
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null,
+      "port": null,
+      "service": null
+    }
+  ],
+  "steps": [],
+  "last": {
+    "step_idx": 5,
+    "action_id": 105,
+    "action_name": "PING_FOCUS_HOST",
+    "rc": 0,
+    "success": null,
+    "event_types": [
+      "PING_RESPONSE"
+    ],
+    "progress": null
+  },
+  "focus": {
+    "level": "host",
+    "network_id": null,
+    "host_id": "host:10.6.6.10",
+    "port_id": null,
+    "service_id": null,
+    "vulnerability_id": null,
+    "credential_id": null,
+    "session_id": null,
+    "reason": "target_host_needs_scan"
+  },
+  "stats": {
+    "steps": 0,
+    "commands": 0,
+    "networks": 1,
+    "hosts": 1,
+    "ports": 0,
+    "services": 0,
+    "vulns": 0,
+    "credentials": 0,
+    "sessions": 0,
+    "attempts": 0,
+    "evidence": 0,
+    "findings": 0,
+    "exploits_attempted": 0,
+    "exploits_failed": 0
+  }
+}

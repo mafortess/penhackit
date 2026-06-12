@@ -2,7 +2,7 @@ from prompt_toolkit import prompt # input mejorada (historial, autocompletado, m
 from prompt_toolkit.completion import WordCompleter # autcompletado para menus y opciones
 
 from penhackit.training.training_services import run_train_model_service, run_evaluate_model_service, list_datasets_and_models, rebuild_dataset_from_sessions
-
+from penhackit.training.training_storage import merge_datasets_quick
 def run_training_menu(app_context: dict) -> None:
     while True:
         choice = show_training_menu()
@@ -14,6 +14,8 @@ def run_training_menu(app_context: dict) -> None:
             list_datasets_and_models(app_context)
         elif choice == "4":
             rebuild_dataset_from_sessions(app_context)
+        elif choice == "5":
+            merge_datasets_quick(app_context["paths"])
         elif choice == "0":
             return
         else:
@@ -25,5 +27,6 @@ def show_training_menu() -> None:
     print("2) Evaluated saved models")
     print("3) List datasets/models")
     print("4) Rebuild dataset from sessions")
+    print("5) Merge datasets")
     print("0) Back")
-    return prompt("Select option> ", completer=WordCompleter(["1", "2", "3", "4", "0"])).strip()
+    return prompt("Select option> ", completer=WordCompleter(["1", "2", "3", "4", "5", "0"])).strip()

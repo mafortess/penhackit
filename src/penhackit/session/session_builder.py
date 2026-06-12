@@ -6,7 +6,7 @@ from penhackit.common.paths import Paths
 from penhackit.session.kb.kb_schema import  build_initial_kb
 
 from penhackit.models.model_loader import load_decision_model
-from penhackit.session.kb.kb_updater import launch_kb_monitor_window_windows
+from penhackit.session.kb.kb_window import launch_kb_monitor_window_windows
 
 
 def create_session_runtime(session_settings: dict, env_profile: dict, paths: Paths) -> None:
@@ -32,8 +32,8 @@ def create_session_runtime(session_settings: dict, env_profile: dict, paths: Pat
     session_info = build_session_info(session_id, session_dir, session_config, session_context, kb, model, feature_names)
 
     # Si la configuración de la sesión indica que se debe lanzar el monitor de KB, lo lanza pasando la ruta de session_dir para que pueda leer/escribir los archivos de KB y contexto.
-    if session_settings["launch_kb_monitor"]:
-        launch_kb_monitor_window_windows(session_dir)
+    # if session_settings["launch_kb_monitor"]:
+    #     launch_kb_monitor_window_windows(session_dir)
 
     return session_info
 
@@ -108,12 +108,20 @@ def initialize_kb(session_dir: Path, session_context: dict) -> dict:
 
 def load_model_if_needed(session_settings: dict, paths: Paths):
     print("Loading model for session (if applicable)...")
+    
     model = None
     feature_names = None
     
     if session_settings["mode"] in ["autonomous", "suggestion"] and session_settings["decider"] == "model":
-        model_path = paths.models_dir / "decision_tree" / "model.joblib"
-        metrics_path = model_path.parent / "metrics.json"
+        model_id = session_settings.get("model_id")
+
+        if not model_id:
+            print("No model selected.")
+            return None, None
+        
+        model_dir = paths.models_dir / model_id
+        model_path = model_dir / "model.joblib"
+        metrics_path = model_dir / "metrics.json"
         
         if not model_path.exists() or not metrics_path.exists():
             print(f"Model files not found: {model_path}, {metrics_path}")

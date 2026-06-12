@@ -270,12 +270,36 @@ def parse_nmap_service_detection(stdout: str, target_ip: str | None) -> list[dic
 
 
 RECON_PARSERS = {
+    # ============================================================
+    # By action name lower()
+    # ============================================================
+    "discover_hosts": parse_discover_hosts_nmap_ping_sweep,
+    "discover_hosts_nmap_ping_sweep": parse_discover_hosts_nmap_ping_sweep,
+    "discover_hosts_arp_localnet": parse_discover_hosts_arp_localnet,
+    "discover_hosts_arp_range": parse_discover_hosts_arp_range,
+    "discover_hosts_netdiscover": parse_discover_hosts_netdiscover,
+    "discover_hosts_fping": parse_discover_hosts_fping,
+
     "scan_top_tcp_ports": parse_scan_top_tcp_ports,
     "scan_full_tcp_ports": parse_scan_full_tcp_ports,
     "scan_quick_tcp_ports": parse_scan_quick_tcp_ports,
     "scan_top_udp_ports": parse_scan_top_udp_ports,
+
     "detect_services": parse_detect_services,
     "detect_services_light": parse_detect_services_light,
     "detect_services_aggressive": parse_detect_services_aggressive,
-    "enum_nmap_default_scripts": parse_enum_nmap_default_scripts,   
+
+    "enum_nmap_default_scripts": parse_enum_nmap_default_scripts,
+
+    # ============================================================
+    # By parser_family
+    # ============================================================
+    "nmap_host_discovery": parse_nmap_host_discovery,
+    "arp_scan": parse_discover_hosts_arp_localnet,
+    "netdiscover": parse_discover_hosts_netdiscover,
+    "fping": parse_discover_hosts_fping,
+
+    "nmap_portscan": parse_nmap_portscan,
+    "nmap_service_detection": parse_nmap_service_detection,
+    "nmap_scripts": parse_enum_nmap_default_scripts,
 }

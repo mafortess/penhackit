@@ -1,2 +1,4 @@
 policy_name,scenario_id,goal_type,runs,successes,success_rate,avg_steps_total,avg_steps_to_goal,avg_progress_rate,avg_repeated_action_rate,avg_tool_error_rate,avg_timeout_rate,avg_active_time_seconds,avg_wall_time_seconds
-scripted,unknown,obtain_session,4,4,1.0,1.25,1.25,0.875,0.0,0.0,0.0,34.35327790975043,34.60410618449987
+scripted,unknown,full_exploit,1,1,1.0,1.0,1.0,1.0,0.0,0.0,0.0,19.74075170800097,19.74102941000092
+model,unknown,obtain_session,4,1,0.25,40.0,10.0,0.14,0.0,0.0,0.0,9.028212660007739,48.9405969442505
+scripted,unknown,obtain_session,41,20,0.4878048780487805,7.585365853658536,5.15,0.5414387780241439,0.0,0.004065040650406504,0.0,50.600755612170516,57.20477966951217

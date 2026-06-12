@@ -1,0 +1,6 @@
+{
+  "id": "20260612_020525_obtain_session_net_vstpd_msf",
+  "goal_type": "obtain_session",
+  "target_type": "network",
+  "target": "10.6.6.0/24"
+}
