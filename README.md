@@ -139,22 +139,6 @@ Language models are used only for report writing. They do not select actions, ex
 
 ---
 
-## Learning Paradigm
-
-The thesis follows a **progressive learning strategy**:
-
-### Phase 1 – Behavioral Cloning
-- Offline supervised learning from expert demonstrations.
-- Focus on reproducing valid operational flows.
-- Emphasis on safety, stability, and reproducibility.
-
-### Phase 2 – Hybrid Extensions (Planned)
-- Behavioral Cloning with Reset (BCR).
-- Reinforcement Learning for exploration and optimization.
-- Feedback-driven policy refinement.
-
----
-
 ## Knowledge Representation
 
 ### Knowledge Base
